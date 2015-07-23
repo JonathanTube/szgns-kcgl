@@ -1,0 +1,14 @@
+.simple_list {
+	list-style: none;
+	text-decoration: none;
+}
+
+.simple_list li ul li{
+	display:inline-table;
+	padding: 5px;
+}
+
+.simple_list li input {
+	background-color: red;
+	color: white;
+}

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- 搞定后要删掉哦 -->
+<meta http-equiv="expires" content="0">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+
+<title>库存管理</title>
+<link rel="stylesheet" href="../css/themes/default/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" href="../_assets/css/jqm-demos.css">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+<link rel="stylesheet" href="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.css">
+<script src="../js/jquery.js"></script>
+<script src="../_assets/js/index.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+<script src="http://cdn.rawgit.com/jquery/jquery-ui/1.10.4/ui/jquery.ui.datepicker.js"></script>
+<script id="mobile-datepicker" src="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.js"></script>
+
+</head>
+<body>
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="panel-responsive-page1" data-title="库存">
+
+		<div data-role="header">
+			<h1>库存数据实时动态报表</h1>
+			当前时间：2015-03-04 10:45
+			<table data-role="table" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<thead>
+					<tr>
+						<th data-priority="1">序号</th>
+						<th><select data-mini="true"><option value="">品牌</option>
+								<option value="1">苹果</option>
+								<option value="2">三星</option>
+								<option value="3">华为</option></select></th>
+						<th data-priority="2">产品名称</th>
+						<th data-priority="3">工艺</th>
+						<th data-priority="4">厚度</th>
+						<th data-priority="5">库存数</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>1</th>          
+						<td>苹果</td>          
+						<td>...</td>          
+						<td>直边</td>          
+						<td>0.4</td>        
+						<td>...</td>      
+					</tr>
+					<tr>
+						<th>2</th>          
+						<td>三星</td>          
+						<td>...</td>          
+						<td>2.5D</td>          
+						<td>0.3</td>        
+						<td>...</td>      
+					</tr>
+					<tr>
+						<th>3</th>          
+						<td>华为</td>          
+						<td>...</td>          
+						<td>2.5D</td>          
+						<td>0.3</td>       
+						<td>...</td>       
+					</tr>
+				</tbody>
+			</table>
+
+			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">菜单</a> <a href="#login-form" data-icon="gear" data-iconpos="notext">登陆</a>
+		</div>
+
+		<!-- /header -->
+		<div role="main" class="ui-content jqm-content jqm-fullwidth"></div>
+		<!-- /content -->
+		<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">
+			<ul data-role="listview">
+				<li data-icon="delete"><a href="#" data-rel="close">关闭菜单</a></li>
+				<li><a href="#panel-responsive-page1">库存总报表</a></li>
+				<li><a href="#panel-responsive-page2">入库日报表</a></li>
+				<li><a href="#panel-responsive-page3">出货日报表</a></li>
+				<li><a href="#panel-responsive-page4">每日出货明细表</a></li>
+				<li><a href="#panel-responsive-page5">产品入库界面</a></li>
+				<li><a href="#panel-responsive-page6">产品出货界面</a></li>
+				<li><a href="#panel-responsive-page7">出货单格式</a></li>
+			</ul>
+
+		</div>
+		<!-- /panel -->
+
+		<div data-role="panel" data-position="right" data-display="reveal" data-theme="a" id="login-form">
+
+			<form class="userform">
+
+				<h2>登陆</h2>
+
+				<label for="name">用户名:</label> <input type="text" name="name" id="name" value="" data-clear-btn="true" data-mini="true"> <label for="password">密码:</label>
+				<input type="password" name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true">
+
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">取消</a>
+					</div>
+					<div class="ui-block-b">
+						<a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">确定</a>
+					</div>
+				</div>
+			</form>
+
+		</div>
+		<!-- /panel -->
+
+	</div>
+
+
+	<!-- /page -->
+	<div data-role="page" id="panel-responsive-page2">
+
+		<div data-role="header">
+			<h1>入库数据日报表</h1>
+		</div>
+		<!-- /header -->
+		
+		<div role="main" class="ui-content jqm-content">
+			当前时间：2015-03-04 10:45
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<thead>
+					<tr>
+						<th data-priority="1">序号</th>          
+						<th data-priority="2">品牌</th>          
+						<th data-priority="3">产品名称</th>
+						<th data-priority="4">工艺</th>          
+						<th data-priority="5">厚度</th>
+						<th data-priority="6">1日</th>
+						<th data-priority="7">2日</th>
+						<th data-priority="8">...</th>
+						<th data-priority="9">30日</th>
+						<th data-priority="10">库存总数</th>    
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>1</th>          
+						<td>苹果</td>          
+						<td>...</td>          
+						<td>直边</td>          
+						<td>0.4</td>    
+						<td>入库数</td>    
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>...</td>      
+					</tr>
+					<tr>
+						<th>2</th>          
+						<td>三星</td>          
+						<td>...</td>          
+						<td>2.5D</td>          
+						<td>0.3</td>
+						<td>入库数</td>    
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>...</td>      
+					</tr>
+					<tr>
+						<th>3</th>          
+						<td>华为</td>          
+						<td>...</td>          
+						<td>2.5D</td>          
+						<td>0.3</td>
+						<td>入库数</td>    
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>入库数</td>     
+						<td>...</td>       
+					</tr>
+				</tbody>
+			</table>
+
+			<a href="#panel-responsive-page1" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-mini ui-icon-back ui-btn-icon-left">返回</a>
+
+		</div>
+		<!-- /content -->
+
+	</div>
+	<!-- /page -->
+
+	<!-- /page -->
+	<div data-role="page" id="panel-responsive-page3">
+
+		<div data-role="header">
+			<h1>出货数据日报表</h1>
+		</div>
+		<!-- /header -->
+
+		<div role="main" class="ui-content jqm-content">
+			当前时间：2015-03-04 10:45
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<thead>
+					<tr>
+						<th data-priority="2">序号</th>          
+						<th>品牌</th>          
+						<th data-priority="3">产品名称</th>
+						<th data-priority="1">工艺</th>          
+						<th data-priority="5">厚度</th>
+						<th>1日</th>
+						<th>2日</th>
+						<th>...</th>
+						<th>30日</th>       
+						<th data-priority="6">本月总数</th>    
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>1</th>          
+						<td>苹果</td>          
+						<td>...</td>          
+						<td>直边</td>          
+						<td>0.4</td>    
+						<td>入库数</td>    
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>...</td>      
+					</tr>
+					<tr>
+						<th>2</th>          
+						<td>三星</td>          
+						<td>...</td>          
+						<td>2.5D</td>          
+						<td>0.3</td>
+						<td>入库数</td>    
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>...</td>      
+					</tr>
+					<tr>
+						<th>3</th>          
+						<td>华为</td>          
+						<td>...</td>          
+						<td>2.5D</td>          
+						<td>0.3</td>
+						<td>入库数</td>    
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>入库数</td>     
+						<td>...</td>       
+					</tr>
+				</tbody>
+			</table>
+
+			<a href="#panel-responsive-page1" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-mini ui-icon-back ui-btn-icon-left">返回</a>
+
+		</div>
+		<!-- /content -->
+
+	</div>
+	<!-- /page -->
+
+
+	<!-- /page -->
+	<div data-role="page" id="panel-responsive-page4">
+
+		<div data-role="header">
+			<h1>每日出货明细表</h1>
+		</div>
+		<!-- /header -->
+
+		<div role="main" class="ui-content jqm-content">
+			<input type="text" data-role="date" placeholder="日期" />
+			<input type="text" name="textinput-1" id="textinput-1" placeholder="客户名称" value="" />
+			<input type="submit" value="查询" />
+			<label>当前时间：2015-03-04 10:45</label>
+			
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<thead>
+					<tr>
+						<th data-priority="2">日期</th>          
+						<th>品牌</th>
+						<th data-priority="3">产品名称</th>
+						<th data-priority="1">工艺</th>
+						<th data-priority="5">厚度</th>
+						<th>客户名称</th>
+						<th>出货数</th>
+						<th>单价</th>
+						<th>合计</th>       
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>1</th>          
+						<td>苹果</td>          
+						<td>...</td>          
+						<td>直边</td>          
+						<td>0.4</td>    
+						<td>入库数</td>    
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>入库数</td>
+					</tr>
+					<tr>
+						<th>2</th>          
+						<td>三星</td>          
+						<td>...</td>          
+						<td>2.5D</td>          
+						<td>0.3</td>
+						<td>入库数</td>    
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>入库数</td>
+					</tr>
+					<tr>
+						<th>3</th>          
+						<td>华为</td>          
+						<td>...</td>          
+						<td>2.5D</td>          
+						<td>0.3</td>
+						<td>入库数</td>    
+						<td>入库数</td>
+						<td>入库数</td>
+						<td>入库数</td>     
+					</tr>
+				</tbody>
+			</table>
+
+			<a href="#panel-responsive-page1" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-mini ui-icon-back ui-btn-icon-left">返回</a>
+
+		</div>
+		<!-- /content -->
+
+	</div>
+	<!-- /page -->
+
+	<!-- /page -->
+	<div data-role="page" id="panel-responsive-page5">
+
+		<div data-role="header">
+			<h1>产品入库信息采集</h1>
+		</div>
+		<!-- /header -->
+
+		<div role="main" class="ui-content jqm-content">
+
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<thead>
+					<tr>
+						<th data-priority="2">序号</th>          
+						<th>品牌</th>
+						<th data-priority="3">产品名称</th>
+						<th data-priority="1">工艺</th>
+						<th data-priority="5">厚度</th>
+						<th>入库数量</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>1</th>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>    
+					</tr>
+					<tr>
+						<th>2</th>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>    
+					</tr>
+					<tr>
+						<th>3</th>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>    
+					</tr>
+				</tbody>
+			</table>
+
+			<a href="#panel-responsive-page1" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-mini ui-icon-back ui-btn-icon-left">返回</a>
+
+		</div>
+		<!-- /content -->
+
+	</div>
+	<!-- /page -->
+
+
+	<!-- /page -->
+	<div data-role="page" id="panel-responsive-page6">
+
+		<div data-role="header">
+			<h1>产品出库信息采集</h1>
+		</div>
+		<!-- /header -->
+
+		<div role="main" class="ui-content jqm-content">
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<thead>
+					<tr>
+						<th data-priority="2">序号</th>          
+						<th>品牌</th>
+						<th data-priority="3">产品名称</th>
+						<th data-priority="1">工艺</th>
+						<th data-priority="5">厚度</th>
+						<th>数量</th>
+						<th>单价</th>
+						<th>合计</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th colspan="8"><label>以上产品出货总价为：</label></th>
+					</tr>
+				</tfoot>
+				<tbody>
+					<tr>
+						<th>1</th>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>
+						<td></td>    
+						<td></td>    
+						<td></td>    
+					</tr>
+					<tr>
+						<th>2</th>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>
+						<td></td>
+						<td></td>    
+						<td></td>    
+					</tr>
+					<tr>
+						<th>3</th>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>          
+						<td><input type="text" data-clear-btn="true" name="text-3" id="text-3" value=""></td>
+						<td></td>
+						<td></td>    
+						<td></td>    
+					</tr>
+				</tbody>
+			</table>
+
+			 
+			<fieldset data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+				<button>预览</button><button>打印</button><button>清空</button>
+			</fieldset>
+
+			<a href="#panel-responsive-page1" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-mini ui-icon-back ui-btn-icon-left">返回</a>
+
+		</div>
+		<!-- /content -->
+
+	</div>
+	<!-- /page -->
+
+
+	<!-- /page -->
+	<div data-role="page" id="panel-responsive-page7">
+
+		<div data-role="header">
+			<h1>出货单</h1>
+		</div>
+		<!-- /header -->
+
+		<div role="main" class="ui-content jqm-content">
+			<table data-role="table" data-mode="table" class="ui-responsive table-stroke">
+				<thead>
+					<tr>
+						<th colspan="4">深圳格纳斯/东莞晟煜 发货单</th>
+						<th colspan="4" style="text-align: right;">单号：G201503040000</th>
+					</tr>
+					<tr>
+						<th data-priority="2">序号</th>
+						<th>品牌</th>
+						<th data-priority="3">产品名称</th>
+						<th data-priority="1">工艺</th>
+						<th data-priority="5">厚度</th>
+						<th>数量</th>
+						<th>单价</th>
+						<th>合计</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th colspan="8"><label>以上产品出货总价为：</label></th>
+					</tr>
+					<tr>
+						<th colspan="4">发货员（签字）：</th>
+						<th colspan="4">客户（签字）：</th>
+					</tr>
+				</tfoot>
+				<tbody>
+					<tr>
+						<th>1</th>          
+						<td></td>          
+						<td></td>          
+						<td></td>          
+						<td></td>          
+						<td></td>    
+						<td></td>    
+						<td></td>    
+					</tr>
+					<tr>
+						<th>2</th>          
+						<td></td>          
+						<td></td>          
+						<td></td>          
+						<td></td>          
+						<td></td>    
+						<td></td>    
+						<td></td>    
+					</tr>
+					<tr>
+						<th>3</th>          
+						<td></td>          
+						<td></td>          
+						<td></td>          
+						<td></td>          
+						<td></td>    
+						<td></td>    
+						<td></td>  
+					</tr>
+				</tbody>
+			</table>
+
+			<a href="#panel-responsive-page1" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-mini ui-icon-back ui-btn-icon-left">返回</a>
+
+		</div>
+		<!-- /content -->
+
+	</div>
+	<!-- /page -->
+
+</body>
+</html>
