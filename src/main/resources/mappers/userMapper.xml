@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.kxm.kcgl.mapper.UserMapper">
+
+	<resultMap id="User" type="com.kxm.kcgl.domain.User">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="username" column="username" jdbcType="VARCHAR" />
+		<result property="password" column="password" jdbcType="VARCHAR" />
+		<result property="realname" column="realname" jdbcType="VARCHAR" />
+		<result property="status" column="status" jdbcType="INTEGER" />
+		<result property="createTime" column="createTime" jdbcType="DATE" />
+		<result property="updateTime" column="updateTime" jdbcType="DATE" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+		ID,USERNAME,PASSWORD,REALNAME,STATUS,CREATETIME,UPDATETIME
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="com.kxm.kcgl.domain.User">
+		INSERT INTO T_USER (
+		id,
+		username,
+		password,
+		realname,
+		status
+		) VALUES (
+		#{id},
+		#{username},
+		#{password},
+		#{realname},
+		#{status}
+		)
+	</insert>
+
+	<insert id="insertSelective" useGeneratedKeys="true">
+		INSERT INTO T_USER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test=" id != null">
+				ID ,
+			</if>
+			<if test=" username != null">
+				username ,
+			</if>
+			<if test=" password != null">
+				password ,
+			</if>
+			<if test=" status != null">
+				status
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test=" id != null">
+				#{id} ,
+			</if>
+			<if test=" username != null">
+				#{username} ,
+			</if>
+			<if test=" password != null">
+				#{password} ,
+			</if>
+			<if test=" status != null">
+				#{status}
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateSelectiveByPk">
+    <![CDATA[
+        UPDATE T_USER SET
+	        username = #{username} ,
+	        password = #{password} ,
+	        status = #{status},
+	        updateTime = now()
+        WHERE 
+	        ID = #{id} 
+    ]]>
+	</update>
+
+	<delete id="deleteByPk" parameterType="string">
+	    <![CDATA[
+	        DELETE FROM T_USER WHERE ID = #{id} 
+	    ]]>
+	</delete>
+
+	<select id="selectSelective" resultMap="User">
+		SELECT
+		<include refid="columns" />
+		FROM T_USER
+		<include refid="where_condition" />
+	</select>
+
+	<select id="countBySelective" resultType="int">
+		SELECT count(*) FROM T_USER
+		<include refid="where_condition" />
+	</select>
+
+	<select id="selectByPk" resultMap="User">
+		SELECT
+		<include refid="columns" />
+	    <![CDATA[
+		    FROM T_USER 
+	        WHERE ID = #{id} 
+	    ]]>
+	</select>
+
+	<sql id="where_condition">
+		<where>
+	    	<if test=" id != null" >
+     			AND ID = #{id}
+    		</if>
+    		<if test=" username != null" >
+     			AND username = #{username}
+    		</if>
+    		<if test=" password != null" >
+     			AND password = #{password}
+    		</if>
+    		<if test=" status != null" >
+     			AND status = #{status}
+    		</if>
+    		<if test=" realname != null" >
+     			AND realname = #{realname} 
+    		</if>
+		</where>
+	</sql>
+</mapper>
+

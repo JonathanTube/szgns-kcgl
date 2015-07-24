@@ -25,6 +25,17 @@
 	<!-- load the jdbc configuration -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
 
+	<!-- define the viewScope in spring -->
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="view">
+					<bean class="com.hyjd.frame.psm.scope.ViewScope" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${driverClassName}" />
 		<property name="url" value="${url}" />
@@ -32,9 +43,6 @@
 		<property name="password" value="${password}" />
 		<!-- <property name="validationQuery" value="select * from dual" /> -->
 	</bean>
-
-	<!-- <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"> 
-		<constructor-arg index="0" ref="sqlSessionFactory" /> </bean> -->
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
@@ -56,5 +64,25 @@
 	<!-- 使用annotation定义事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager"
 		proxy-target-class="true" />
+
+	
+	<!-- ibatis integrate with spring -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatisConfig.xml" />
+		<property name="mapperLocations" value="classpath*:mappers/**/*.xml" />
+		<property name="typeAliasesPackage" value="com.kxm" />
+	</bean>
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.kxm,mappers" />
+	</bean>
+
+	<!-- 开发阶段,热加载mybatis的xml配置文件,项目发布时,请注释掉 -->
+	<bean class="com.hyjd.frame.psm.mybatis.XMLMapperLoader" />
 
 </beans>

@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+
+.ui-tabs .ui-tabs-panel {
+	padding: 0 !important;
+}

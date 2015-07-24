@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+
+.ui-widget-header {
+	background: none !important;
+	border: 0 !important;
+	border-bottom: 1px;
+}
+
+.ui-datatable-scrollable-body tbody td {
+	border-left: none !important;
+	border-right: none !important;
+}
+
+.ui-paginator-current {
+	color: #000000;
+}
+
+.search_input {
+	width: 300px;
+	padding-left:30px;
+}
+
+.search_img {
+	position: absolute;
+	top: 5px;
+	right:315px;
+	width: 22px;
+	height:22px;
+}

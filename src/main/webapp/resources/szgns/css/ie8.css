@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+.ui-selectonemenu{
+	width:145px !important;
+}
+
+.ui-chkbox {
+	display: inherit !important;
+}
+
+[role=treeitem] .ui-chkbox {
+	display: inline-block !important;
+}
+
+/* .ui-chkbox-box {
+	display: inherit !important;
+} */
+
+.ui-chkbox .ui-chkbox-box {
+	display: inherit !important;
+}
+
+.ui-splitbutton .ui-corner-left {
+	top: -2px;
+}
