@@ -92,6 +92,7 @@
 		<include refid="columns" />
 		FROM T_USER
 		<include refid="where_condition" />
+		order by createTime desc
 	</select>
 
 	<select id="countBySelective" resultType="int">
@@ -113,17 +114,14 @@
 	    	<if test=" id != null" >
      			AND ID = #{id}
     		</if>
-    		<if test=" username != null" >
+    		<if test=" username != null and username !='' " >
      			AND username = #{username}
-    		</if>
-    		<if test=" password != null" >
-     			AND password = #{password}
     		</if>
     		<if test=" status != null" >
      			AND status = #{status}
     		</if>
-    		<if test=" realname != null" >
-     			AND realname = #{realname} 
+    		<if test=" realname != null and realname != '' " >
+     			AND realname like CONCAT('%',#{realname},'%')  
     		</if>
 		</where>
 	</sql>

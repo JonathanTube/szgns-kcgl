@@ -1,15 +1,17 @@
 package com.kxm.kcgl.domain;
 
+import java.util.Date;
+
 public class User implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private java.lang.String username;
-	private java.lang.String password;
+	private String username;
+	private String password;
 	private Integer status;
 	private String realname;
-	private java.util.Date createTime;
-	private java.util.Date updateTime;
+	private Date createTime;
+	private Date updateTime;
 
 	public Long getId() {
 		return id;
@@ -19,19 +21,19 @@ public class User implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public java.lang.String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUsername(java.lang.String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	public java.lang.String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(java.lang.String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -43,19 +45,19 @@ public class User implements java.io.Serializable {
 		this.realname = realname;
 	}
 
-	public java.util.Date getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(java.util.Date createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
-	public java.util.Date getUpdateTime() {
+	public Date getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(java.util.Date updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 

@@ -13,42 +13,38 @@
 	
 		<h:form id="user_form" prependId="true">
 
-			<p:panel header="查询条件" collapsed="false" toggleable="true" toggleTitle="点击展开查询条件">
-				<p:panelGrid columns="6" style="width:100%;">
+			<p:panel id="query_condition" header="查询条件" collapsed="false" toggleable="true" toggleTitle="点击展开查询条件">
+				<h:panelGrid columns="7" >
 					<p:outputLabel value="用户名：" />
-					<p:inputText value="#{userView.user.username}" />
-					<p:outputLabel value="密码：" />
-					<p:inputText value="#{userView.user.password}" />
+					<p:inputText value="#{userView.condition.username}" />
 					<p:outputLabel value="真实姓名：" />
-					<p:inputText value="#{userView.user.realname}" />
+					<p:inputText value="#{userView.condition.realname}" />
 					<p:outputLabel value="状态：" />
-					<p:inputText value="#{userView.user.status}" />
-					<p:outputLabel value="创建时间：" />
-					<p:inputText value="#{userView.user.createTime}" />
-					<p:outputLabel value="修改时间：" />
-					<p:inputText value="#{userView.user.updateTime}" />
-				</p:panelGrid>
-				<div style="text-align: right;">
-					<p:commandButton value="查询" icon="ui-icon-search" actionListener="#{userView.addUser}" update="@form" />
+					<p:selectOneMenu value="#{userView.condition.status}">
+						<f:selectItem itemLabel="请选择" itemValue="" />
+						<f:selectItem itemLabel="在职" itemValue="0" />
+						<f:selectItem itemLabel="离职" itemValue="1" />						
+					</p:selectOneMenu>
+					<h:panelGrid columns="2">
+						<p:commandButton value="查询" icon="ui-icon-search" actionListener="#{userView.queryUsers}" partialSubmit="true" process="@this @form:query_condition"  update="@form:user_table" />
 					<p:commandButton value="重置" icon="ui-icon-arrowrefresh-1-e" type="reset" />
-				</div>
+					</h:panelGrid>
+				</h:panelGrid>
 			</p:panel>
 			
 			<p:toolbar>
 				<p:toolbarGroup align="left">
 					<p:commandButton value="添加" type="button" onclick="PF('user_add_dlg').show()"/>
-					<p:commandButton value="删除" />
 					<p:commandButton value="修改" />
-				</p:toolbarGroup>
-				<p:toolbarGroup align="right">
-					<p:commandButton value="导出" />
-					<p:commandButton value="打印" />
 				</p:toolbarGroup>
 			</p:toolbar>
 			
-			<p:dataTable id="user_table" value="#{userView.users}" var="v" liveResize="false" resizableColumns="true" scrollable="true" scrollHeight="65%">
-					<p:column headerText="编号">
-						#{v.id}
+			<p:dataTable id="user_table" value="#{userView.userDataModel}" var="v" style="margin-top:2px;"
+				paginator="true" rows="10" paginatorPosition="bottom" rowIndexVar="index"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15" lazy="true">
+					<p:column headerText="编号" width="40">
+						#{index + 1}
 					</p:column>
 					<p:column headerText="用户名">
 						#{v.username}
@@ -60,43 +56,36 @@
 						#{v.realname}
 					</p:column>
 					<p:column headerText="状态">
-						#{v.status}
+						#{v.status == 0? "在职":"离职"}
 					</p:column>
 					<p:column headerText="创建时间">
 						<h:outputLabel value="#{v.createTime}">
 							<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8" pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
 						</h:outputLabel>
 					</p:column>
-					<p:column headerText="更新时间">
-						<h:outputLabel value="#{v.updateTime}">
-							<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8" pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
-						</h:outputLabel>
-					</p:column>
 			</p:dataTable>
 
 			<p:dialog widgetVar="user_add_dlg" header="添加"  closeOnEscape="true">
-				<p:panelGrid columns="12" style="width:100%;">
-						<p:outputLabel value="id：" />
-						<p:inputText value="#{userView.user.id}" />
-						<p:outputLabel value="username：" />
-						<p:inputText value="#{userView.user.username}" />
-						<p:outputLabel value="password：" />
-						<p:inputText value="#{userView.user.password}" />
-						<p:outputLabel value="status：" />
-						<p:inputText value="#{userView.user.status}" />
-						<p:outputLabel value="createTime：" />
-						<p:inputText value="#{userView.user.createTime}" />
-						<p:outputLabel value="updateTime：" />
-						<p:inputText value="#{userView.user.updateTime}" />
-						<p:outputLabel value="realname：" />
-						<p:inputText value="#{userView.user.realname}" />
+				<h:panelGrid columns="2" style="width:100%;">
+						<p:outputLabel value="用户名：" />
+						<p:inputText value="#{userView.user.username}"  required="true" maxlength="20"/>
+						<p:outputLabel value="密码：" />
+						<p:inputText value="#{userView.user.password}" required="true" maxlength="20"/>
+						<p:outputLabel value="状态：" />
+						<p:selectOneMenu value="#{userView.user.status}" required="true">
+							<f:selectItem itemLabel="请选择" itemValue="" />
+							<f:selectItem itemLabel="在职" itemValue="0" />
+							<f:selectItem itemLabel="离职" itemValue="1" />						
+						</p:selectOneMenu>
+						<p:outputLabel value="真实姓名：" />
+						<p:inputText value="#{userView.user.realname}"  required="true" maxlength="20" />
 					<f:facet name="footer">
 						<div style="float: right;">
 							<p:commandButton value="保存" icon="ui-icon-search" actionListener="#{userView.addUser}" update="user_table" />
 							<p:commandButton value="重置" icon="ui-icon-arrowrefresh-1-e" type="reset" />
 						</div>
 					</f:facet>
-				</p:panelGrid>
+				</h:panelGrid>
 			</p:dialog>
 
 		</h:form>

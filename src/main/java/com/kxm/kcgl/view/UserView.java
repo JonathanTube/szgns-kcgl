@@ -4,8 +4,8 @@ package com.kxm.kcgl.view;
  * @author badqiu email:badqiu(a)gmail.com
  * @version 1.0
  * @since 1.0
- */import java.io.Serializable;
-import java.util.List;
+ */
+import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
@@ -21,46 +21,53 @@ import com.kxm.kcgl.service.UserService;
 
 @Component
 @Scope("view")
-public class UserView implements Serializable{
+public class UserView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private UserService userService;
 
-	private List<User> users;
-	
-	private User user;
-	
+	private User condition = new User();
+
 	private PaginationDataModel<User> userDataModel;
+
+	private User user = new User();
 
 	@PostConstruct
 	public void init() {
-		user = new User(); 
-		users = userService.queryAll();
-		userDataModel = new PaginationDataModel<User>("com.kxm.kcgl.mapper.UserMapper.selectSelective");
+		queryUsers();
 	}
-	
-	public List<User> getUsers() {
-		return users;
+
+	public void queryUsers() {
+		userDataModel = new PaginationDataModel<User>(
+				"com.kxm.kcgl.mapper.UserMapper.selectSelective", condition);
 	}
-	
-	public void addUser(ActionEvent e){
+
+	public void addUser(ActionEvent e) {
 		boolean isOk = userService.insertUser(user);
-		if(isOk){
-			users.add(user);
+		if (isOk) {
+			queryUsers();
 			MsgTool.addInfoMsg("success");
-		}else{
+		} else {
 			MsgTool.addErrorMsg("error");
 		}
 	}
-	
-	public void queryUsers(){
-		userDataModel = new PaginationDataModel<User>("com.hyjd.sc.dao.UserMapper.selectSelective",user);
+
+	public PaginationDataModel<User> getuserDataModel() {
+		return userDataModel;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setUserDataModel(PaginationDataModel<User> userDataModel) {
+		this.userDataModel = userDataModel;
+	}
+
+	public User getCondition() {
+		return condition;
+	}
+
+	public void setCondition(User condition) {
+		this.condition = condition;
 	}
 
 	public User getUser() {
@@ -71,11 +78,7 @@ public class UserView implements Serializable{
 		this.user = user;
 	}
 
-	public PaginationDataModel<User> getuserDataModel() {
+	public PaginationDataModel<User> getUserDataModel() {
 		return userDataModel;
-	}
-
-	public void setUserDataModel(PaginationDataModel<User> userDataModel) {
-		this.userDataModel = userDataModel;
 	}
 }
