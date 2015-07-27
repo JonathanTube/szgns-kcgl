@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="baseTemplate.xhtml">
+
+	<ui:define name="title">产品出库</ui:define>
+
+	<ui:define name="content">
+		<h:form id="product_out_form" prependId="true">
+			<p:panelGrid columns="7">
+				<h:outputText value="产品编号:" />
+				<p:inputText value="#{productOutView.productNo}" />
+				<p:commandButton id="btn_productNo" actionListener="#{productOutView.addProductOut}" value="确定" partialSubmit="true" process="@this @previous" update="@form:product_out_tbl"/>
+				
+				<h:outputText value="产品型号:" />
+				<p:selectOneMenu value="#{productOutView.productId}">
+					<f:selectItems var="s" value="#{productOutView.productList}" itemLabel="#{s.productName}" itemValue="#{s.id}" />
+				</p:selectOneMenu>
+				<p:commandButton id="btn_productId" actionListener="#{productOutView.addProductOut}" value="确定" partialSubmit="true" process="@this @previous" update="@form:product_out_tbl"/>
+				
+				<p:commandButton value="批量产品出库" />
+			</p:panelGrid>
+			
+			<p:dataTable id="product_out_tbl" var="v" value="#{productOutView.productOutList}"
+				editable="true" editMode="cell">
+				<f:facet name="header">
+					<h:outputText value="产品出库" />
+				</f:facet>
+				<p:column headerText="产品编号">
+					<h:outputText value="#{v.productNo}" />
+				</p:column>
+				<p:column headerText="品牌">
+					<h:outputText value="#{v.brandName}" />
+				</p:column>
+				<p:column headerText="型号" id="productName">
+					<h:outputText value="#{v.productName}" />
+				</p:column>
+				<p:column headerText="工艺">
+					<h:outputText value="#{v.techName}" />
+				</p:column>
+				<p:column headerText="厚度">
+					<f:facet name="output">
+						<h:outputText value="#{v.thicknessName}" />
+					</f:facet>
+				</p:column>
+				<p:column headerText="库存数量">
+					<h:outputText value="#{v.amount}" />
+				</p:column>
+				<p:column headerText="出厂价">
+					<h:outputText value="#{v.price}" />
+				</p:column>
+				<p:column headerText="标识">
+					<h:outputText value="#{v.identifyName}" />
+				</p:column>
+				<p:column headerText="出货数量">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{v.amount}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{v.amount}" style="width:90%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="销售价格">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{v.salePrice}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{v.salePrice}" style="width:90%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="客户名称">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{v.custName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{v.custName}" style="width:90%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="业务员">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{v.userId}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{v.userId}" style="width:90%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+			</p:dataTable>
+			<div style="text-align:right;">
+				<p:commandButton value="保存" actionListener="#{productOutView.addExist}" />
+			</div>
+			
+			<p:dataTable var="v" id="product_out_log_tbl" value="#{productOutView.productOutModel}" style="margin-top:2px;"
+				paginator="true" rows="10" paginatorPosition="bottom"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15" lazy="true">
+				<f:facet name="header">
+					<h:outputText value="出库日志" />
+				</f:facet>
+				<p:column headerText="编号">
+						#{v.id}
+					</p:column>
+				<p:column headerText="品牌">
+						#{v.brandName}
+					</p:column>
+				<p:column headerText="产品名称">
+						#{v.productName}
+					</p:column>
+				<p:column headerText="工艺">
+						#{v.techName}
+					</p:column>
+				<p:column headerText="厚度">
+						#{v.thicknessName}
+					</p:column>
+				<p:column headerText="库存数">
+						#{v.amount}
+					</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

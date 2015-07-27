@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="baseTemplate.xhtml">
+
+	<ui:define name="title">权限管理</ui:define>
+
+	<ui:define name="content">
+
+		<h:form id="right_form" prependId="true">
+			<p:fieldset legend="角色">
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton type="button" value="添加" icon="ui-icon-plus" />
+					</f:facet>
+				</p:toolbar>
+				<p:selectOneRadio value="#{rightView.selectedRightId}">
+					<f:selectItems value="#{rightView.rights}" var="v"
+						itemLabel="#{v.name}" itemValue="#{v.id}" />
+				</p:selectOneRadio>
+			</p:fieldset>
+			<br />
+			<p:fieldset legend="用户">
+				<p:selectManyCheckbox value="#{rightView.selectedUserId}"
+					layout="grid" columns="3">
+					<f:selectItems value="#{rightView.users}" var="u"
+						itemLabel="#{u.realname}" itemValue="#{u.id}" />
+				</p:selectManyCheckbox>
+			</p:fieldset>
+			<br />
+			<p:fieldset legend="功能">
+				<p:selectManyCheckbox value="#{rightView.selectedFuncId}"
+					layout="grid" columns="8">
+					<f:selectItems value="#{rightView.funcs}" var="f"
+						itemLabel="#{f.name}" itemValue="#{f.id}" />
+				</p:selectManyCheckbox>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kxm.kcgl.mapper.RightMapper">
+
+	<resultMap id="Right" type="com.kxm.kcgl.domain.Right">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="name" column="name" jdbcType="VARCHAR" />
+		<result property="description" column="description" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+		ID,NAME,description
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="com.kxm.kcgl.domain.Right">
+		INSERT INTO T_RIGHT (
+		id,
+		name,
+		description
+		) VALUES (
+		#{id},
+		#{name},
+		#{description}
+		)
+	</insert>
+
+	<update id="updateSelectiveByPk">
+    <![CDATA[
+        UPDATE T_RIGHT SET
+	        name = #{name} ,
+	        description = #{description}
+        WHERE 
+	        ID = #{id} 
+    ]]>
+	</update>
+
+	<delete id="deleteByPk" parameterType="string">
+	    <![CDATA[
+	        DELETE FROM T_RIGHT WHERE ID = #{id} 
+	    ]]>
+	</delete>
+
+	<select id="selectSelective" resultMap="Right">
+		SELECT
+		<include refid="columns" />
+		FROM T_RIGHT
+		<include refid="where_condition" />
+	</select>
+
+	<select id="countBySelective" resultType="Right">
+		SELECT count(*) FROM T_RIGHT
+		<include refid="where_condition" />
+	</select>
+
+	<select id="selectByPk" resultMap="Right">
+		SELECT
+		<include refid="columns" />
+	    <![CDATA[
+		    FROM T_RIGHT
+	        WHERE ID = #{id} 
+	    ]]>
+	</select>
+
+	<sql id="where_condition">
+		<where>
+	    	<if test=" id != null" >
+     			AND ID = #{id}
+    		</if>
+    		<if test=" name != null" >
+     			AND name = #{name}
+    		</if>
+		</where>
+	</sql>
+</mapper>
+

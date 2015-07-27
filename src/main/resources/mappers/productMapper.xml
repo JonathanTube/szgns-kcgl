@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.kxm.kcgl.mapper.ProductMapper">
+
+	<resultMap id="Product" type="com.kxm.kcgl.domain.Product">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="productNo" column="product_no" jdbcType="VARCHAR" />
+		<result property="brandId" column="brand_id" jdbcType="DECIMAL" />
+		<result property="brandName" column="brand_name" jdbcType="VARCHAR" />
+		<result property="productName" column="product_name" jdbcType="VARCHAR" />
+		<result property="techId" column="tech_id" jdbcType="DECIMAL" />
+		<result property="techName" column="tech_name" jdbcType="VARCHAR" />
+		<result property="thicknessId" column="thickness_id" jdbcType="DECIMAL" />
+		<result property="thicknessName" column="thickness_name" jdbcType="VARCHAR" />
+		<result property="price" column="price" jdbcType="DECIMAL" />
+		<result property="createUser" column="create_user" jdbcType="DECIMAL" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.kxm.kcgl.domain.Product" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO T_PRODUCT (
+			product_no,
+			product_name,
+			brand_id,
+			tech_id,
+			thickness_id,
+			price,
+			create_user
+		) VALUES (
+			#{productNo},
+			#{productName},
+			#{brandId},
+			#{techId},
+			#{thicknessId},
+			#{price},
+			#{createUser}
+		)
+	</insert>
+
+	<delete id="deleteByPk" parameterType="int">
+	    <![CDATA[
+	        DELETE FROM T_PRODUCT WHERE ID = #{id} 
+	    ]]>
+	</delete>
+
+	<select id="selectSelective" resultMap="Product">
+		SELECT
+			product.id,product.brand_id,brand.name brand_name,product.id
+			,product.product_no,product.product_name,tech.id
+			tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
+			thickness_name,product.price,
+			product.create_user,product.create_time
+		FROM t_product product
+		LEFT JOIN t_brand brand ON product.brand_id = brand.id
+		LEFT JOIN t_tech tech ON product.tech_id = tech.id
+		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
+		<include refid="condition"/>
+	</select>
+
+	<select id="countBySelective" resultType="int">
+		SELECT count(*)
+		FROM t_product product
+		LEFT JOIN t_brand brand ON product.brand_id = brand.id
+		LEFT JOIN t_tech tech ON product.tech_id = tech.id
+		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
+		<include refid="condition"/>
+	</select>
+	
+	<sql id="condition">
+   		<where>
+		    <if test=" id != null" >
+				and product.id = #{id}
+			</if>
+			<if test=" productNo != null" >
+				and product.product_no = #{productNo}
+			</if>
+			<if test=" productName != null">
+				and product.product_name = #{productName}
+			</if>
+		</where>
+	</sql>
+</mapper>
+

@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="baseTemplate.xhtml">
+
+	<ui:define name="title">库存查询</ui:define>
+
+	<ui:define name="content">
+		<style type="text/css">
+.ui-panel .ui-panel-password {
+	padding: 0;
+}
+</style>
+
+		<h:form id="stock_form" prependId="true">
+
+			<p:panel header="查询条件" collapsed="false" toggleable="true"
+				toggleTitle="点击展开查询条件">
+				<h:panelGrid columns="5">
+					<p:outputLabel value="产品编号：" />
+					<p:inputText value="#{stockView.condition.productNo}" />
+					<p:outputLabel value="产品名称：" />
+					<p:inputText value="#{stockView.condition.productName}" />
+					<p:commandButton value="查询" icon="ui-icon-search"
+						actionListener="#{stockView.queryStock}"
+						update="@form:store_table" />
+				</h:panelGrid>
+			</p:panel>
+
+			<p:dataTable id="store_table" value="#{stockView.stockDataModel}"
+				var="v" liveResize="false" resizableColumns="true" scrollable="true">
+				<p:column headerText="编号">
+						#{v.id}
+					</p:column>
+				<p:column headerText="产品编号">
+						#{v.productNo}
+					</p:column>
+				<p:column headerText="品牌">
+						#{v.brandName}
+					</p:column>
+				<p:column headerText="型号">
+						#{v.productName}
+					</p:column>
+				<p:column headerText="工艺">
+						#{v.techName}
+				</p:column>
+				<p:column headerText="厚度">
+						#{v.thicknessName}
+				</p:column>
+				<p:column headerText="库存数量">
+						#{v.amount}
+					</p:column>
+				<p:column headerText="出厂价">
+						#{v.price}
+					</p:column>
+				<p:column headerText="标识">
+						#{v.identifyName}
+					</p:column>
+				<p:column headerText="累计查询次数">
+						#{v.queryTimes}
+					</p:column>
+				<p:column headerText="预出货">
+					11
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
