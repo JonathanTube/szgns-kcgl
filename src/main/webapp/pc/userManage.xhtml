@@ -5,12 +5,6 @@
 	<ui:define name="title">用户管理</ui:define>
 	
 	<ui:define name="content">
-			<style type="text/css">
-				.ui-panel .ui-panel-password {
-					padding: 0;
-				}
-			</style>
-	
 		<h:form id="user_form" prependId="true">
 
 			<p:panel id="query_condition" header="查询条件" collapsed="false" toggleable="true" toggleTitle="点击展开查询条件">
@@ -35,7 +29,6 @@
 			<p:toolbar>
 				<p:toolbarGroup align="left">
 					<p:commandButton value="添加" type="button" onclick="PF('user_add_dlg').show()"/>
-					<p:commandButton value="修改" />
 				</p:toolbarGroup>
 			</p:toolbar>
 			
@@ -55,7 +48,7 @@
 					<p:column headerText="真实姓名">
 						#{v.realname}
 					</p:column>
-					<p:column headerText="状态">
+					<p:column headerText="状态" width="80">
 						#{v.status == 0? "在职":"离职"}
 					</p:column>
 					<p:column headerText="创建时间">
@@ -63,9 +56,17 @@
 							<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8" pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
 						</h:outputLabel>
 					</p:column>
+					<p:column headerText="更新时间">
+						<h:outputLabel value="#{v.updateTime}">
+							<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8" pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
+						</h:outputLabel>
+					</p:column>
+					<p:column headerText="操作" width="50" style="text-align:center;">
+						<p:commandButton value="修改" partialSubmit="true" process="@this"  actionListener="#{userView.initUpdateUser(v)}"  oncomplete="PF('user_update_dlg').show()" update="@form:user_update_dlg"/>
+					</p:column>
 			</p:dataTable>
 
-			<p:dialog widgetVar="user_add_dlg" header="添加"  closeOnEscape="true">
+			<p:dialog widgetVar="user_add_dlg" header="添加"  closeOnEscape="true" resizable="false"  dynamic="true"  showEffect="bounce">
 				<h:panelGrid columns="2" style="width:100%;">
 						<p:outputLabel value="用户名：" />
 						<p:inputText value="#{userView.user.username}"  required="true" maxlength="20"/>
@@ -88,6 +89,29 @@
 				</h:panelGrid>
 			</p:dialog>
 
+			<p:dialog widgetVar="user_update_dlg" id="user_update_dlg" header="编辑"  closeOnEscape="true" resizable="false"  dynamic="true"  showEffect="bounce">
+				<h:panelGrid columns="2" style="width:100%;">
+						<p:outputLabel value="用户名：" />
+						<p:inputText value="#{userView.user.username}" disabled="true" />
+						<p:outputLabel value="密码：" />
+						<p:inputText value="#{userView.user.password}" required="true" maxlength="20"/>
+						<p:outputLabel value="状态：" />
+						<p:selectOneMenu value="#{userView.user.status}" required="true">
+							<f:selectItem itemLabel="请选择" itemValue="" />
+							<f:selectItem itemLabel="在职" itemValue="0" />
+							<f:selectItem itemLabel="离职" itemValue="1" />						
+						</p:selectOneMenu>
+						<p:outputLabel value="真实姓名：" />
+						<p:inputText value="#{userView.user.realname}"  required="true" maxlength="20" />
+					<f:facet name="footer">
+						<div style="float: right;">
+							<p:commandButton value="保存" icon="ui-icon-search" partialSubmit="true"  process="@this @form:user_update_dlg" actionListener="#{userView.updateUser}" update="user_table" />
+							<p:commandButton value="重置" icon="ui-icon-arrowrefresh-1-e" type="reset" />
+						</div>
+					</f:facet>
+				</h:panelGrid>
+			</p:dialog>
+			
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -54,13 +54,6 @@ public interface UserMapper {
 	int updateSelectiveByPk(User record);
 
 	/**
-	 * 将对象中的所有属性根据主键更新
-	 * 
-	 * @return
-	 */
-	int updateByPk(User record);
-
-	/**
 	 * 根据主键查找对象
 	 */
 	User selectByPk(String id);

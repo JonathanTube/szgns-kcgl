@@ -61,10 +61,9 @@
 		LEFT JOIN t_product product ON productIn.product_id = product.id
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
-		LEFT JOIN t_thickness
-				thickness ON product.thickness_id = thickness.id
+		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
 		LEFT JOIN t_manufactor manufactor ON productIn.manufactor_id = manufactor.id
-		LEFT JOIN t_identify identify ON productIn.identify_id = identify.id
+		LEFT JOIN t_identify identify ON product.identify_id = identify.id
 	</select>
 
 	<select id="countBySelective" resultType="int">
@@ -76,7 +75,7 @@
 		LEFT JOIN t_thickness
 				thickness ON product.thickness_id = thickness.id
 		LEFT JOIN t_manufactor manufactor ON productIn.manufactor_id = manufactor.id
-		LEFT JOIN t_identify identify ON productIn.identify_id = identify.id
+		LEFT JOIN t_identify identify ON product.identify_id = identify.id
 	</select>
 </mapper>
 

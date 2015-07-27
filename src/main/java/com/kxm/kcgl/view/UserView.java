@@ -43,14 +43,28 @@ public class UserView implements Serializable {
 		userDataModel = new PaginationDataModel<User>(
 				"com.kxm.kcgl.mapper.UserMapper.selectSelective", condition);
 	}
+	
+	public void initUpdateUser(User u){
+		this.user = u;
+	}
 
 	public void addUser(ActionEvent e) {
 		boolean isOk = userService.insertUser(user);
 		if (isOk) {
 			queryUsers();
-			MsgTool.addInfoMsg("success");
+			MsgTool.addInfoMsg("添加成功");
 		} else {
-			MsgTool.addErrorMsg("error");
+			MsgTool.addErrorMsg("添加失败");
+		}
+	}
+	
+	public void updateUser(){
+		boolean isOk = userService.updateUser(user);
+		if (isOk) {
+			queryUsers();
+			MsgTool.addInfoMsg("更新成功");
+		} else {
+			MsgTool.addErrorMsg("更新失败");
 		}
 	}
 

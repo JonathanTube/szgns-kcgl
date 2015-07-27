@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.mapper.UserMapper;
+
 /**
  * @author badqiu email:badqiu(a)gmail.com
  * @version 1.0
@@ -30,6 +31,15 @@ public class UserService {
 		if (entity != null) {
 			userMapper.insert(entity);
 			return true;
+		}
+
+		return false;
+	}
+
+	public boolean updateUser(User entity) {
+		if (entity != null) {
+			int i = userMapper.updateSelectiveByPk(entity);
+			return i > 0 ? true : false;
 		}
 
 		return false;

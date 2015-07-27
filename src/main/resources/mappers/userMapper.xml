@@ -92,7 +92,7 @@
 		<include refid="columns" />
 		FROM T_USER
 		<include refid="where_condition" />
-		order by createTime desc
+		order by updateTime desc , createTime desc
 	</select>
 
 	<select id="countBySelective" resultType="int">
