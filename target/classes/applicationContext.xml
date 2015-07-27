@@ -20,7 +20,7 @@
            http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 	<!-- auto scan injection beans -->
-	<context:component-scan base-package="com.kxm.kcgl" />
+	<context:component-scan base-package="com" />
 
 	<!-- load the jdbc configuration -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
@@ -35,7 +35,7 @@
 			</map>
 		</property>
 	</bean>
-	
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${driverClassName}" />
 		<property name="url" value="${url}" />
@@ -65,13 +65,23 @@
 	<tx:annotation-driven transaction-manager="transactionManager"
 		proxy-target-class="true" />
 
-	
+
 	<!-- ibatis integrate with spring -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatisConfig.xml" />
 		<property name="mapperLocations" value="classpath*:mappers/**/*.xml" />
 		<property name="typeAliasesPackage" value="com.kxm" />
+		<!-- 分页插件如果是mysql要放在这里 -->
+		<property name="plugins">
+			<list>
+				<bean
+					class="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
+					<property name="dialectClass"
+						value="com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect" />
+				</bean>
+			</list>
+		</property>
 	</bean>
 
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
@@ -84,5 +94,4 @@
 
 	<!-- 开发阶段,热加载mybatis的xml配置文件,项目发布时,请注释掉 -->
 	<bean class="com.hyjd.frame.psm.mybatis.XMLMapperLoader" />
-
 </beans>

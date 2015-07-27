@@ -21,12 +21,12 @@
 		<setting name="aggressiveLazyLoading" value="false" />
 	</settings>
 
-	<!--标签还有顺序,放最下面就ok了 -->
+	<!--标签还有顺序,放最下面就ok了 
 	<plugins>
 		<plugin interceptor="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
-			<property name="dialectClass" value="com.github.miemiedev.mybatis.paginator.dialect.OracleDialect" />
+			<property name="dialectClass" value="com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect">
 		</plugin>
 		<plugin interceptor="com.hyjd.frame.psm.mybatis.SqlInterceptor" />
 	</plugins>
-
+-->
 </configuration>

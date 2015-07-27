@@ -16,7 +16,7 @@ import com.kxm.kcgl.dao.OutcomeInfoCollectDao;
 import com.kxm.kcgl.dao.StockDao;
 import com.kxm.kcgl.domain.BillBean;
 import com.kxm.kcgl.domain.OutcomeInfoBean;
-import com.kxm.kcgl.domain.StockBean;
+import com.kxm.kcgl.domain.Stock;
 
 @Service
 public class OutcomeInfoCollectService {
@@ -68,7 +68,7 @@ public class OutcomeInfoCollectService {
 			outcomeInfoCollectDao.add(b);
 			size++;
 
-			StockBean stockBean = new StockBean();
+			Stock stockBean = new Stock();
 			stockBean.setBrandId(b.getBrandId());
 			stockBean.setProductId(b.getProductId());
 			stockBean.setTechId(b.getTechId());

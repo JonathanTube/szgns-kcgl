@@ -1,7 +1,8 @@
 package com.kxm.kcgl.domain;
 
-public class StockBean {
+public class Stock {
 	private int id;
+	private String productNo;
 	private int brandId;
 	private String brandName;
 	private int productId;
@@ -11,6 +12,10 @@ public class StockBean {
 	private int thicknessId;
 	private String thicknessName;
 	private int amount;
+	private Double price;
+	private int identifyId;
+	private String identifyName;
+	private int queryTimes;
 
 	public int getId() {
 		return id;
@@ -90,5 +95,45 @@ public class StockBean {
 
 	public void setBrandName(String brandName) {
 		this.brandName = brandName;
+	}
+
+	public String getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(String productNo) {
+		this.productNo = productNo;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public int getIdentifyId() {
+		return identifyId;
+	}
+
+	public void setIdentifyId(int identifyId) {
+		this.identifyId = identifyId;
+	}
+
+	public String getIdentifyName() {
+		return identifyName;
+	}
+
+	public void setIdentifyName(String identifyName) {
+		this.identifyName = identifyName;
+	}
+
+	public int getQueryTimes() {
+		return queryTimes;
+	}
+
+	public void setQueryTimes(int queryTimes) {
+		this.queryTimes = queryTimes;
 	}
 }

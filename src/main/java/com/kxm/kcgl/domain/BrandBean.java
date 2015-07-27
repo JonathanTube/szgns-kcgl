@@ -1,8 +1,10 @@
 package com.kxm.kcgl.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BrandBean {
+@SuppressWarnings("serial")
+public class BrandBean implements Serializable {
 	private int id;
 	private String name;
 	private int flag;

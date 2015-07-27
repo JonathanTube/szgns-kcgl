@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kxm.kcgl.dao.StockDao;
-import com.kxm.kcgl.domain.StockBean;
+import com.kxm.kcgl.domain.Stock;
 
 @Service
 public class StockService {
@@ -15,7 +15,7 @@ public class StockService {
 	private StockDao storeDao;
 	
 	
-	public List<StockBean> queryAll() {
+	public List<Stock> queryAll() {
 		return storeDao.queryAll();
 	}
 

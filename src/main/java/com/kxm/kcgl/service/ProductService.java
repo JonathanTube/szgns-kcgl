@@ -4,49 +4,55 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import com.kxm.kcgl.dao.ProductDao;
-import com.kxm.kcgl.domain.ProductBean;
+import com.kxm.kcgl.domain.Product;
+import com.kxm.kcgl.mapper.ProductMapper;
 
+/**
+ *
+ * @author kongxm
+ * @date 2015 2015年7月27日 上午10:00:55
+ */
 @Service
 public class ProductService {
+
 	@Autowired
-	private ProductDao productDao;
+	private ProductMapper productMapper;
 
-	public String addNewProduct(String name, String brandId) {
-		if (StringUtils.isEmpty(name)) {
-			return "产品不能为空";
+	public List<Product> queryAll() {
+		return productMapper.selectSelective(new Product());
+	}
+	
+	public Product queryByProductNo(String productNo){
+		Product condition = new Product();
+		condition.setProductNo(productNo);
+		List<Product> list = productMapper.selectSelective(condition);
+		if(list.size() > 0){
+			return list.get(0);
 		}
-		if (StringUtils.isEmpty(brandId)) {
-			return "品牌不能为空";
+		return null;
+	}
+	
+	public Product queryByProductId(int productId){
+		Product condition = new Product();
+		condition.setId(productId);
+		List<Product> list = productMapper.selectSelective(condition);
+		if(list.size() > 0){
+			return list.get(0);
 		}
-		int count = productDao.count(name);
-		if (count > 0) {
-			productDao.update(name);
-			return "产品" + name + "添加成功";
-		}
-
-		ProductBean param = new ProductBean();
-		param.setName(name.trim());
-		param.setBrandId(Integer.parseInt(brandId));
-		// TODO:where is user?
-		param.setCreate_user(0);
-		int size = productDao.insert(param);
-		return size > 0 ? "产品" + name + "添加成功" : "产品" + name + "添加失败";
+		return null;
 	}
 
-	public List<ProductBean> queryAllProduct(String brandId) {
-		if(StringUtils.isEmpty(brandId)){
-			return productDao.query();	
-		}else{
-			return productDao.query(Integer.parseInt(brandId));
+	
+	public Product queryByProductName(String productName){
+		Product condition = new Product();
+		condition.setProductName(productName);
+		List<Product> list = productMapper.selectSelective(condition);
+		if(list.size() > 0){
+			return list.get(0);
 		}
-		
+		return null;
 	}
 
-	public void deleteProduct(int id) {
-		productDao.delete(id);
-	}
 
 }

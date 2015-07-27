@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kxm.kcgl.domain.BrandBean;
 import com.kxm.kcgl.domain.MessageResult;
-import com.kxm.kcgl.domain.StockBean;
+import com.kxm.kcgl.domain.Stock;
 import com.kxm.kcgl.service.BrandService;
 import com.kxm.kcgl.service.StockService;
 
@@ -20,7 +20,7 @@ public class StockController {
 	private StockService stockService;
 
 	@RequestMapping("/queryStock")
-	public List<StockBean> queryStock() {
+	public List<Stock> queryStock() {
 		return stockService.queryAll();
 	}
 }

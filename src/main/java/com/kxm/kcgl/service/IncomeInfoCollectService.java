@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import com.kxm.kcgl.dao.IncomeInfoCollectDao;
 import com.kxm.kcgl.dao.StockDao;
 import com.kxm.kcgl.domain.IncomeInfoBean;
-import com.kxm.kcgl.domain.StockBean;
+import com.kxm.kcgl.domain.Stock;
 
 @Service
 public class IncomeInfoCollectService {
@@ -32,7 +32,7 @@ public class IncomeInfoCollectService {
 		for (IncomeInfoBean b : retList) {
 			incomeInfoCollectDao.add(b);
 			size ++;
-			StockBean stockBean = new StockBean();
+			Stock stockBean = new Stock();
 			stockBean.setBrandId(b.getBrandId());
 			stockBean.setProductId(b.getProductId());
 			stockBean.setTechId(b.getTechId());

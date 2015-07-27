@@ -63,6 +63,7 @@
 			<p:layoutUnit position="north">
 				<h:form>
 					<p:graphicImage cache="true" library="szgns" name="images/logo.jpg"/>
+					<h:outputText style="font-size:19px;margin-left:100px;" value="深圳格纳斯进销存管理系统" />
 					<p:commandButton action="#{loginView.doLogout}" value="退出" style="float:right;position:absolute;margin-right:20px;right:0;"/> 
 				</h:form>
 			</p:layoutUnit>
@@ -71,16 +72,17 @@
 				<h:form>
 					<p:panelMenu>
 						<p:submenu label="系统管理">
+							<p:menuitem value="权限管理" url="rightManage.xhtml" icon="ui-icon-link" />
 							<p:menuitem value="用户管理" url="userManage.xhtml" icon="ui-icon-link" />
 						</p:submenu>
 						<p:submenu label="库存管理">
-							<p:menuitem value="产品出库" url="userManage.xhtml" icon="ui-icon-link" />
-							<p:menuitem value="产品入库" url="userManage.xhtml" icon="ui-icon-link" />
+							<p:menuitem value="产品入库" url="productInManage.xhtml" icon="ui-icon-link" />
+							<p:menuitem value="产品出库" url="productOutManage.xhtml" icon="ui-icon-link" />
 							<p:menuitem value="价格调整" url="userManage.xhtml" icon="ui-icon-link" />
 						</p:submenu>
 						<p:submenu label="报表管理">
 							<p:menuitem value="总库存日报表" url="userManage.xhtml" icon="ui-icon-link" />
-							<p:menuitem value="型号查询次数统计表" url="userManage.xhtml" icon="ui-icon-link" />
+							<p:menuitem value="型号查询次数统计表" url="stockManage.xhtml" icon="ui-icon-link" />
 							<p:menuitem value="入库日报表" url="userManage.xhtml" icon="ui-icon-link" />
 							<p:menuitem value="出货日报表" url="userManage.xhtml" icon="ui-icon-link" />
 							<p:menuitem value="价格表" url="userManage.xhtml" icon="ui-icon-link" />

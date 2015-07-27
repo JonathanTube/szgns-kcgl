@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.kxm.kcgl.domain.DeliveryVoucherBean;
-import com.kxm.kcgl.domain.StockBean;
+import com.kxm.kcgl.domain.Stock;
 
 @Repository
 public class DeliveryVoucherDao {
@@ -71,7 +71,7 @@ public class DeliveryVoucherDao {
 		List<DeliveryVoucherBean> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper(
 				DeliveryVoucherBean.class));
 		for (DeliveryVoucherBean b : list) {
-			StockBean stockBean = new StockBean();
+			Stock stockBean = new Stock();
 			stockBean.setBrandId(b.getBrandId());
 			stockBean.setProductId(b.getProductId());
 			stockBean.setTechId(b.getTechId());
