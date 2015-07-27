@@ -91,6 +91,10 @@
 			<id>spring-releases</id>
 			<url>https://repo.spring.io/libs-release</url>
 		</repository>
+		  <repository>
+            <id>prime-repo</id>
+            <url>http://repository.primefaces.org</url>
+        </repository>
 	</repositories>
 	<build>
 		<!-- 设置war包名称 -->
