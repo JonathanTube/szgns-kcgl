@@ -14,6 +14,8 @@
 		<result property="techName" column="tech_name" jdbcType="VARCHAR" />
 		<result property="thicknessId" column="thickness_id" jdbcType="DECIMAL" />
 		<result property="thicknessName" column="thickness_name" jdbcType="VARCHAR" />
+		<result property="identifyId" column="identify_id" jdbcType="DECIMAL" />
+		<result property="identifyName" column="identify_name" jdbcType="VARCHAR" />
 		<result property="price" column="price" jdbcType="DECIMAL" />
 		<result property="createUser" column="create_user" jdbcType="DECIMAL" />
 		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
@@ -26,6 +28,7 @@
 			brand_id,
 			tech_id,
 			thickness_id,
+			identify_id,
 			price,
 			create_user
 		) VALUES (
@@ -34,6 +37,7 @@
 			#{brandId},
 			#{techId},
 			#{thicknessId},
+			#{identifyId},
 			#{price},
 			#{createUser}
 		)
@@ -50,8 +54,7 @@
 			product.id,product.brand_id,brand.name brand_name,product.id
 			,product.product_no,product.product_name,tech.id
 			tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
-			thickness_name,product.price,
-			product.create_user,product.create_time
+			thickness_name,product.price,product.create_user,product.create_time
 		FROM t_product product
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id

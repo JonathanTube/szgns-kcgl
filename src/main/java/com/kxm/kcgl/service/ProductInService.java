@@ -34,6 +34,7 @@ public class ProductInService {
 		product.setProductName(record.getProductName());
 		product.setTechId(record.getTechId());
 		product.setThicknessId(record.getThicknessId());
+		product.setIdentifyId(record.getIdentifyId());
 		productMapper.insert(product);
 		// 插入
 		record.setProductId(product.getId());

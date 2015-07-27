@@ -31,14 +31,12 @@
 			price,
 			amount,
 			manufactor_id,
-			identify_id,
 			create_user
 		) VALUES (
 			#{productId},
 			#{price},
 			#{amount},
 			#{manufactorId},
-			#{identifyId},
 			#{createUser}
 		)
 	</insert>
@@ -64,6 +62,7 @@
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
 		LEFT JOIN t_manufactor manufactor ON productIn.manufactor_id = manufactor.id
 		LEFT JOIN t_identify identify ON product.identify_id = identify.id
+		order by productIn.create_time desc
 	</select>
 
 	<select id="countBySelective" resultType="int">

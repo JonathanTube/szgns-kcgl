@@ -15,113 +15,152 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton value="新增产品入库" type="button"
 						onclick="PF('product_in_not_exist_dlg').show()" />
-					<p:commandButton value="批量产品入库" />
+					<p:commandButton value="已有产品入库" type="button"
+						onclick="PF('product_in_exist_dlg').show()" />
+					<p:commandButton value="批量产品入库" type="button" />
 				</p:toolbarGroup>
 			</p:toolbar>
-			
-			<p:panelGrid columns="6">
-				<h:outputText value="产品编号:" />
-				<p:inputText value="#{productInView.productNo}" />
-				<p:commandButton id="btn_productNo" actionListener="#{productInView.addExistProduct}" value="确定" partialSubmit="true" process="@this @previous" update="@form:product_in_exist_tbl"/>
-				
-				<h:outputText value="产品型号:" />
-				<p:selectOneMenu value="#{productInView.productId}">
-					<f:selectItems var="s" value="#{productInView.productList}" itemLabel="#{s.productName}" itemValue="#{s.id}" />
-				</p:selectOneMenu>
-				<p:commandButton id="btn_productId" actionListener="#{productInView.addExistProduct}" value="确定" partialSubmit="true" process="@this @previous" update="@form:product_in_exist_tbl"/>
-			</p:panelGrid>
-			
-			<p:dataTable id="product_in_exist_tbl" var="v" value="#{productInView.productInList}"
-				editable="true" editMode="cell">
-				<f:facet name="header">
-					<h:outputText value="已有产品入库" />
-				</f:facet>
-				<p:column headerText="产品编号">
-					<h:outputText value="#{v.productNo}" />
-				</p:column>
-				<p:column headerText="品牌">
-					<h:outputText value="#{v.brandName}" />
-				</p:column>
-				<p:column headerText="型号" id="productName">
-					<h:outputText value="#{v.productName}" />
-				</p:column>
-				<p:column headerText="工艺">
-					<h:outputText value="#{v.techName}" />
-				</p:column>
-				<p:column headerText="厚度">
-					<f:facet name="output">
-						<h:outputText value="#{v.thicknessName}" />
+
+			<p:dialog widgetVar="product_in_exist_dlg" closeOnEscape="true"
+				header="已有产品入库" width="1000" dynamic="true" minHeight="600"
+				resizable="false">
+				<h:panelGrid columns="7">
+					<h:outputText value="产品编号:" />
+					<p:inputText value="#{productInView.productNo}" />
+					<p:commandButton id="btn_productNo"
+						actionListener="#{productInView.addExistProduct}"
+						icon="ui-icon-plus" value="确定" partialSubmit="true"
+						process="@this @previous" update="@form:product_in_exist_tbl" />
+
+					<h:outputText value="产品型号:" />
+					<p:selectOneMenu value="#{productInView.productId}">
+						<f:selectItem itemLabel="请选择产品型号" itemValue="" />
+						<f:selectItems var="s" value="#{productInView.productList}"
+							itemLabel="#{s.productName}" itemValue="#{s.id}" />
+					</p:selectOneMenu>
+					<p:commandButton id="btn_productId"
+						actionListener="#{productInView.addExistProduct}"
+						icon="ui-icon-plus" value="确定" partialSubmit="true"
+						process="@this @previous" update="@form:product_in_exist_tbl" />
+					<p:commandButton value="执行入库" icon="ui-icon-disk"
+						actionListener="#{productInView.addExist}"
+						update="product_in_log_tbl" />
+				</h:panelGrid>
+
+				<p:dataTable id="product_in_exist_tbl" var="v"
+					value="#{productInView.productInList}" editable="true"
+					editMode="cell">
+					<f:facet name="header">
+						<h:outputText value="已有产品入库" />
 					</f:facet>
-				</p:column>
-				<p:column headerText="库存数量">
-					<h:outputText value="#{v.amount}" />
-				</p:column>
-				<p:column headerText="出厂价">
-					<h:outputText value="#{v.price}" />
-				</p:column>
-				<p:column headerText="入库数量">
-					<p:cellEditor>
+					<p:column headerText="产品编号">
+						<h:outputText value="#{v.productNo}" />
+					</p:column>
+					<p:column headerText="品牌">
+						<h:outputText value="#{v.brandName}" />
+					</p:column>
+					<p:column headerText="型号" id="productName">
+						<h:outputText value="#{v.productName}" />
+					</p:column>
+					<p:column headerText="工艺">
+						<h:outputText value="#{v.techName}" />
+					</p:column>
+					<p:column headerText="厚度">
 						<f:facet name="output">
-							<h:outputText value="#{v.productName}" />
+							<h:outputText value="#{v.thicknessName}" />
 						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{v.productId}" style="width:90%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="标识">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{v.identifyName}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:selectOneMenu value="#{v.identifyId}" style="width:100%">
-								<f:selectItems var="s" value="#{productInView.identifyList}" itemLabel="#{s.name}" itemValue="#{s.id}" />
-							</p:selectOneMenu>
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="厂家">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{v.manufactorName}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:selectOneMenu value="#{v.manufactorId}" style="width:100%">
-								<f:selectItems var="s" value="#{productInView.manufactorList}" itemLabel="#{s.name}" itemValue="#{s.id}" />
-							</p:selectOneMenu>
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-			</p:dataTable>
-			<div style="text-align:right;">
-				<p:commandButton value="保存" actionListener="#{productInView.addExist}" update="product_in_log_tbl"/>
-			</div>
-			
-			<p:dataTable var="v" id="product_in_log_tbl" value="#{productInView.productInModel}" style="margin-top:2px;"
+					</p:column>
+					<p:column headerText="库存数量">
+						<h:outputText value="#{v.amount}" />
+					</p:column>
+					<p:column headerText="出厂价">
+						<h:outputText value="#{v.price}" />
+					</p:column>
+					<p:column headerText="入库数量">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{v.productName}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{v.productId}" style="width:90%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="标识">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{v.identifyName}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu value="#{v.identifyId}" style="width:100%">
+									<f:selectItems var="s" value="#{productInView.identifyList}"
+										itemLabel="#{s.name}" itemValue="#{s.id}" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="厂家">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{v.manufactorName}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu value="#{v.manufactorId}" style="width:100%">
+									<f:selectItems var="s" value="#{productInView.manufactorList}"
+										itemLabel="#{s.name}" itemValue="#{s.id}" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+
+			<p:dataTable var="v" id="product_in_log_tbl"
+				value="#{productInView.productInModel}" style="margin-top:2px;"
 				paginator="true" rows="10" paginatorPosition="bottom"
+				rowIndexVar="index"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="5,10,15" lazy="true">
 				<f:facet name="header">
 					<h:outputText value="入库日志" />
 				</f:facet>
-				<p:column headerText="编号">
-						#{v.id}
+				<p:column headerText="序号" width="30">
+						#{index + 1}
 					</p:column>
-				<p:column headerText="品牌">
+				<p:column headerText="产品编号" width="50">
+						#{v.productNo}
+					</p:column>
+				<p:column headerText="品牌" width="50">
 						#{v.brandName}
 					</p:column>
 				<p:column headerText="产品名称">
 						#{v.productName}
 					</p:column>
-				<p:column headerText="工艺">
+				<p:column headerText="工艺" width="50">
 						#{v.techName}
 					</p:column>
-				<p:column headerText="厚度">
+				<p:column headerText="厚度" width="30">
 						#{v.thicknessName}
 					</p:column>
-				<p:column headerText="库存数">
+				<p:column headerText="库存数" width="40">
 						#{v.amount}
+					</p:column>
+				<p:column headerText="标识" width="60">
+						#{v.identifyName}
+					</p:column>
+				<p:column headerText="入库数" width="40">
+						#{v.amount}
+					</p:column>
+					<p:column headerText="厂家" width="50">
+						#{v.manufactorName}
+					</p:column>
+					<p:column headerText="员工" width="50">
+						#{v.createUser}
+					</p:column>
+					<p:column headerText="入库时间">
+						<h:outputLabel value="#{v.createTime}">
+							<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8" pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
+						</h:outputLabel>
 					</p:column>
 			</p:dataTable>
 
@@ -207,7 +246,7 @@
 				<div style="float: right;">
 					<p:commandButton value="保存" icon="ui-icon-disk"
 						actionListener="#{productInView.addNotExist}" partialSubmit="true"
-						process="product_in_not_exist_dlg" />
+						process="product_in_not_exist_dlg"  update="@form:product_in_log_tbl"/>
 				</div>
 			</p:dialog>
 
