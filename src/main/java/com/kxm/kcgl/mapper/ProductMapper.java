@@ -23,4 +23,6 @@ public interface ProductMapper {
 	int countBySelective(Product record);
 
 	int insert(Product record);
+
+	void updateAmount(Product product);
 }

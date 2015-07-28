@@ -38,7 +38,7 @@ public class ProductInView implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private LoginSession LoginSession;
+	private LoginSession loginSession;
 	@Autowired
 	private ProductInService productInService;
 
@@ -79,9 +79,9 @@ public class ProductInView implements Serializable {
 	@Autowired
 	private ProductService productService;
 	private List<Product> productList;
-	
+
 	private List<ProductIn> productInList = new LinkedList<ProductIn>();
-	
+
 	private int productId;
 	private String productNo;
 
@@ -97,27 +97,31 @@ public class ProductInView implements Serializable {
 		initProductList();
 	}
 
-	public void initProductList(){
+	public void initProductList() {
 		productList = productService.queryAll();
 	}
-	
-	
+
 	public void query() {
 		productInModel = new PaginationDataModel<ProductIn>("com.kxm.kcgl.mapper.ProductInMapper.selectSelective", condition);
 	}
 
 	public void addNotExist() {
 		try {
-			User user = (User) LoginSession.getSesionObj();
+			User user = (User) loginSession.getSesionObj();
 			productIn.setCreateUserId(user.getId());
 			productInService.addNotExist(productIn);
 		} catch (LogicException e) {
 			MsgTool.addWarningMsg(e.getMessage());
 		}
 	}
-	
-	public void addExist(){
-		
+
+	/**
+	 * 已有产品入库
+	 */
+	public void addExist() {
+		User user = (User) loginSession.getSesionObj();
+		productInService.addExist(productInList,user.getId());
+		MsgTool.addInfoMsg("入库成功");
 	}
 
 	public void initBrandList() {
@@ -170,18 +174,25 @@ public class ProductInView implements Serializable {
 		initThicknessList();
 	}
 
-	public void addExistProduct(ActionEvent event){
+	public void addExistProduct(ActionEvent event) {
 		String id = event.getComponent().getId();
-		Product	product = null;
-		if("btn_productId".equals(id)){
-			product = productService.queryByProductId(productId);	
-		}else{
+		Product product = null;
+		if ("btn_productId".equals(id)) {
+			product = productService.queryByProductId(productId);
+		} else {
 			product = productService.queryByProductNo(productNo);
 		}
-		
-		if(product == null){
+
+		if (product == null) {
 			MsgTool.addErrorMsg("未找到该型号的产品");
 			return;
+		}
+
+		for (ProductIn pi : productInList) {
+			if (pi.getProductNo().equals(product.getProductNo())) {
+				MsgTool.addErrorMsg("请勿重复添加同一型号产品,直接修改数量即可");
+				return;
+			}
 		}
 		productIn = new ProductIn();
 		productIn.setBrandId(product.getBrandId());
@@ -193,9 +204,22 @@ public class ProductInView implements Serializable {
 		productIn.setProductNo(product.getProductNo());
 		productIn.setThicknessId(product.getThicknessId());
 		productIn.setThicknessName(product.getThicknessName());
+		productIn.setIdentifyId(product.getIdentifyId());
+		productIn.setIdentifyName(product.getIdentifyName());
+		productIn.setAmount(product.getAmount());
+		productIn.setPrice(product.getPrice());
 		productInList.add(productIn);
 	}
-	
+
+	private String getManufactorName(int manufactorId) {
+		for (Manufactor m : manufactorList) {
+			if (m.getId() == manufactorId) {
+				return m.getName();
+			}
+		}
+		return "";
+	}
+
 	public PaginationDataModel<ProductIn> getProductInModel() {
 		return productInModel;
 	}

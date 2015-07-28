@@ -49,12 +49,26 @@ public class ProductInService {
 		product.setProductNo(record.getProductNo());
 		product.setProductName(record.getProductName());
 		product.setTechId(record.getTechId());
-		product.setAmount(record.getAmount());
+		product.setAmount(record.getInAmount());
 		product.setThicknessId(record.getThicknessId());
 		product.setIdentifyId(record.getIdentifyId());
 		productMapper.insert(product);
 		// 插入库日志
 		record.setProductId(product.getId());
 		productInMapper.insert(record);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void addExist(List<ProductIn> productInList,int userId) {
+		for (ProductIn productIn : productInList) {
+			productIn.setCreateUserId(userId);
+			productInMapper.insert(productIn);
+			//更新产品库存数
+			Product product = new Product();
+			product.setId(productIn.getProductId());
+			product.setAmount(productIn.getInAmount());
+			product.setPrice(productIn.getPrice());
+			productMapper.updateAmount(product);
+		}
 	}
 }

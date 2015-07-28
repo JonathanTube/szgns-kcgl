@@ -55,15 +55,17 @@
 
 	<select id="selectSelective" resultMap="Product">
 		SELECT
-			product.id,product.brand_id,brand.name brand_name,product.id
-			,product.product_no,product.product_name,tech.id,product.amount,
-			tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
-			thickness_name,product.price,product.create_time,user.id user_id,user.username user_name
+			product.id,product.brand_id,brand.name brand_name
+			,product.product_no,product.product_name,tech.id tech_id,tech.name tech_name,
+			product.amount,thickness.id thickness_id,thickness.name	thickness_name,
+			product.price,product.create_time,user.id user_id,user.username user_name,
+			identify.id identify_id,identify.name identify_name
 		FROM t_product product
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
 		LEFT JOIN t_user user on user.id = product.create_user_id
+		LEFT JOIN t_identify identify on identify.id = product.identify_id
 		<include refid="condition"/>
 	</select>
 
@@ -75,6 +77,10 @@
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
 		<include refid="condition"/>
 	</select>
+	
+	<update id="updateAmount">
+		update t_product set amount = amount + #{amount},price = #{price} where id = #{id} 		    
+	</update>
 	
 	<sql id="condition">
    		<where>

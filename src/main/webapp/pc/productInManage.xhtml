@@ -22,37 +22,40 @@
 			</p:toolbar>
 
 			<p:dialog widgetVar="product_in_exist_dlg" closeOnEscape="true"
-				header="已有产品入库" width="1000" dynamic="true" minHeight="600"
+				header="已有产品入库" width="1200" dynamic="true" minHeight="600" 
 				resizable="false">
-				<h:panelGrid columns="7">
-					<h:outputText value="产品编号:" />
-					<p:inputText value="#{productInView.productNo}"  required="true" requiredMessage="产品编号不能为空"/>
-					<p:commandButton id="btn_productNo"
-						actionListener="#{productInView.addExistProduct}"
-						icon="ui-icon-plus" value="确定" partialSubmit="true"
-						process="@this @previous" update="@form:product_in_exist_tbl" />
+				<p:fieldset legend="筛选">
+					<h:panelGrid columns="7">
+						<h:outputText value="产品编号:" />
+						<p:inputText value="#{productInView.productNo}" required="true"
+							requiredMessage="产品编号不能为空" />
+						<p:commandButton id="btn_productNo"
+							actionListener="#{productInView.addExistProduct}"
+							icon="ui-icon-plus" value="确定" partialSubmit="true"
+							process="@this @previous" update="@form:product_in_exist_tbl" />
 
-					<h:outputText value="产品型号:" />
-					<p:selectOneMenu value="#{productInView.productId}">
-						<f:selectItem itemLabel="请选择产品型号" itemValue="" />
-						<f:selectItems var="s" value="#{productInView.productList}"
-							itemLabel="#{s.productName}" itemValue="#{s.id}" />
-					</p:selectOneMenu>
-					<p:commandButton id="btn_productId"
-						actionListener="#{productInView.addExistProduct}"
-						icon="ui-icon-plus" value="确定" partialSubmit="true"
-						process="@this @previous" update="@form:product_in_exist_tbl" />
-					<p:commandButton value="执行入库" icon="ui-icon-disk"
-						actionListener="#{productInView.addExist}"
-						update="product_in_log_tbl" />
-				</h:panelGrid>
+						<h:outputText value="产品型号:" />
+						<p:selectOneMenu value="#{productInView.productId}">
+							<f:selectItem itemLabel="请选择产品型号" itemValue="" />
+							<f:selectItems var="s" value="#{productInView.productList}"
+								itemLabel="#{s.productName}" itemValue="#{s.id}" />
+						</p:selectOneMenu>
+						<p:commandButton id="btn_productId"
+							actionListener="#{productInView.addExistProduct}"
+							icon="ui-icon-plus" value="确定" partialSubmit="true"
+							process="@this @previous" update="@form:product_in_exist_tbl" />
+						<p:commandButton value="执行入库" icon="ui-icon-disk"
+							actionListener="#{productInView.addExist}" partialSubmit="true" process="@this"
+							update="product_in_log_tbl" />
+					</h:panelGrid>
+				</p:fieldset>
 
-				<p:dataTable id="product_in_exist_tbl" var="v"
+				<p:dataTable id="product_in_exist_tbl" var="v" rowIndexVar="index"
 					value="#{productInView.productInList}" editable="true"
 					editMode="cell">
-					<f:facet name="header">
-						<h:outputText value="已有产品入库" />
-					</f:facet>
+					<p:column headerText="序号" width="30">
+						#{index + 1}
+					</p:column>
 					<p:column headerText="产品编号">
 						<h:outputText value="#{v.productNo}" />
 					</p:column>
@@ -66,51 +69,44 @@
 						<h:outputText value="#{v.techName}" />
 					</p:column>
 					<p:column headerText="厚度">
-						<f:facet name="output">
-							<h:outputText value="#{v.thicknessName}" />
-						</f:facet>
+						<h:outputText value="#{v.thicknessName}" />
 					</p:column>
 					<p:column headerText="库存数量">
 						<h:outputText value="#{v.amount}" />
 					</p:column>
 					<p:column headerText="出厂价">
-						<h:outputText value="#{v.price}" />
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="￥#{productInView.productIn.price}" />
+							</f:facet>
+							<f:facet name="input">
+								<pe:inputNumber value="#{productInView.productIn.price}" symbol="￥" validatorMessage="价格必须是大于0.1的数字" style="width:80%">
+									<f:validateDoubleRange minimum="0.1" /> 
+								</pe:inputNumber>
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
 					<p:column headerText="入库数量">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{v.productName}" />
+								<h:outputText value="#{v.inAmount}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText value="#{v.productId}" style="width:90%" />
+								<pe:inputNumber value="#{productInView.productIn.inAmount}" decimalPlaces="0" validatorMessage="入库数量必须是大于1的整数" style="width:80%">
+									<f:validateDoubleRange minimum="1" />  
+								</pe:inputNumber>
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
 					<p:column headerText="标识">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="#{v.identifyName}" />
-							</f:facet>
-							<f:facet name="input">
-								<p:selectOneMenu value="#{v.identifyId}" style="width:100%">
-									<f:selectItems var="s" value="#{productInView.identifyList}"
-										itemLabel="#{s.name}" itemValue="#{s.id}" />
-								</p:selectOneMenu>
-							</f:facet>
-						</p:cellEditor>
+						<h:outputText value="#{v.identifyName}" />
 					</p:column>
 					<p:column headerText="厂家">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="#{v.manufactorName}" />
-							</f:facet>
-							<f:facet name="input">
-								<p:selectOneMenu value="#{v.manufactorId}" style="width:100%">
-									<f:selectItems var="s" value="#{productInView.manufactorList}"
-										itemLabel="#{s.name}" itemValue="#{s.id}" />
-								</p:selectOneMenu>
-							</f:facet>
-						</p:cellEditor>
+						<p:selectOneMenu value="#{v.manufactorId}" style="width:90%">
+							<f:selectItem itemLabel="请选择厂家" itemValue="" />
+							<f:selectItems var="s" value="#{productInView.manufactorList}"
+								itemLabel="#{s.name}" itemValue="#{s.id}" />
+						</p:selectOneMenu>
 					</p:column>
 				</p:dataTable>
 			</p:dialog>
@@ -149,7 +145,7 @@
 						#{v.identifyName}
 					</p:column>
 				<p:column headerText="入库数" width="40">
-						#{v.amount}
+						#{v.inAmount}
 					</p:column>
 					<p:column headerText="厂家" width="50">
 						#{v.manufactorName}
@@ -220,7 +216,7 @@
 					<p:spacer />
 					
 					<p:outputLabel value="入库数量：" />
-					<pe:inputNumber value="#{productInView.productIn.amount}" decimalPlaces="0" validatorMessage="入库数量必须是大于1的整数">
+					<pe:inputNumber value="#{productInView.productIn.inAmount}" decimalPlaces="0" validatorMessage="入库数量必须是大于1的整数">
 						<f:validateDoubleRange minimum="1" />  
 					</pe:inputNumber>
 					<p:spacer />

@@ -13,12 +13,13 @@ public class ProductIn {
 	private String techName;
 	private int thicknessId;
 	private String thicknessName;
-	private int amount;
+	private int amount; 
 	private double price;
 	private int manufactorId;
 	private String manufactorName;
 	private int identifyId;
 	private String identifyName;
+	private int inAmount;
 	private int createUserId;
 	private String createUsername;
 	private Date createTime;
@@ -77,14 +78,6 @@ public class ProductIn {
 
 	public void setThicknessName(String thicknessName) {
 		this.thicknessName = thicknessName;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
 	}
 
 	public int getBrandId() {
@@ -173,5 +166,21 @@ public class ProductIn {
 
 	public void setCreateUsername(String createUsername) {
 		this.createUsername = createUsername;
+	}
+
+	public int getInAmount() {
+		return inAmount;
+	}
+
+	public void setInAmount(int inAmount) {
+		this.inAmount = inAmount;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 }
