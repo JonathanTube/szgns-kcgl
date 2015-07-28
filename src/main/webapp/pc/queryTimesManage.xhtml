@@ -6,26 +6,30 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	template="baseTemplate.xhtml">
 
-	<ui:define name="title">总库存日报表</ui:define>
+	<ui:define name="title">型号查询次数统计表</ui:define>
 
 	<ui:define name="content">
-		<h:form id="stock_form" prependId="true">
+		<h:form id="query_times_form" prependId="true">
 
 			<p:panel header="查询条件" collapsed="false" toggleable="true"
 				toggleTitle="点击展开查询条件">
 				<h:panelGrid columns="5">
 					<p:outputLabel value="产品编号：" />
-					<p:inputText value="#{stockView.condition.productNo}" />
+					<p:inputText value="#{queryTimesView.condition.productNo}" />
 					<p:outputLabel value="产品名称：" />
-					<p:inputText value="#{stockView.condition.productName}" />
+					<p:inputText value="#{queryTimesView.condition.productName}" />
 					<p:commandButton value="查询" icon="ui-icon-search"
 						actionListener="#{stockView.queryStock}"
 						update="@form:store_table" />
 				</h:panelGrid>
 			</p:panel>
 
-			<p:dataTable id="store_table" value="#{stockView.stockDataModel}"
-				var="v" liveResize="false" resizableColumns="true" scrollable="true">
+			<p:dataTable id="query_times_table"
+				value="#{queryTimesView.productDataModel}" style="margin-top:2px;"
+				paginator="true" rows="10" paginatorPosition="bottom"
+				rowIndexVar="index" var="v"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15" lazy="true">
 				<p:column headerText="编号">
 						#{v.id}
 					</p:column>
@@ -55,9 +59,6 @@
 					</p:column>
 				<p:column headerText="累计查询次数">
 						#{v.queryTimes}
-					</p:column>
-				<p:column headerText="预出货">
-					11
 				</p:column>
 			</p:dataTable>
 		</h:form>
