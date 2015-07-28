@@ -87,11 +87,20 @@
 		    <if test=" id != null" >
 				and product.id = #{id}
 			</if>
-			<if test=" productNo != null" >
+			<if test=" productNo != null and productNo !='' " >
 				and product.product_no = #{productNo}
 			</if>
-			<if test=" productName != null">
+			<if test=" productName != null and product_name != '' ">
 				and product.product_name = #{productName}
+			</if>
+			<if test=" brandId != null ">
+				and brand.id = #{brandId}
+			</if>
+			<if test=" techId != null ">
+				and tech.id = #{techId}
+			</if>
+			<if test=" thicknessId != null ">
+				and thickness.id = #{thicknessId}
 			</if>
 		</where>
 	</sql>

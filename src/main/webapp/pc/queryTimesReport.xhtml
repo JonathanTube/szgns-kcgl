@@ -13,24 +13,42 @@
 
 			<p:panel header="查询条件" collapsed="false" toggleable="true"
 				toggleTitle="点击展开查询条件">
-				<h:panelGrid columns="5">
-					<p:outputLabel value="产品编号：" />
+				<h:panelGrid columns="11">
+					<p:outputLabel value="开始时间：" />
 					<p:inputText value="#{queryTimesView.condition.productNo}" />
-					<p:outputLabel value="产品名称：" />
-					<p:inputText value="#{queryTimesView.condition.productName}" />
+					<p:outputLabel value="结束时间：" />
+					<p:inputText value="#{queryTimesView.condition.productNo}" />
+					<p:outputLabel value="品牌：" />
+					<p:selectOneMenu value="#{queryTimesView.condition.brandId}">
+						<f:selectItem itemLabel="请选择品牌" itemValue="" />
+						<f:selectItems var="s" value="#{queryTimesView.brandList}"
+							itemLabel="#{s.name}" itemValue="#{s.id}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="工艺：" />
+					<p:selectOneMenu value="#{queryTimesView.condition.techId}">
+						<f:selectItem itemLabel="请选择工艺" itemValue="" />
+						<f:selectItems var="s" value="#{queryTimesView.techList}"
+							itemLabel="#{s.name}" itemValue="#{s.id}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="厚度：" />
+					<p:selectOneMenu value="#{queryTimesView.condition.thicknessId}">
+						<f:selectItem itemLabel="请选择厚度" itemValue="" />
+						<f:selectItems var="s" value="#{queryTimesView.thicknessList}"
+							itemLabel="#{s.name}" itemValue="#{s.id}" />
+					</p:selectOneMenu>
 					<p:commandButton value="查询" icon="ui-icon-search"
-						actionListener="#{stockView.queryStock}"
-						update="@form:store_table" />
+						actionListener="#{queryTimesView.initQuery}"
+						update="@form:query_times_table" />
 				</h:panelGrid>
 			</p:panel>
 
 			<p:dataTable id="query_times_table"
 				value="#{queryTimesView.productDataModel}" style="margin-top:2px;"
-				paginator="true" rows="10" paginatorPosition="bottom"
+				paginator="true" rows="50" paginatorPosition="bottom"
 				rowIndexVar="index" var="v"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="5,10,15" lazy="true">
-				<p:column headerText="编号">
+				rowsPerPageTemplate="50,100,200" lazy="true">
+				<p:column headerText="序号" width="30">
 						#{v.id}
 					</p:column>
 				<p:column headerText="产品编号">
