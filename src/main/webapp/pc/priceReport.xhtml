@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="baseTemplate.xhtml">
+
+	<ui:define name="title">出厂价格表</ui:define>
+
+	<ui:define name="content">
+		<h:form id="price_form" prependId="true">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="下载" ajax="false">
+						<p:dataExporter type="xls" target="price_table" fileName="price" />
+					</p:commandButton>
+					<p:commandButton value="打印" type="button">
+						<p:printer target="@form:price_table" />
+					</p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:commandButton id="toggler" type="button" value="过滤表格列"
+						style="float:right" icon="ui-icon-calculator" />
+					<p:columnToggler datasource="price_table" trigger="toggler" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable var="v" id="price_table" value="#{priceView.priceList}"
+				style="margin-top:2px;" rowIndexVar="index">
+				<f:facet name="header">
+					<h:outputText value="价格表" />
+				</f:facet>
+				<p:column headerText="编号" width="30" toggleable="false">
+					<h:outputText value="#{index + 1}" />
+				</p:column>
+				<p:column headerText="产品编号" toggleable="false">
+					<h:outputText value="#{v.productNo}" />
+				</p:column>
+				<p:column headerText="品牌" toggleable="false">
+					<h:outputText value="#{v.brandName}" />
+				</p:column>
+				<p:column headerText="型号" toggleable="false">
+					<h:outputText value="#{v.productName}" />
+				</p:column>
+				<p:column headerText="工艺" toggleable="false">
+					<h:outputText value="#{v.techName}" />
+				</p:column>
+				<p:column headerText="厚度" toggleable="false">
+					<h:outputText value="#{v.thicknessName}" />
+				</p:column>
+				<p:column headerText="出厂价">
+					<h:outputText value="#{v.price}" />
+				</p:column>
+				<p:column headerText="平均售价">
+					<h:outputText value="0" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
