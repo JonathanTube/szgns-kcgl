@@ -77,10 +77,10 @@
 					<p:column headerText="出厂价">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="￥#{productInView.productIn.price}" />
+								<h:outputText value="￥#{v.price}" />
 							</f:facet>
 							<f:facet name="input">
-								<pe:inputNumber value="#{productInView.productIn.price}" symbol="￥" validatorMessage="价格必须是大于0.1的数字" style="width:80%">
+								<pe:inputNumber value="#{v.price}" symbol="￥" validatorMessage="价格必须是大于0.1的数字" style="width:80%">
 									<f:validateDoubleRange minimum="0.1" /> 
 								</pe:inputNumber>
 							</f:facet>
@@ -92,7 +92,7 @@
 								<h:outputText value="#{v.inAmount}" />
 							</f:facet>
 							<f:facet name="input">
-								<pe:inputNumber value="#{productInView.productIn.inAmount}" decimalPlaces="0" validatorMessage="入库数量必须是大于1的整数" style="width:80%">
+								<pe:inputNumber value="#{v.inAmount}" decimalPlaces="0" validatorMessage="入库数量必须是大于1的整数" style="width:80%">
 									<f:validateDoubleRange minimum="1" />  
 								</pe:inputNumber>
 							</f:facet>
@@ -102,11 +102,22 @@
 						<h:outputText value="#{v.identifyName}" />
 					</p:column>
 					<p:column headerText="厂家">
-						<p:selectOneMenu value="#{v.manufactorId}" style="width:90%">
-							<f:selectItem itemLabel="请选择厂家" itemValue="" />
-							<f:selectItems var="s" value="#{productInView.manufactorList}"
-								itemLabel="#{s.name}" itemValue="#{s.id}" />
-						</p:selectOneMenu>
+						<p:cellEditor>
+							<f:facet name="output">
+								<p:selectOneMenu value="#{v.manufactorId}" style="width:90%">
+									<f:selectItem itemLabel="请选择厂家" itemValue="" />
+									<f:selectItems var="s" value="#{productInView.manufactorList}"
+										itemLabel="#{s.name}" itemValue="#{s.id}" />
+								</p:selectOneMenu>
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu value="#{v.manufactorId}" style="width:90%">
+									<f:selectItem itemLabel="请选择厂家" itemValue="" />
+									<f:selectItems var="s" value="#{productInView.manufactorList}"
+										itemLabel="#{s.name}" itemValue="#{s.id}" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
 				</p:dataTable>
 			</p:dialog>

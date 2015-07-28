@@ -86,6 +86,11 @@
 			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.12</version>
+		</dependency>
+		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>glass-x</artifactId>
 			<version>1.0.8</version>

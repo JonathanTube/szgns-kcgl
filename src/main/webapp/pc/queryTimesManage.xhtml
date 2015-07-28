@@ -10,21 +10,24 @@
 
 	<ui:define name="content">
 		<h:form id="stock_form" prependId="true">
-			<p:toolbar>
-				<p:toolbarGroup align="left">
-					<p:commandButton value="下载" ajax="false">
-				        <p:dataExporter type="xls" target="stock_table" fileName="stock"/>
-					</p:commandButton>
-					<p:commandButton value="打印" type="button">
-						<p:printer target="@form:stock_table" />
-					</p:commandButton>
-				</p:toolbarGroup>
-			</p:toolbar>
-			<p:dataTable var="v" id="stock_table"
-				value="#{stockView.stockList}" style="margin-top:2px;"
-				rowIndexVar="index">
-				<p:column headerText="编号" width="30">
-						#{index + 1}
+
+			<p:panel header="查询条件" collapsed="false" toggleable="true"
+				toggleTitle="点击展开查询条件">
+				<h:panelGrid columns="5">
+					<p:outputLabel value="产品编号：" />
+					<p:inputText value="#{stockView.condition.productNo}" />
+					<p:outputLabel value="产品名称：" />
+					<p:inputText value="#{stockView.condition.productName}" />
+					<p:commandButton value="查询" icon="ui-icon-search"
+						actionListener="#{stockView.queryStock}"
+						update="@form:store_table" />
+				</h:panelGrid>
+			</p:panel>
+
+			<p:dataTable id="store_table" value="#{stockView.stockDataModel}"
+				var="v" liveResize="false" resizableColumns="true" scrollable="true">
+				<p:column headerText="编号">
+						#{v.id}
 					</p:column>
 				<p:column headerText="产品编号">
 						#{v.productNo}
@@ -44,9 +47,18 @@
 				<p:column headerText="库存数量">
 						#{v.amount}
 					</p:column>
+				<p:column headerText="出厂价">
+						#{v.price}
+					</p:column>
 				<p:column headerText="标识">
 						#{v.identifyName}
 					</p:column>
+				<p:column headerText="累计查询次数">
+						#{v.queryTimes}
+					</p:column>
+				<p:column headerText="预出货">
+					11
+				</p:column>
 			</p:dataTable>
 		</h:form>
 	</ui:define>
