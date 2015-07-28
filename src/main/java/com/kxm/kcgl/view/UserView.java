@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.hyjd.frame.psm.datamodel.PaginationDataModel;
 import com.hyjd.frame.psm.utils.MsgTool;
+import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.service.UserService;
 
@@ -49,7 +50,12 @@ public class UserView implements Serializable {
 	}
 
 	public void addUser(ActionEvent e) {
-		boolean isOk = userService.insertUser(user);
+		boolean isOk = false;
+		try {
+			isOk = userService.insertUser(user);
+		} catch (LogicException le) {
+			MsgTool.addInfoMsg(le.getMessage());
+		}
 		if (isOk) {
 			queryUsers();
 			MsgTool.addInfoMsg("添加成功");
@@ -66,10 +72,6 @@ public class UserView implements Serializable {
 		} else {
 			MsgTool.addErrorMsg("更新失败");
 		}
-	}
-
-	public PaginationDataModel<User> getuserDataModel() {
-		return userDataModel;
 	}
 
 	public void setUserDataModel(PaginationDataModel<User> userDataModel) {

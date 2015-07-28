@@ -15,8 +15,10 @@ public class Product {
 	private int identifyId;
 	private String identifyName;
 	private double price;
+	private int amount;
 	private int queryTimes;
-	private int createUser;
+	private int createUserId;
+	private String createUsername;
 	private Date createTime;
 
 	public Integer getId() {
@@ -61,10 +63,6 @@ public class Product {
 
 	public int getQueryTimes() {
 		return queryTimes;
-	}
-
-	public int getCreateUser() {
-		return createUser;
 	}
 
 	public Date getCreateTime() {
@@ -115,10 +113,6 @@ public class Product {
 		this.queryTimes = queryTimes;
 	}
 
-	public void setCreateUser(int createUser) {
-		this.createUser = createUser;
-	}
-
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
@@ -137,5 +131,29 @@ public class Product {
 
 	public void setIdentifyName(String identifyName) {
 		this.identifyName = identifyName;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public int getCreateUserId() {
+		return createUserId;
+	}
+
+	public String getCreateUsername() {
+		return createUsername;
+	}
+
+	public void setCreateUserId(int createUserId) {
+		this.createUserId = createUserId;
+	}
+
+	public void setCreateUsername(String createUsername) {
+		this.createUsername = createUsername;
 	}
 }

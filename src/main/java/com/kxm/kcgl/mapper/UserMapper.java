@@ -21,14 +21,6 @@ public interface UserMapper {
 
 	/**
 	 * 
-	 * 根据插入对象的值是否为空,选择性插进入数据
-	 * 
-	 * @return
-	 */
-	int insertSelective(User record);
-	
-	/**
-	 * 
 	 * 根据主键删除数据
 	 * 
 	 * @param id 表格的主键
@@ -69,4 +61,5 @@ public interface UserMapper {
 	 * @return
 	 */
 	int countBySelective(User record);
+
 }

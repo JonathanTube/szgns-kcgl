@@ -10,8 +10,8 @@
 		<result property="password" column="password" jdbcType="VARCHAR" />
 		<result property="realname" column="realname" jdbcType="VARCHAR" />
 		<result property="status" column="status" jdbcType="INTEGER" />
-		<result property="createTime" column="createTime" jdbcType="DATE" />
-		<result property="updateTime" column="updateTime" jdbcType="DATE" />
+		<result property="createTime" column="createTime" jdbcType="TIMESTAMP" />
+		<result property="updateTime" column="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
@@ -35,38 +35,6 @@
 		#{realname},
 		#{status}
 		)
-	</insert>
-
-	<insert id="insertSelective" useGeneratedKeys="true">
-		INSERT INTO T_USER
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test=" id != null">
-				ID ,
-			</if>
-			<if test=" username != null">
-				username ,
-			</if>
-			<if test=" password != null">
-				password ,
-			</if>
-			<if test=" status != null">
-				status
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test=" id != null">
-				#{id} ,
-			</if>
-			<if test=" username != null">
-				#{username} ,
-			</if>
-			<if test=" password != null">
-				#{password} ,
-			</if>
-			<if test=" status != null">
-				#{status}
-			</if>
-		</trim>
 	</insert>
 
 	<update id="updateSelectiveByPk">
@@ -117,12 +85,16 @@
     		<if test=" username != null and username !='' " >
      			AND username = #{username}
     		</if>
+    		<if test=" password != null and password != '' " >
+     			AND password = #{password}  
+    		</if>
     		<if test=" status != null" >
      			AND status = #{status}
     		</if>
     		<if test=" realname != null and realname != '' " >
      			AND realname like CONCAT('%',#{realname},'%')  
     		</if>
+    		
 		</where>
 	</sql>
 </mapper>

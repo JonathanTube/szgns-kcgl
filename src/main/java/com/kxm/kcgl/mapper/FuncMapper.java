@@ -10,5 +10,7 @@ import com.kxm.kcgl.domain.Func;
  *@date 2015 2015年7月26日 上午9:39:55
  */
 public interface FuncMapper {
-	public List<Func> selectSelective();
+	public List<Func> selectSelective(Func func);
+	
+	List<Func> queryFuncListByUserId(int userId);
 }

@@ -19,7 +19,12 @@ public class FuncService {
 	@Autowired
 	private FuncMapper funcMapper;
 
-	public List<Func> queryAll() {
-		return funcMapper.selectSelective();
+	public List<Func> query(Func func) {
+		return funcMapper.selectSelective(func);
 	}
+	
+	public List<Func> queryFuncListByUserId(int userId) {
+		return funcMapper.queryFuncListByUserId(userId);
+	}
+	
 }

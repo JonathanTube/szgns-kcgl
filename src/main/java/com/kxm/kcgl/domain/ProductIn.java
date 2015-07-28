@@ -19,7 +19,8 @@ public class ProductIn {
 	private String manufactorName;
 	private int identifyId;
 	private String identifyName;
-	private int createUser;
+	private int createUserId;
+	private String createUsername;
 	private Date createTime;
 
 	public int getId() {
@@ -126,14 +127,6 @@ public class ProductIn {
 		this.manufactorId = manufactorId;
 	}
 
-	public int getCreateUser() {
-		return createUser;
-	}
-
-	public void setCreateUser(int createUser) {
-		this.createUser = createUser;
-	}
-
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -164,5 +157,21 @@ public class ProductIn {
 
 	public int getIdentifyId() {
 		return identifyId;
+	}
+
+	public int getCreateUserId() {
+		return createUserId;
+	}
+
+	public String getCreateUsername() {
+		return createUsername;
+	}
+
+	public void setCreateUserId(int createUserId) {
+		this.createUserId = createUserId;
+	}
+
+	public void setCreateUsername(String createUsername) {
+		this.createUsername = createUsername;
 	}
 }

@@ -8,6 +8,8 @@ package com.kxm.kcgl.domain;
 public class Func {
 	private Long id;
 	private String name;
+	private String url;
+	private int type;
 	public Long getId() {
 		return id;
 	}
@@ -19,5 +21,17 @@ public class Func {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

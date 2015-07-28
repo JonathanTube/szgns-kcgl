@@ -21,7 +21,8 @@
 		<result property="manufactorName" column="manufactor_name" jdbcType="VARCHAR" />
 		<result property="identifyId" column="identify_id" jdbcType="DECIMAL" />
 		<result property="identifyName" column="identify_name" jdbcType="VARCHAR" />
-		<result property="createUser" column="create_user" jdbcType="DECIMAL" />
+		<result property="createUserId" column="user_id" jdbcType="DECIMAL" />
+		<result property="createUsername" column="user_name" jdbcType="VARCHAR" />
 		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
 	</resultMap>
 
@@ -31,13 +32,13 @@
 			price,
 			amount,
 			manufactor_id,
-			create_user
+			create_user_id
 		) VALUES (
 			#{productId},
 			#{price},
 			#{amount},
 			#{manufactorId},
-			#{createUser}
+			#{createUserId}
 		)
 	</insert>
 
@@ -54,7 +55,7 @@
 			tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
 			thickness_name,productIn.amount,product.price,manufactor.id manufactor_id,
 			manufactor.name manufactor_name,identify.id identify_id,identify.name identify_name,
-			productIn.create_user,productIn.create_time
+			productIn.create_time,user.id user_id,user.username user_name
 		FROM t_product_in productIn
 		LEFT JOIN t_product product ON productIn.product_id = product.id
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
@@ -62,6 +63,7 @@
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
 		LEFT JOIN t_manufactor manufactor ON productIn.manufactor_id = manufactor.id
 		LEFT JOIN t_identify identify ON product.identify_id = identify.id
+		LEFT JOIN t_user user on user.id = productIn.create_user_id
 		order by productIn.create_time desc
 	</select>
 
@@ -75,6 +77,7 @@
 				thickness ON product.thickness_id = thickness.id
 		LEFT JOIN t_manufactor manufactor ON productIn.manufactor_id = manufactor.id
 		LEFT JOIN t_identify identify ON product.identify_id = identify.id
+		LEFT JOIN t_user user on user.id = productIn.create_user_id
 	</select>
 </mapper>
 

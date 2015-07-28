@@ -1,11 +1,12 @@
 package com.kxm.kcgl.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class User implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private Integer id;
 	private String username;
 	private String password;
 	private Integer status;
@@ -13,13 +14,7 @@ public class User implements java.io.Serializable {
 	private Date createTime;
 	private Date updateTime;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private List<Func> funcList;
 
 	public String getUsername() {
 		return username;
@@ -67,5 +62,21 @@ public class User implements java.io.Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public List<Func> getFuncList() {
+		return funcList;
+	}
+
+	public void setFuncList(List<Func> funcList) {
+		this.funcList = funcList;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

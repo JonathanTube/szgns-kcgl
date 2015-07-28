@@ -72,21 +72,27 @@
 				<h:form>
 					<p:panelMenu>
 						<p:submenu label="系统管理">
-							<p:menuitem value="权限管理" url="rightManage.xhtml" icon="ui-icon-link" />
-							<p:menuitem value="用户管理" url="userManage.xhtml" icon="ui-icon-link" />
+							<c:forEach items="#{loginView.loginSession.sesionObj.funcList}" var="v">
+								<c:if test="#{v.type == 0}">
+									<p:menuitem value="#{v.name}" url="#{v.url}" icon="ui-icon-link" />
+								</c:if>
+							</c:forEach>
 						</p:submenu>
+
 						<p:submenu label="库存管理">
-							<p:menuitem value="产品入库" url="productInManage.xhtml" icon="ui-icon-link" />
-							<p:menuitem value="产品出库" url="productOutManage.xhtml" icon="ui-icon-link" />
-							<p:menuitem value="价格调整" url="userManage.xhtml" icon="ui-icon-link" />
+							<c:forEach items="#{loginView.loginSession.sesionObj.funcList}" var="v">
+								<c:if test="#{v.type == 1}">
+									<p:menuitem value="#{v.name}" url="#{v.url}" icon="ui-icon-link" />
+								</c:if>
+							</c:forEach>
 						</p:submenu>
+						
 						<p:submenu label="报表管理">
-							<p:menuitem value="总库存日报表" url="userManage.xhtml" icon="ui-icon-link" />
-							<p:menuitem value="型号查询次数统计表" url="stockManage.xhtml" icon="ui-icon-link" />
-							<p:menuitem value="入库日报表" url="userManage.xhtml" icon="ui-icon-link" />
-							<p:menuitem value="出货日报表" url="userManage.xhtml" icon="ui-icon-link" />
-							<p:menuitem value="价格表" url="userManage.xhtml" icon="ui-icon-link" />
-							<p:menuitem value="佣金月报表" url="userManage.xhtml" icon="ui-icon-link" />	
+							<c:forEach items="#{loginView.loginSession.sesionObj.funcList}" var="v">
+								<c:if test="#{v.type == 2}">
+									<p:menuitem value="#{v.name}" url="#{v.url}" icon="ui-icon-link" />
+								</c:if>
+							</c:forEach>
 						</p:submenu>
 					</p:panelMenu>
 				</h:form>

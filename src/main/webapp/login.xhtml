@@ -31,15 +31,15 @@
 						<h:outputLabel value="用户登陆" style="font-size:14px;font-weight: bold;"/>
 						<p:graphicImage cache="true" library="szgns" name="images/logo.jpg" style="float:right;"/>
 					</h:panelGrid>
-					<p:inputText id="username" value="#{loginView.admin.userName}" size="60" style="height:25px;"/>
+					<p:inputText id="username" value="#{loginView.user.username}" size="40" style="height:25px;" required="true" requiredMessage="请填写用户名" />
 					<p:watermark value="请输入用户名" for="username" />
 					<p:spacer height="10" />
-					<p:password id="password" value="#{loginView.admin.userPassword}" size="60" style="height:25px;"/> 
+					<p:password id="password" value="#{loginView.user.password}" size="40" style="height:25px;" required="true" requiredMessage="请填写密码" />
 					<p:watermark value="请输入密码" for="password" />
 					<f:facet name="footer">
 						<div style="text-align: center;">
-							<p:commandButton value="登录" icon="ui-icon-unlock" 
-								action="#{loginView.adminLogin}" partialSubmit="true"
+							<p:commandButton value="登录" icon="ui-icon-unlocked" 
+								action="#{loginView.doLogin}" partialSubmit="true"
 								process="@form:query_condition" />
 								<p:spacer width="20" />
 							<p:commandButton value="重置" icon="ui-icon-arrowrefresh-1-e"

@@ -21,6 +21,19 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
+	<filter>
+		<filter-name>sessionChecker</filter-name>
+		<filter-class>com.hyjd.frame.psm.utils.SessionChecker</filter-class>
+		<init-param>
+			<param-name>sessionName</param-name>
+			<param-value>loginSession</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>sessionChecker</filter-name>
+		<url-pattern>/pc/*</url-pattern>
+	</filter-mapping>
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>

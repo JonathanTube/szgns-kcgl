@@ -6,30 +6,15 @@
 	<resultMap id="Func" type="com.kxm.kcgl.domain.Func">
 		<result property="id" column="ID" jdbcType="DECIMAL" />
 		<result property="name" column="name" jdbcType="VARCHAR" />
+		<result property="type" column="TYPE" jdbcType="DECIMAL" />
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
 	    <![CDATA[
-		ID,NAME
+		ID,NAME,URL,TYPE
 	    ]]>
 	</sql>
-
-	<update id="updateSelectiveByPk">
-    <![CDATA[
-        UPDATE T_Func SET
-	        name = #{name} ,
-	        description = #{description}
-        WHERE 
-	        ID = #{id} 
-    ]]>
-	</update>
-
-	<delete id="deleteByPk" parameterType="string">
-	    <![CDATA[
-	        DELETE FROM T_Func WHERE ID = #{id} 
-	    ]]>
-	</delete>
 
 	<select id="selectSelective" resultMap="Func">
 		SELECT
@@ -38,20 +23,13 @@
 		<include refid="where_condition" />
 	</select>
 
-	<select id="countBySelective" resultType="Func">
-		SELECT count(*) FROM T_Func
-		<include refid="where_condition" />
-	</select>
-
-	<select id="selectByPk" resultMap="Func">
-		SELECT
-		<include refid="columns" />
-	    <![CDATA[
-		    FROM T_Func
-	        WHERE ID = #{id} 
-	    ]]>
-	</select>
-
+	<select id="queryFuncListByUserId" resultMap="Func">
+	    SELECT func.* FROM t_func func
+		INNER JOIN t_right_func right_func ON func.id = right_func.func_id
+		INNER JOIN t_user_right user_right ON user_right.right_id = right_func.right_id 
+		AND user_right.user_id = #{userId}
+    </select>
+		
 	<sql id="where_condition">
 		<where>
 	    	<if test=" id != null" >

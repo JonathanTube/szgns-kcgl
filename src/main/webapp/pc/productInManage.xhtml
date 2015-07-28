@@ -26,7 +26,7 @@
 				resizable="false">
 				<h:panelGrid columns="7">
 					<h:outputText value="产品编号:" />
-					<p:inputText value="#{productInView.productNo}" />
+					<p:inputText value="#{productInView.productNo}"  required="true" requiredMessage="产品编号不能为空"/>
 					<p:commandButton id="btn_productNo"
 						actionListener="#{productInView.addExistProduct}"
 						icon="ui-icon-plus" value="确定" partialSubmit="true"
@@ -155,7 +155,7 @@
 						#{v.manufactorName}
 					</p:column>
 					<p:column headerText="员工" width="50">
-						#{v.createUser}
+						#{v.createUsername}
 					</p:column>
 					<p:column headerText="入库时间">
 						<h:outputLabel value="#{v.createTime}">
@@ -169,14 +169,14 @@
 				closeOnEscape="true" resizable="false">
 				<h:panelGrid columns="3">
 					<p:outputLabel value="产品编号：" />
-					<p:inputText value="#{productInView.productIn.productNo}"
+					<p:inputText value="#{productInView.productIn.productNo}" required="true" requiredMessage="产品编号不能为空"
 						maxlength="10" />
 					<p:spacer />
 
 
 					<p:outputLabel value="品牌：" />
 					<p:selectOneMenu id="brand_sel"
-						value="#{productInView.productIn.brandId}" style="width:165px;"
+						value="#{productInView.productIn.brandId}" style="width:165px;" requiredMessage="请选择品牌"
 						required="true">
 						<f:selectItem itemLabel="请选择品牌" itemValue="" />
 						<f:selectItems var="v" value="#{productInView.brandList}"
@@ -187,13 +187,13 @@
 
 
 					<p:outputLabel value="型号：" />
-					<p:inputText value="#{productInView.productIn.productName}"
+					<p:inputText value="#{productInView.productIn.productName}" required="true" requiredMessage="型号不能为空"
 						maxlength="50" />
 					<p:spacer />
 
 					<p:outputLabel value="工艺：" />
 					<p:selectOneMenu id="tech_sel"
-						value="#{productInView.productIn.techId}" style="width:165px;"
+						value="#{productInView.productIn.techId}" style="width:165px;" requiredMessage="请选择工艺"
 						required="true">
 						<f:selectItem itemLabel="请选择工艺" itemValue="" />
 						<f:selectItems var="v" value="#{productInView.techList}"
@@ -203,7 +203,7 @@
 						onclick="PF('tech_add_dlg').show();" />
 
 					<p:outputLabel value="厚度：" />
-					<p:selectOneMenu id="thickness_sel" required="true"
+					<p:selectOneMenu id="thickness_sel" required="true" requiredMessage="请选择厚度"
 						value="#{productInView.productIn.thicknessId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厚度" itemValue="" />
@@ -214,15 +214,19 @@
 						onclick="PF('thickness_add_dlg').show();" />
 
 					<p:outputLabel value="价格：" />
-					<p:inputText id="price" value="#{productInView.productIn.price}" />
-					<p:watermark value="￥" for="price" />
+					<pe:inputNumber value="#{productInView.productIn.price}" symbol="￥" validatorMessage="价格必须是大于0.1的数字">
+						<f:validateDoubleRange minimum="0.1" />  
+					</pe:inputNumber>
+					<p:spacer />
+					
 					<p:outputLabel value="入库数量：" />
-					<p:inputText value="#{productInView.productIn.amount}"
-						required="true" />
+					<pe:inputNumber value="#{productInView.productIn.amount}" decimalPlaces="0" validatorMessage="入库数量必须是大于1的整数">
+						<f:validateDoubleRange minimum="1" />  
+					</pe:inputNumber>
 					<p:spacer />
 
 					<p:outputLabel value="厂家：" />
-					<p:selectOneMenu id="manufactor_sel" required="true"
+					<p:selectOneMenu id="manufactor_sel" required="true" requiredMessage="请选择厂家"
 						value="#{productInView.productIn.manufactorId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
@@ -233,7 +237,7 @@
 						onclick="PF('manufactor_add_dlg').show();" />
 
 					<p:outputLabel value="标识：" />
-					<p:selectOneMenu id="identify_sel" required="true"
+					<p:selectOneMenu id="identify_sel" required="true" requiredMessage="请选择标识"
 						value="#{productInView.productIn.identifyId}" style="width:165px;">
 						<f:selectItem itemLabel="请选择标识" itemValue="" />
 						<f:selectItems var="v" value="#{productInView.identifyList}"

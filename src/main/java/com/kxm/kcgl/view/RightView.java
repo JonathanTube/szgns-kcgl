@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.hyjd.frame.psm.utils.MsgTool;
 import com.kxm.kcgl.domain.Func;
 import com.kxm.kcgl.domain.Right;
 import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.service.FuncService;
+import com.kxm.kcgl.service.RightFuncService;
 import com.kxm.kcgl.service.RightService;
+import com.kxm.kcgl.service.UserRightService;
 import com.kxm.kcgl.service.UserService;
 
 @Component
@@ -24,42 +27,63 @@ public class RightView implements Serializable {
 
 	@Autowired
 	private RightService rightService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private FuncService funcService;
 
 	private List<Right> rights;
-	
+
 	private List<User> users;
-	
+
 	private List<Func> funcs;
 
-	private Long selectedRightId;
-	
-	private Long[] selectedUserId;
-	
-	private Long[] selectedFuncId;
-	
+	private int selectedRightId;
+
+	private int[] selectedUserId;
+
+	private int[] selectedFuncId;
+
+	@Autowired
+	private UserRightService userRightService;
+
+	@Autowired
+	private RightFuncService rightFuncService;
+
 	@PostConstruct
 	public void init() {
 		initRight();
 		initUser();
 		initFunc();
 	}
-	
-	public void initRight(){
+
+	public void initRight() {
 		rights = rightService.queryAllRight();
 	}
-	
-	public void initUser(){
+
+	public void initUser() {
 		users = userService.queryAll();
 	}
-	
-	public void initFunc(){
-		funcs = funcService.queryAll();
+
+	public void initFunc() {
+		funcs = funcService.query(new Func());
+	}
+
+	public void onRightChange() {
+		selectedUserId = userRightService.queryUserIdByRightId(selectedRightId);
+		selectedFuncId = rightFuncService.queryFuncIdByRightId(selectedRightId);
+	}
+
+	public void onUserChange() {
+		userRightService.saveUserRight(selectedRightId, selectedUserId);
+		MsgTool.addInfoMsg("修改成功");
+	}
+
+	public void onFuncChange() {
+		rightFuncService.saveRightFunc(selectedFuncId, selectedRightId);
+		MsgTool.addInfoMsg("修改成功");
 	}
 
 	public List<Right> getRights() {
@@ -78,22 +102,6 @@ public class RightView implements Serializable {
 		this.users = users;
 	}
 
-	public Long getSelectedRightId() {
-		return selectedRightId;
-	}
-
-	public void setSelectedRightId(Long selectedRightId) {
-		this.selectedRightId = selectedRightId;
-	}
-
-	public Long[] getSelectedUserId() {
-		return selectedUserId;
-	}
-
-	public void setSelectedUserId(Long[] selectedUserId) {
-		this.selectedUserId = selectedUserId;
-	}
-
 	public List<Func> getFuncs() {
 		return funcs;
 	}
@@ -102,11 +110,27 @@ public class RightView implements Serializable {
 		this.funcs = funcs;
 	}
 
-	public Long[] getSelectedFuncId() {
+	public int getSelectedRightId() {
+		return selectedRightId;
+	}
+
+	public int[] getSelectedUserId() {
+		return selectedUserId;
+	}
+
+	public int[] getSelectedFuncId() {
 		return selectedFuncId;
 	}
 
-	public void setSelectedFuncId(Long[] selectedFuncId) {
+	public void setSelectedRightId(int selectedRightId) {
+		this.selectedRightId = selectedRightId;
+	}
+
+	public void setSelectedUserId(int[] selectedUserId) {
+		this.selectedUserId = selectedUserId;
+	}
+
+	public void setSelectedFuncId(int[] selectedFuncId) {
 		this.selectedFuncId = selectedFuncId;
 	}
 }

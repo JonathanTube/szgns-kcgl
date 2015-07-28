@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.hyjd.frame.psm.base.LoginSession;
 import com.hyjd.frame.psm.datamodel.PaginationDataModel;
 import com.hyjd.frame.psm.utils.MsgTool;
+import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.BrandBean;
 import com.kxm.kcgl.domain.Identify;
 import com.kxm.kcgl.domain.Manufactor;
@@ -20,6 +22,7 @@ import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductIn;
 import com.kxm.kcgl.domain.TechBean;
 import com.kxm.kcgl.domain.ThicknessBean;
+import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.service.BrandService;
 import com.kxm.kcgl.service.IdentifyService;
 import com.kxm.kcgl.service.ManufactorService;
@@ -34,6 +37,8 @@ public class ProductInView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
+	private LoginSession LoginSession;
 	@Autowired
 	private ProductInService productInService;
 
@@ -102,7 +107,13 @@ public class ProductInView implements Serializable {
 	}
 
 	public void addNotExist() {
-		productInService.addNotExist(productIn);
+		try {
+			User user = (User) LoginSession.getSesionObj();
+			productIn.setCreateUserId(user.getId());
+			productInService.addNotExist(productIn);
+		} catch (LogicException e) {
+			MsgTool.addWarningMsg(e.getMessage());
+		}
 	}
 	
 	public void addExist(){

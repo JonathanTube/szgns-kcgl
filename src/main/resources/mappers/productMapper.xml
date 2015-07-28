@@ -17,7 +17,9 @@
 		<result property="identifyId" column="identify_id" jdbcType="DECIMAL" />
 		<result property="identifyName" column="identify_name" jdbcType="VARCHAR" />
 		<result property="price" column="price" jdbcType="DECIMAL" />
-		<result property="createUser" column="create_user" jdbcType="DECIMAL" />
+		<result property="amount" column="amount" jdbcType="DECIMAL" />
+		<result property="createUserId" column="user_id" jdbcType="DECIMAL" />
+		<result property="createUsername" column="user_name" jdbcType="VARCHAR" />
 		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
 	</resultMap>
 
@@ -30,7 +32,8 @@
 			thickness_id,
 			identify_id,
 			price,
-			create_user
+			amount,
+			create_user_id
 		) VALUES (
 			#{productNo},
 			#{productName},
@@ -39,7 +42,8 @@
 			#{thicknessId},
 			#{identifyId},
 			#{price},
-			#{createUser}
+			#{amount},
+			#{createUserId}
 		)
 	</insert>
 
@@ -52,13 +56,14 @@
 	<select id="selectSelective" resultMap="Product">
 		SELECT
 			product.id,product.brand_id,brand.name brand_name,product.id
-			,product.product_no,product.product_name,tech.id
+			,product.product_no,product.product_name,tech.id,product.amount,
 			tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
-			thickness_name,product.price,product.create_user,product.create_time
+			thickness_name,product.price,product.create_time,user.id user_id,user.username user_name
 		FROM t_product product
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
+		LEFT JOIN t_user user on user.id = product.create_user_id
 		<include refid="condition"/>
 	</select>
 

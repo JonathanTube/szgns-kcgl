@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hyjd.frame.psm.base.LoginSession;
+import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.mapper.UserMapper;
 
@@ -19,6 +21,9 @@ public class UserService {
 
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private LoginSession loginSession;
 
 	/**
 	 * @return
@@ -27,8 +32,14 @@ public class UserService {
 		return userMapper.selectSelective(new User());
 	}
 
-	public boolean insertUser(User entity) {
+	public boolean insertUser(User entity) throws LogicException {
 		if (entity != null) {
+			User record = new User();
+			record.setUsername(entity.getUsername());
+			int size = userMapper.countBySelective(record);
+			if(size > 0){
+				throw new LogicException("用户名已存在");
+			}
 			userMapper.insert(entity);
 			return true;
 		}
@@ -44,4 +55,9 @@ public class UserService {
 
 		return false;
 	}
+	
+	public List<User> queryUser(User record){
+		return userMapper.selectSelective(record);
+	}
+
 }
