@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kxm.kcgl.mapper.UserRightMapper">
+
+	<resultMap id="UserRight" type="com.kxm.kcgl.domain.UserRight">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="userId" column="user_id" jdbcType="DECIMAL" />
+		<result property="rightId" column="right_id" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+		ID,USER_ID,RIGHT_ID
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="com.kxm.kcgl.domain.UserRight">
+		INSERT INTO T_USER_RIGHT (
+		user_id,
+		right_id
+		) VALUES (
+		#{userId},
+		#{rightId}
+		)
+	</insert>
+
+	<delete id="deleteByRightId" parameterType="int">
+	    <![CDATA[
+	        DELETE FROM T_USER_RIGHT WHERE RIGHT_ID = #{rightId} 
+	    ]]>
+	</delete>
+
+	<select id="selectSelective" resultMap="UserRight">
+		SELECT
+		<include refid="columns" />
+		FROM T_USER_RIGHT
+		<include refid="where_condition" />
+	</select>
+
+	<sql id="where_condition">
+		<where>
+	    	<if test=" userId != null" >
+     			AND user_id= #{userId}
+    		</if>
+    		<if test=" rightId != null" >
+     			AND right_id = #{rightId}
+    		</if>
+		</where>
+	</sql>
+</mapper>
+

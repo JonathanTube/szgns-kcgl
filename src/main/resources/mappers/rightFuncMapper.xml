@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kxm.kcgl.mapper.RightFuncMapper">
+
+	<resultMap id="RightFunc" type="com.kxm.kcgl.domain.RightFunc">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="funcId" column="func_id" jdbcType="DECIMAL" />
+		<result property="rightId" column="right_id" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+		ID,FUNC_ID,RIGHT_ID
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="com.kxm.kcgl.domain.RightFunc">
+		INSERT INTO T_RIGHT_FUNC (
+		func_id,
+		right_id
+		) VALUES (
+		#{funcId},
+		#{rightId}
+		)
+	</insert>
+
+	<delete id="deleteByRightId" parameterType="int">
+	    <![CDATA[
+	        DELETE FROM T_RIGHT_FUNC WHERE RIGHT_ID = #{rightId} 
+	    ]]>
+	</delete>
+
+	<select id="selectSelective" resultMap="RightFunc">
+		SELECT
+		<include refid="columns" />
+		FROM T_RIGHT_FUNC
+		<include refid="where_condition" />
+	</select>
+
+	<sql id="where_condition">
+		<where>
+	    	<if test=" funcId != null" >
+     			AND func_id= #{funcId}
+    		</if>
+    		<if test=" rightId != null" >
+     			AND right_id = #{rightId}
+    		</if>
+		</where>
+	</sql>
+</mapper>
+
