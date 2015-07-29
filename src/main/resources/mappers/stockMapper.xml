@@ -44,16 +44,57 @@
 	</select>
 
 	<select id="countBySelective" resultType="int">
-		SELECT count(*)
-		thickness ON product.thickness_id = thickness.id
+		SELECT count(*) from t_stock
 		<where>
-			<if test=" productNo != null">
-				product.product_no = #{productNo}
+			<if test=" productId != null">
+				product_id = #{productId}
 			</if>
-			<if test=" productName != null">
-				AND product.product_name = #{productName}
+			<if test=" identifyType != null">
+				AND identify_type = #{identifyType}
+			</if>
+			<if test=" identifyId != null">
+				AND identify_id = #{identifyId}
+			</if>
+			<if test=" manufactorId != null">
+				AND manufactor_id = #{manufactorId}
 			</if>
 		</where>
 	</select>
+	
+	<insert id="insert" parameterType="com.kxm.kcgl.domain.Stock">
+		INSERT INTO T_STOCK (
+			product_id,
+			identify_type,
+			identify_id,
+			manufactor_id,
+			amount
+		) VALUES (
+			#{productId},
+			#{identifyType},
+			#{identifyId},
+			#{manufactorId},
+			#{amount}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.kxm.kcgl.domain.Stock">
+		update T_STOCK set 
+			amount = amount + #{amount}
+		<where>
+			<if test="productId != null">
+			  product_id = #{productId}  
+			</if>
+			<if test="identifyType != null">
+			  and identify_type = #{identifyType}  
+			</if>
+			<if test="identifyId != null">
+			  and identify_id = #{identifyId}  
+			</if>
+			<if test="manufactorId != null">
+			  and manufactor_id = #{manufactorId}  
+			</if>
+		</where>
+	</update>
+
 </mapper>
 

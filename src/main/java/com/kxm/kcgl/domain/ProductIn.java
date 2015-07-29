@@ -3,40 +3,42 @@ package com.kxm.kcgl.domain;
 import java.util.Date;
 
 public class ProductIn {
-	private int id;
+	private Integer id;
 	private String productNo;
-	private int brandId;
+	private Integer brandId;
 	private String brandName;
-	private int productId;
+	private Integer productId;
 	private String productName;
-	private int techId;
+	private Integer techId;
 	private String techName;
-	private int thicknessId;
+	private Integer thicknessId;
 	private String thicknessName;
-	private int amount; 
+	private Integer amount; 
 	private double price;
-	private int manufactorId;
+	private Integer manufactorId;
 	private String manufactorName;
-	private int identifyId;
+	private Integer identifyType;
+	private Integer identifyId;
 	private String identifyName;
-	private int inAmount;
-	private int createUserId;
+	private Integer inTypeId;
+	private String inTypeName;
+	private Integer createUserId;
 	private String createUsername;
 	private Date createTime;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getProductId() {
+	public Integer getProductId() {
 		return productId;
 	}
 
-	public void setProductId(int productId) {
+	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
 
@@ -48,11 +50,11 @@ public class ProductIn {
 		this.productName = productName;
 	}
 
-	public int getTechId() {
+	public Integer getTechId() {
 		return techId;
 	}
 
-	public void setTechId(int techId) {
+	public void setTechId(Integer techId) {
 		this.techId = techId;
 	}
 
@@ -64,11 +66,11 @@ public class ProductIn {
 		this.techName = techName;
 	}
 
-	public int getThicknessId() {
+	public Integer getThicknessId() {
 		return thicknessId;
 	}
 
-	public void setThicknessId(int thicknessId) {
+	public void setThicknessId(Integer thicknessId) {
 		this.thicknessId = thicknessId;
 	}
 
@@ -80,11 +82,11 @@ public class ProductIn {
 		this.thicknessName = thicknessName;
 	}
 
-	public int getBrandId() {
+	public Integer getBrandId() {
 		return brandId;
 	}
 
-	public void setBrandId(int brandId) {
+	public void setBrandId(Integer brandId) {
 		this.brandId = brandId;
 	}
 
@@ -112,11 +114,11 @@ public class ProductIn {
 		this.price = price;
 	}
 
-	public int getManufactorId() {
+	public Integer getManufactorId() {
 		return manufactorId;
 	}
 
-	public void setManufactorId(int manufactorId) {
+	public void setManufactorId(Integer manufactorId) {
 		this.manufactorId = manufactorId;
 	}
 
@@ -140,7 +142,7 @@ public class ProductIn {
 		this.manufactorName = manufactorName;
 	}
 
-	public void setIdentifyId(int identifyId) {
+	public void setIdentifyId(Integer identifyId) {
 		this.identifyId = identifyId;
 	}
 
@@ -148,11 +150,11 @@ public class ProductIn {
 		this.identifyName = identifyName;
 	}
 
-	public int getIdentifyId() {
+	public Integer getIdentifyId() {
 		return identifyId;
 	}
 
-	public int getCreateUserId() {
+	public Integer getCreateUserId() {
 		return createUserId;
 	}
 
@@ -160,7 +162,7 @@ public class ProductIn {
 		return createUsername;
 	}
 
-	public void setCreateUserId(int createUserId) {
+	public void setCreateUserId(Integer createUserId) {
 		this.createUserId = createUserId;
 	}
 
@@ -168,19 +170,35 @@ public class ProductIn {
 		this.createUsername = createUsername;
 	}
 
-	public int getInAmount() {
-		return inAmount;
-	}
-
-	public void setInAmount(int inAmount) {
-		this.inAmount = inAmount;
-	}
-
-	public int getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(Integer amount) {
 		this.amount = amount;
+	}
+
+	public Integer getIdentifyType() {
+		return identifyType;
+	}
+
+	public void setIdentifyType(Integer identifyType) {
+		this.identifyType = identifyType;
+	}
+
+	public Integer getInTypeId() {
+		return inTypeId;
+	}
+
+	public String getInTypeName() {
+		return inTypeName;
+	}
+
+	public void setInTypeId(Integer inTypeId) {
+		this.inTypeId = inTypeId;
+	}
+
+	public void setInTypeName(String inTypeName) {
+		this.inTypeName = inTypeName;
 	}
 }

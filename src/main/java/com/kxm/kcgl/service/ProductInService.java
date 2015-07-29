@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductIn;
+import com.kxm.kcgl.domain.Stock;
 import com.kxm.kcgl.mapper.ProductInMapper;
 import com.kxm.kcgl.mapper.ProductMapper;
+import com.kxm.kcgl.mapper.StockMapper;
 
 /**
  *
@@ -26,8 +28,18 @@ public class ProductInService {
 	@Autowired
 	private ProductMapper productMapper;
 
+	@Autowired
+	private StockMapper stockMapper;
+
 	@Transactional(rollbackFor = Exception.class)
 	public void addNotExist(ProductIn record) throws LogicException {
+		// 插入库日志
+		if (record.getIdentifyType() == 0) {// 中性标
+			record.setIdentifyId(null);
+		} else if (record.getIdentifyId() == -1) {
+			throw new LogicException("请选择客户标名称");
+		}
+
 		// 判断是否未添加过,产品编号不能重复
 		Product p1 = new Product();
 		p1.setProductNo(record.getProductNo());
@@ -44,31 +56,55 @@ public class ProductInService {
 		}
 		// 插入产品
 		Product product = new Product();
-		product.setBrandId(record.getBrandId());
-		product.setPrice(record.getPrice());
 		product.setProductNo(record.getProductNo());
 		product.setProductName(record.getProductName());
+		product.setBrandId(record.getBrandId());
 		product.setTechId(record.getTechId());
-		product.setAmount(record.getInAmount());
 		product.setThicknessId(record.getThicknessId());
-		product.setIdentifyId(record.getIdentifyId());
+		product.setPrice(record.getPrice());
+		product.setCreateUserId(record.getCreateUserId());
 		productMapper.insert(product);
-		// 插入库日志
+		// 插入库存
+		Stock stock = new Stock();
+		stock.setProductId(product.getId());
+		stock.setIdentifyType(record.getIdentifyType());
+		stock.setIdentifyId(record.getIdentifyId());
+		stock.setManufactorId(record.getManufactorId());
+		stock.setAmount(record.getAmount());
+		stockMapper.insert(stock);
 		record.setProductId(product.getId());
 		productInMapper.insert(record);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void addExist(List<ProductIn> productInList,int userId) {
+	public void addExist(List<ProductIn> productInList, int userId) {
 		for (ProductIn productIn : productInList) {
-			productIn.setCreateUserId(userId);
-			productInMapper.insert(productIn);
-			//更新产品库存数
+			// init param
+			Stock stock = new Stock();
+			stock.setProductId(productIn.getProductId());
+			stock.setIdentifyType(productIn.getIdentifyType());
+			stock.setIdentifyId(productIn.getIdentifyId());
+			stock.setManufactorId(productIn.getManufactorId());
+			stock.setAmount(productIn.getAmount());
+			// 判断库存是否存在
+			int size = stockMapper.countBySelective(stock);
+			if (size > 0) {
+				// 更新产品库存数
+				stockMapper.update(stock);
+			} else {
+				// insert
+				stockMapper.insert(stock);
+			}
+
+			// 更新价格(入库时进行调价)
 			Product product = new Product();
 			product.setId(productIn.getProductId());
-			product.setAmount(productIn.getInAmount());
 			product.setPrice(productIn.getPrice());
-			productMapper.updateAmount(product);
+			productMapper.update(product);
+
+			// 插入入库日志
+			productIn.setCreateUserId(userId);
+			productInMapper.insert(productIn);
 		}
 	}
 }

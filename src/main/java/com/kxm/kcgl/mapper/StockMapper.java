@@ -22,4 +22,8 @@ public interface StockMapper {
 	 * @return
 	 */
 	int countBySelective(Stock record);
+	
+	int insert(Stock record);
+	
+	int update(Stock record);
 }

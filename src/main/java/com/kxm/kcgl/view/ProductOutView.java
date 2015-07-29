@@ -74,8 +74,6 @@ public class ProductOutView implements Serializable {
 		productOut.setProductNo(product.getProductNo());
 		productOut.setThicknessId(product.getThicknessId());
 		productOut.setThicknessName(product.getThicknessName());
-		productOut.setIdentifyId(product.getIdentifyId());
-		productOut.setIdentifyName(product.getIdentifyName());
 		productOutList.add(productOut);
 	}
 

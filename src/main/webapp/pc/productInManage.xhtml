@@ -22,7 +22,7 @@
 			</p:toolbar>
 
 			<p:dialog widgetVar="product_in_exist_dlg" closeOnEscape="true"
-				header="已有产品入库" width="1200" dynamic="true" minHeight="600" 
+				header="已有产品入库" width="1200" dynamic="true" minHeight="600"
 				resizable="false">
 				<p:fieldset legend="筛选">
 					<h:panelGrid columns="7">
@@ -32,7 +32,7 @@
 						<p:commandButton id="btn_productNo"
 							actionListener="#{productInView.addExistProduct}"
 							icon="ui-icon-plus" value="确定" partialSubmit="true"
-							process="@this @previous" update="@form:product_in_exist_tbl" />
+							process="@this @previous" update="@form:add_exist_dlg" />
 
 						<h:outputText value="产品型号:" />
 						<p:selectOneMenu value="#{productInView.productId}">
@@ -40,19 +40,21 @@
 							<f:selectItems var="s" value="#{productInView.productList}"
 								itemLabel="#{s.productName}" itemValue="#{s.id}" />
 						</p:selectOneMenu>
+
 						<p:commandButton id="btn_productId"
 							actionListener="#{productInView.addExistProduct}"
 							icon="ui-icon-plus" value="确定" partialSubmit="true"
-							process="@this @previous" update="@form:product_in_exist_tbl" />
+							process="@this @previous" update="@form:add_exist_dlg" />
+
+
 						<p:commandButton value="执行入库" icon="ui-icon-disk"
-							actionListener="#{productInView.addExist}" partialSubmit="true" process="@this"
-							update="product_in_log_tbl" />
+							actionListener="#{productInView.addExist}" partialSubmit="true"
+							process="@this" update="product_in_log_tbl product_in_exist_tbl" />
 					</h:panelGrid>
 				</p:fieldset>
 
 				<p:dataTable id="product_in_exist_tbl" var="v" rowIndexVar="index"
-					value="#{productInView.productInList}" editable="true"
-					editMode="cell">
+					value="#{productInView.productInList}">
 					<p:column headerText="序号" width="30">
 						#{index + 1}
 					</p:column>
@@ -71,55 +73,122 @@
 					<p:column headerText="厚度">
 						<h:outputText value="#{v.thicknessName}" />
 					</p:column>
-					<p:column headerText="库存数量">
-						<h:outputText value="#{v.amount}" />
-					</p:column>
 					<p:column headerText="出厂价">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="￥#{v.price}" />
-							</f:facet>
-							<f:facet name="input">
-								<pe:inputNumber value="#{v.price}" symbol="￥" validatorMessage="价格必须是大于0.1的数字" style="width:80%">
-									<f:validateDoubleRange minimum="0.1" /> 
-								</pe:inputNumber>
-							</f:facet>
-						</p:cellEditor>
+						<h:outputText value="￥#{v.price}" />
 					</p:column>
 					<p:column headerText="入库数量">
-						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText value="#{v.inAmount}" />
-							</f:facet>
-							<f:facet name="input">
-								<pe:inputNumber value="#{v.inAmount}" decimalPlaces="0" validatorMessage="入库数量必须是大于1的整数" style="width:80%">
-									<f:validateDoubleRange minimum="1" />  
-								</pe:inputNumber>
-							</f:facet>
-						</p:cellEditor>
+						<h:outputText value="#{v.amount}" />
 					</p:column>
 					<p:column headerText="标识">
-						<h:outputText value="#{v.identifyName}" />
+						<h:outputText
+							value="#{v.identifyType == 0 ? '中性标' : productInView.getIdentifyName(v.identifyId)}" />
 					</p:column>
 					<p:column headerText="厂家">
-						<p:cellEditor>
-							<f:facet name="output">
-								<p:selectOneMenu value="#{v.manufactorId}" style="width:90%">
-									<f:selectItem itemLabel="请选择厂家" itemValue="" />
-									<f:selectItems var="s" value="#{productInView.manufactorList}"
-										itemLabel="#{s.name}" itemValue="#{s.id}" />
-								</p:selectOneMenu>
-							</f:facet>
-							<f:facet name="input">
-								<p:selectOneMenu value="#{v.manufactorId}" style="width:90%">
-									<f:selectItem itemLabel="请选择厂家" itemValue="" />
-									<f:selectItems var="s" value="#{productInView.manufactorList}"
-										itemLabel="#{s.name}" itemValue="#{s.id}" />
-								</p:selectOneMenu>
-							</f:facet>
-						</p:cellEditor>
+						<h:outputText
+							value="#{productInView.getManufactorName(v.manufactorId)}" />
+					</p:column>
+					<p:column headerText="入库类型">
+						<h:outputText value="#{productInView.getInTypeName(v.inTypeId)}" />
+					</p:column>
+					<p:column headerText="操作" width="60">
+						<p:commandButton value="编辑" icon="ui-icon-pencil"
+							actionListener="#{productInView.editExistTemp(v)}"
+							process="@this" update="@form:add_exist_dlg" />
 					</p:column>
 				</p:dataTable>
+			</p:dialog>
+
+			<p:dialog id="add_exist_dlg" widgetVar="add_exist_dlg"
+				header="添加已有产品">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="产品编号：" />
+					<p:inputText disabled="true"
+						value="#{productInView.productIn.productNo}" />
+					<p:spacer />
+
+					<p:outputLabel value="品牌：" />
+					<p:inputText disabled="true"
+						value="#{productInView.productIn.brandName}" />
+					<p:spacer />
+
+					<p:outputLabel value="型号：" />
+					<p:inputText disabled="true"
+						value="#{productInView.productIn.productName}" />
+					<p:spacer />
+
+					<p:outputLabel value="工艺：" />
+					<p:inputText disabled="true"
+						value="#{productInView.productIn.techName}" />
+					<p:spacer />
+
+					<p:outputLabel value="厚度：" />
+					<p:inputText disabled="true"
+						value="#{productInView.productIn.thicknessName}" />
+					<p:spacer />
+
+					<p:outputLabel value="价格：" />
+					<pe:inputNumber value="#{productInView.productIn.price}" symbol="￥"
+						validatorMessage="价格必须是大于0.1的数字">
+						<f:validateDoubleRange minimum="0.1" />
+					</pe:inputNumber>
+					<p:spacer />
+
+					<p:outputLabel value="入库数量：" />
+					<pe:inputNumber value="#{productInView.productIn.amount}"
+						decimalPlaces="0" validatorMessage="入库数量必须是大于1的整数">
+						<f:validateDoubleRange minimum="1" />
+					</pe:inputNumber>
+					<p:spacer />
+
+					<p:outputLabel value="厂家：" />
+					<p:selectOneMenu id="manufactor_sel2" required="true"
+						requiredMessage="请选择厂家"
+						value="#{productInView.productIn.manufactorId}"
+						style="width:165px;">
+						<f:selectItem itemLabel="请选择厂家" itemValue="" />
+						<f:selectItems var="v" value="#{productInView.manufactorList}"
+							itemLabel="#{v.name}" itemValue="#{v.id}" />
+					</p:selectOneMenu>
+					<p:commandButton type="button" icon="ui-icon-plus" title="新增厂家"
+						onclick="PF('manufactor_add_dlg').show();" />
+
+					<p:outputLabel value="标识：" />
+					<p:selectOneRadio required="true" requiredMessage="请选择标识"
+						value="#{productInView.productIn.identifyType}"
+						style="width:165px;">
+						<f:selectItem itemLabel="中性标" itemValue="0" />
+						<f:selectItem itemLabel="客户标" itemValue="1" />
+					</p:selectOneRadio>
+					<p:spacer />
+
+					<p:outputLabel value="客户标：" />
+					<p:selectOneMenu id="identify_sel2"
+						value="#{productInView.productIn.identifyId}" style="width:165px;">
+						<f:selectItem itemLabel="请选择客户标" itemValue="-1" />
+						<f:selectItems var="v" value="#{productInView.identifyList}"
+							itemLabel="#{v.name}" itemValue="#{v.id}" />
+					</p:selectOneMenu>
+					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户标"
+						onclick="PF('identify_add_dlg').show();" />
+
+					<p:outputLabel value="入库类型：" />
+					<p:selectOneMenu id="inType_sel"
+						value="#{productInView.productIn.inTypeId}" style="width:165px;"
+						required="true" requiredMessage="请选择入库类型">
+						<f:selectItem itemLabel="请选择入库类型" itemValue="-1" />
+						<f:selectItems var="v" value="#{productInView.inTypeList}"
+							itemLabel="#{v.name}" itemValue="#{v.id}" />
+					</p:selectOneMenu>
+					<p:commandButton type="button" icon="ui-icon-plus" title="新增入库类型"
+						onclick="PF('inType_add_dlg').show();" />
+
+				</h:panelGrid>
+				<div style="float: right;">
+					<p:commandButton value="保存" icon="ui-icon-disk"
+						actionListener="#{productInView.addExistTemp}"
+						partialSubmit="true" process="add_exist_dlg"
+						update="@form:product_in_exist_tbl" />
+				</div>
 			</p:dialog>
 
 			<p:dataTable var="v" id="product_in_log_tbl"
@@ -132,43 +201,45 @@
 					<h:outputText value="入库日志" />
 				</f:facet>
 				<p:column headerText="序号" width="30">
-						#{index + 1}
-					</p:column>
+					<h:outputText value="#{index + 1}" />
+				</p:column>
 				<p:column headerText="产品编号" width="50">
-						#{v.productNo}
-					</p:column>
+					<h:outputText value="#{v.productNo}" />
+				</p:column>
 				<p:column headerText="品牌" width="50">
-						#{v.brandName}
-					</p:column>
+					<h:outputText value="#{v.brandName}" />
+				</p:column>
 				<p:column headerText="产品名称">
-						#{v.productName}
-					</p:column>
+					<h:outputText value="#{v.productName}" />
+				</p:column>
 				<p:column headerText="工艺" width="50">
-						#{v.techName}
-					</p:column>
+					<h:outputText value="#{v.techName}" />
+				</p:column>
 				<p:column headerText="厚度" width="30">
-						#{v.thicknessName}
-					</p:column>
-				<p:column headerText="库存数" width="40">
-						#{v.amount}
-					</p:column>
-				<p:column headerText="标识" width="60">
-						#{v.identifyName}
-					</p:column>
+					<h:outputText value="#{v.thicknessName}" />
+				</p:column>
+				<p:column headerText="标识">
+					<h:outputText value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
+				</p:column>
 				<p:column headerText="入库数" width="40">
-						#{v.inAmount}
-					</p:column>
-					<p:column headerText="厂家" width="50">
-						#{v.manufactorName}
-					</p:column>
-					<p:column headerText="员工" width="50">
-						#{v.createUsername}
-					</p:column>
-					<p:column headerText="入库时间">
-						<h:outputLabel value="#{v.createTime}">
-							<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8" pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
-						</h:outputLabel>
-					</p:column>
+					<h:outputText value="#{v.amount}" />
+				</p:column>
+				<p:column headerText="入库价格" width="50">
+					<h:outputText value="#{v.price}" />
+				</p:column>
+				<p:column headerText="厂家" width="50">
+					<h:outputText value="#{v.manufactorName}" />
+				</p:column>
+				<p:column headerText="员工" width="50">
+					<h:outputText value="#{v.createUsername}" />
+				</p:column>
+				<p:column headerText="
+						入库时间" width="150">
+					<h:outputLabel value="#{v.createTime}">
+						<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8"
+							pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
+					</h:outputLabel>
+				</p:column>
 			</p:dataTable>
 
 			<p:dialog id="product_in_not_exist_dlg"
@@ -176,15 +247,15 @@
 				closeOnEscape="true" resizable="false">
 				<h:panelGrid columns="3">
 					<p:outputLabel value="产品编号：" />
-					<p:inputText value="#{productInView.productIn.productNo}" required="true" requiredMessage="产品编号不能为空"
-						maxlength="10" />
+					<p:inputText value="#{productInView.productIn.productNo}"
+						required="true" requiredMessage="产品编号不能为空" maxlength="10" />
 					<p:spacer />
 
 
 					<p:outputLabel value="品牌：" />
 					<p:selectOneMenu id="brand_sel"
-						value="#{productInView.productIn.brandId}" style="width:165px;" requiredMessage="请选择品牌"
-						required="true">
+						value="#{productInView.productIn.brandId}" style="width:165px;"
+						requiredMessage="请选择品牌" required="true">
 						<f:selectItem itemLabel="请选择品牌" itemValue="" />
 						<f:selectItems var="v" value="#{productInView.brandList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
@@ -194,14 +265,14 @@
 
 
 					<p:outputLabel value="型号：" />
-					<p:inputText value="#{productInView.productIn.productName}" required="true" requiredMessage="型号不能为空"
-						maxlength="50" />
+					<p:inputText value="#{productInView.productIn.productName}"
+						required="true" requiredMessage="型号不能为空" maxlength="50" />
 					<p:spacer />
 
 					<p:outputLabel value="工艺：" />
 					<p:selectOneMenu id="tech_sel"
-						value="#{productInView.productIn.techId}" style="width:165px;" requiredMessage="请选择工艺"
-						required="true">
+						value="#{productInView.productIn.techId}" style="width:165px;"
+						requiredMessage="请选择工艺" required="true">
 						<f:selectItem itemLabel="请选择工艺" itemValue="" />
 						<f:selectItems var="v" value="#{productInView.techList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
@@ -210,7 +281,8 @@
 						onclick="PF('tech_add_dlg').show();" />
 
 					<p:outputLabel value="厚度：" />
-					<p:selectOneMenu id="thickness_sel" required="true" requiredMessage="请选择厚度"
+					<p:selectOneMenu id="thickness_sel" required="true"
+						requiredMessage="请选择厚度"
 						value="#{productInView.productIn.thicknessId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厚度" itemValue="" />
@@ -221,19 +293,22 @@
 						onclick="PF('thickness_add_dlg').show();" />
 
 					<p:outputLabel value="价格：" />
-					<pe:inputNumber value="#{productInView.productIn.price}" symbol="￥" validatorMessage="价格必须是大于0.1的数字">
-						<f:validateDoubleRange minimum="0.1" />  
+					<pe:inputNumber value="#{productInView.productIn.price}" symbol="￥"
+						validatorMessage="价格必须是大于0.1的数字">
+						<f:validateDoubleRange minimum="0.1" />
 					</pe:inputNumber>
 					<p:spacer />
-					
+
 					<p:outputLabel value="入库数量：" />
-					<pe:inputNumber value="#{productInView.productIn.inAmount}" decimalPlaces="0" validatorMessage="入库数量必须是大于1的整数">
-						<f:validateDoubleRange minimum="1" />  
+					<pe:inputNumber value="#{productInView.productIn.amount}"
+						decimalPlaces="0" validatorMessage="入库数量必须是大于1的整数">
+						<f:validateDoubleRange minimum="1" />
 					</pe:inputNumber>
 					<p:spacer />
 
 					<p:outputLabel value="厂家：" />
-					<p:selectOneMenu id="manufactor_sel" required="true" requiredMessage="请选择厂家"
+					<p:selectOneMenu id="manufactor_sel" required="true"
+						requiredMessage="请选择厂家"
 						value="#{productInView.productIn.manufactorId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
@@ -244,20 +319,30 @@
 						onclick="PF('manufactor_add_dlg').show();" />
 
 					<p:outputLabel value="标识：" />
-					<p:selectOneMenu id="identify_sel" required="true" requiredMessage="请选择标识"
+					<p:selectOneRadio required="true" requiredMessage="请选择标识"
+						value="#{productInView.productIn.identifyType}"
+						style="width:165px;">
+						<f:selectItem itemLabel="中性标" itemValue="0" />
+						<f:selectItem itemLabel="客户标" itemValue="1" />
+					</p:selectOneRadio>
+					<p:spacer />
+
+					<p:outputLabel value="客户标：" />
+					<p:selectOneMenu id="identify_sel"
 						value="#{productInView.productIn.identifyId}" style="width:165px;">
-						<f:selectItem itemLabel="请选择标识" itemValue="" />
+						<f:selectItem itemLabel="请选择客户标" itemValue="-1" />
 						<f:selectItems var="v" value="#{productInView.identifyList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
-					<p:commandButton type="button" icon="ui-icon-plus" title="新增标识"
+					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户标"
 						onclick="PF('identify_add_dlg').show();" />
 
 				</h:panelGrid>
 				<div style="float: right;">
 					<p:commandButton value="保存" icon="ui-icon-disk"
 						actionListener="#{productInView.addNotExist}" partialSubmit="true"
-						process="product_in_not_exist_dlg"  update="@form:product_in_log_tbl"/>
+						process="product_in_not_exist_dlg"
+						update="@form:product_in_log_tbl" />
 				</div>
 			</p:dialog>
 
@@ -309,21 +394,34 @@
 					<p:commandButton value="新增" icon="ui-icon-disk"
 						actionListener="#{productInView.addManufactor}"
 						partialSubmit="true" process="manufactor_pg"
-						update="manufactor_sel"
+						update="manufactor_sel manufactor_sel2"
 						onsuccess="PF('manufactor_add_dlg').hide()" />
 				</h:panelGrid>
 			</p:dialog>
 
-			<p:dialog widgetVar="identify_add_dlg" header="添加标识"
+			<p:dialog widgetVar="identify_add_dlg" header="添加客户标识"
 				resizable="false" closeOnEscape="true">
 				<h:panelGrid columns="3" id="identify_pg">
-					<h:outputLabel value="标识：" />
+					<h:outputLabel value="客户标识：" />
 					<h:inputText maxlength="20" required="true"
 						value="#{productInView.identifyName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
 						actionListener="#{productInView.addIdentify}" partialSubmit="true"
-						process="identify_pg" update="identify_sel"
+						process="identify_pg" update="identify_sel identify_sel2"
 						onsuccess="PF('identify_add_dlg').hide()" />
+				</h:panelGrid>
+			</p:dialog>
+
+			<p:dialog widgetVar="inType_add_dlg" header="添加入库类型"
+				resizable="false" closeOnEscape="true">
+				<h:panelGrid columns="3" id="inType_pg">
+					<h:outputLabel value="入库类型：" />
+					<h:inputText maxlength="20" required="true"
+						value="#{productInView.inTypeName}" />
+					<p:commandButton value="新增" icon="ui-icon-disk"
+						actionListener="#{productInView.addInType}" partialSubmit="true"
+						process="inType_pg" update="inType_sel"
+						onsuccess="PF('inType_add_dlg').hide()" />
 				</h:panelGrid>
 			</p:dialog>
 		</h:form>

@@ -18,10 +18,10 @@
 		<h:outputStylesheet library="szgns" name="css/style.css" />
 
 		<style type="text/css">
-			#ajaxErrorHandlerDialog\:modal {
-				background: #f60;
-			}
-		</style>
+#ajaxErrorHandlerDialog\:modal {
+	background: #f60;
+}
+</style>
 
 	</h:head>
 	<script type="text/javascript">
@@ -60,43 +60,46 @@
 		<p:growl autoUpdate="true" showDetail="true" />
 
 		<p:layout fullPage="true">
-			<p:layoutUnit position="north">
-				<h:form>
-					<p:graphicImage cache="true" library="szgns" name="images/logo.jpg"/>
-					<h:outputText style="font-size:19px;margin-left:100px;" value="深圳格纳斯进销存管理系统" />
-					<p:commandButton action="#{loginView.doLogout}" value="退出" style="float:right;position:absolute;margin-right:20px;right:0;"/> 
-				</h:form>
-			</p:layoutUnit>
-			<p:layoutUnit position="west" header="功能区" resizable="true"
+			<p:layoutUnit position="west" header="格纳斯进销存管理系统" resizable="true"
 				size="180" collapsible="true">
 				<h:form>
-					<p:panelMenu>
+					<p:graphicImage cache="true" library="szgns" name="images/logo.jpg" />
+					<p:commandButton action="#{loginView.doLogout}" value="退出"
+						style="float:right;position:absolute;right:0;" />
+
+					<p:menu toggleable="true">
 						<p:submenu label="系统管理">
-							<c:forEach items="#{loginView.loginSession.sesionObj.funcList}" var="v">
+							<c:forEach items="#{loginView.loginSession.sesionObj.funcList}"
+								var="v">
 								<c:if test="#{v.type == 0}">
-									<p:menuitem value="#{v.name}" url="#{v.url}" icon="ui-icon-link" />
+									<p:menuitem value="#{v.name}" url="#{v.url}"
+										icon="ui-icon-link" />
 								</c:if>
 							</c:forEach>
 						</p:submenu>
 
 						<p:submenu label="库存管理">
-							<c:forEach items="#{loginView.loginSession.sesionObj.funcList}" var="v">
+							<c:forEach items="#{loginView.loginSession.sesionObj.funcList}"
+								var="v">
 								<c:if test="#{v.type == 1}">
-									<p:menuitem value="#{v.name}" url="#{v.url}" icon="ui-icon-link" />
+									<p:menuitem value="#{v.name}" url="#{v.url}"
+										icon="ui-icon-link" />
 								</c:if>
 							</c:forEach>
 						</p:submenu>
-						
+
 						<p:submenu label="报表管理">
-							<c:forEach items="#{loginView.loginSession.sesionObj.funcList}" var="v">
+							<c:forEach items="#{loginView.loginSession.sesionObj.funcList}"
+								var="v">
 								<c:if test="#{v.type == 2}">
-									<p:menuitem value="#{v.name}" url="#{v.url}" icon="ui-icon-link" />
+									<p:menuitem value="#{v.name}" url="#{v.url}"
+										icon="ui-icon-link" />
 								</c:if>
 							</c:forEach>
 						</p:submenu>
-					</p:panelMenu>
+					</p:menu>
 				</h:form>
-			</p:layoutUnit> 
+			</p:layoutUnit>
 			<p:layoutUnit position="center">
 				<ui:insert name="content" />
 			</p:layoutUnit>

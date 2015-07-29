@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import com.hyjd.frame.psm.utils.MsgTool;
 import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.BrandBean;
 import com.kxm.kcgl.domain.Identify;
+import com.kxm.kcgl.domain.InType;
 import com.kxm.kcgl.domain.Manufactor;
 import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductIn;
@@ -25,6 +27,7 @@ import com.kxm.kcgl.domain.ThicknessBean;
 import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.service.BrandService;
 import com.kxm.kcgl.service.IdentifyService;
+import com.kxm.kcgl.service.InTypeService;
 import com.kxm.kcgl.service.ManufactorService;
 import com.kxm.kcgl.service.ProductInService;
 import com.kxm.kcgl.service.ProductService;
@@ -77,6 +80,11 @@ public class ProductInView implements Serializable {
 	private String identifyName;
 
 	@Autowired
+	private InTypeService inTypeService;
+	private List<InType> inTypeList;
+	private String inTypeName;
+
+	@Autowired
 	private ProductService productService;
 	private List<Product> productList;
 
@@ -89,12 +97,17 @@ public class ProductInView implements Serializable {
 	public void init() {
 		query();
 		initBrandList();
+		initInTypeList();
 		initTechList();
 		initThicknessList();
 		initManufactorList();
 		initIdentifyList();
 
 		initProductList();
+	}
+
+	public void initInTypeList() {
+		inTypeList = inTypeService.queryAll();
 	}
 
 	public void initProductList() {
@@ -120,8 +133,34 @@ public class ProductInView implements Serializable {
 	 */
 	public void addExist() {
 		User user = (User) loginSession.getSesionObj();
-		productInService.addExist(productInList,user.getId());
+		productInService.addExist(productInList, user.getId());
+		productInList.clear();
 		MsgTool.addInfoMsg("入库成功");
+	}
+	
+	/**
+	 * 已有产品入库
+	 */
+	public void addExistTemp() {
+		if (productIn.getIdentifyType() == 0) {// 中性标
+			productIn.setIdentifyId(null);
+		}else if(productIn.getIdentifyId() == -1){
+			MsgTool.addWarningMsg("请选择客户标名称");
+			return;
+		}
+		//如果已经存在就移除，兼容更新操作
+		for (ProductIn p : productInList) {
+			if(productIn.getProductNo().equals(p.getProductNo())){
+				productInList.remove(p);
+			}
+		}
+		productInList.add(productIn);
+		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').hide()"); 
+	}
+	
+	public void editExistTemp(ProductIn productIn){
+		this.productIn = productIn;
+		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').show()");
 	}
 
 	public void initBrandList() {
@@ -143,7 +182,13 @@ public class ProductInView implements Serializable {
 		MsgTool.addInfoMsg(msg);
 		initTechList();
 	}
-
+	
+	public void addInType() {
+		String msg = inTypeService.addNew(inTypeName);
+		MsgTool.addInfoMsg(msg);
+		initInTypeList();
+	}
+	
 	public void initIdentifyList() {
 		identifyList = identifyService.queryAll();
 	}
@@ -204,16 +249,32 @@ public class ProductInView implements Serializable {
 		productIn.setProductNo(product.getProductNo());
 		productIn.setThicknessId(product.getThicknessId());
 		productIn.setThicknessName(product.getThicknessName());
-		productIn.setIdentifyId(product.getIdentifyId());
-		productIn.setIdentifyName(product.getIdentifyName());
-		productIn.setAmount(product.getAmount());
 		productIn.setPrice(product.getPrice());
-		productInList.add(productIn);
+
+		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').show()");
 	}
 
-	private String getManufactorName(int manufactorId) {
+	public String getManufactorName(Integer manufactorId) {
 		for (Manufactor m : manufactorList) {
 			if (m.getId() == manufactorId) {
+				return m.getName();
+			}
+		}
+		return "";
+	}
+	
+	public String getIdentifyName(Integer identifyId) {
+		for (Identify m : identifyList) {
+			if (m.getId() == identifyId) {
+				return m.getName();
+			}
+		}
+		return "";
+	}
+	
+	public String getInTypeName(Integer inTypeId) {
+		for (InType m : inTypeList) {
+			if (m.getId() == inTypeId) {
 				return m.getName();
 			}
 		}
@@ -354,5 +415,21 @@ public class ProductInView implements Serializable {
 
 	public void setProductNo(String productNo) {
 		this.productNo = productNo;
+	}
+
+	public List<InType> getInTypeList() {
+		return inTypeList;
+	}
+
+	public String getInTypeName() {
+		return inTypeName;
+	}
+
+	public void setInTypeList(List<InType> inTypeList) {
+		this.inTypeList = inTypeList;
+	}
+
+	public void setInTypeName(String inTypeName) {
+		this.inTypeName = inTypeName;
 	}
 }
