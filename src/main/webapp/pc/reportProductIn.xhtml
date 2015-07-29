@@ -10,39 +10,43 @@
 
 	<ui:define name="content">
 		<h:form prependId="true">
-			<h:panelGrid columns="14">
-				<p:outputLabel value="开始时间：" />
-				<p:inputText value="#{productInView.condition.brandId}" />
-				<p:outputLabel value="结束时间：" />
-				<p:inputText value="#{productInView.condition.brandId}" />
-				<p:outputLabel value="品牌：" />
-				<p:selectOneMenu value="#{productInView.condition.brandId}">
-					<f:selectItem itemLabel="请选择品牌" itemValue="" />
-					<f:selectItems var="s" value="#{productInView.brandList}"
-						itemLabel="#{s.name}" itemValue="#{s.id}" />
-				</p:selectOneMenu>
-				<p:outputLabel value="工艺：" />
-				<p:selectOneMenu value="#{productInView.condition.techId}">
-					<f:selectItem itemLabel="请选择工艺" itemValue="" />
-					<f:selectItems var="s" value="#{productInView.techList}"
-						itemLabel="#{s.name}" itemValue="#{s.id}" />
-				</p:selectOneMenu>
-				<p:outputLabel value="厚度：" />
-				<p:selectOneMenu value="#{productInView.condition.thicknessId}">
-					<f:selectItem itemLabel="请选择厚度" itemValue="" />
-					<f:selectItems var="s" value="#{productInView.thicknessList}"
-						itemLabel="#{s.name}" itemValue="#{s.id}" />
-				</p:selectOneMenu>
-				<p:outputLabel value="厂家：" />
-				<p:selectOneMenu value="#{productInView.condition.manufactorId}">
-					<f:selectItem itemLabel="请选择厂家" itemValue="" />
-					<f:selectItems var="s" value="#{productInView.manufactorList}"
-						itemLabel="#{s.name}" itemValue="#{s.id}" />
-				</p:selectOneMenu>
-				<p:commandButton value="查询" icon="ui-icon-search"
-					actionListener="#{productInView.query}"
-					update="@form:product_in_log_tbl" />
-			</h:panelGrid>
+			<p:panel header="查询条件" style="padding:0">
+				<h:panelGrid columns="10">
+					<p:outputLabel value="开始时间：" />
+					<p:inputText value="#{productInView.condition.brandId}" />
+					<p:outputLabel value="结束时间：" />
+					<p:inputText value="#{productInView.condition.brandId}" />
+					<p:spacer /><p:spacer /><p:spacer /><p:spacer /><p:spacer /><p:spacer />
+					<p:outputLabel value="品牌：" />
+					<p:selectOneMenu value="#{productInView.condition.brandId}" style="width:150px">
+						<f:selectItem itemLabel="请选择品牌" itemValue="" />
+						<f:selectItems var="s" value="#{productInView.brandList}"
+							itemLabel="#{s.name}" itemValue="#{s.id}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="工艺：" />
+					<p:selectOneMenu value="#{productInView.condition.techId}" style="width:150px">
+						<f:selectItem itemLabel="请选择工艺" itemValue="" />
+						<f:selectItems var="s" value="#{productInView.techList}"
+							itemLabel="#{s.name}" itemValue="#{s.id}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="厚度：" />
+					<p:selectOneMenu value="#{productInView.condition.thicknessId}" style="width:150px">
+						<f:selectItem itemLabel="请选择厚度" itemValue="" />
+						<f:selectItems var="s" value="#{productInView.thicknessList}"
+							itemLabel="#{s.name}" itemValue="#{s.id}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="厂家：" />
+					<p:selectOneMenu value="#{productInView.condition.manufactorId}" style="width:150px">
+						<f:selectItem itemLabel="请选择厂家" itemValue="" />
+						<f:selectItems var="s" value="#{productInView.manufactorList}"
+							itemLabel="#{s.name}" itemValue="#{s.id}" />
+					</p:selectOneMenu>
+					<p:spacer />
+					<p:commandButton value="查询" icon="ui-icon-search"
+						actionListener="#{productInView.query}"
+						update="@form:product_in_log_tbl" />
+				</h:panelGrid>
+			</p:panel>
 
 			<p:dataTable var="v" id="product_in_log_tbl"
 				value="#{productInView.productInModel}" style="margin-top:2px;"
