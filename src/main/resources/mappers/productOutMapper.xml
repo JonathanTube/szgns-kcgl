@@ -16,12 +16,18 @@
 		<result property="thicknessId" column="thickness_id" jdbcType="DECIMAL" />
 		<result property="thicknessName" column="thickness_name" jdbcType="VARCHAR" />
 		<result property="amount" column="amount" jdbcType="DECIMAL" />
+		<result property="stockAmount" column="stock_amount" jdbcType="DECIMAL" />
 		<result property="price" column="price" jdbcType="DECIMAL" />
+		<result property="stockPrice" column="stock_price" jdbcType="DECIMAL" />
 		<result property="manufactorId" column="manufactor_id" jdbcType="DECIMAL" />
 		<result property="manufactorName" column="manufactor_name" jdbcType="VARCHAR" />
+		<result property="identifyType" column="identify_type" jdbcType="VARCHAR" />
 		<result property="identifyId" column="identify_id" jdbcType="DECIMAL" />
 		<result property="identifyName" column="identify_name" jdbcType="VARCHAR" />
-		<result property="createUser" column="create_user" jdbcType="DECIMAL" />
+		<result property="custId" column="cust_id" jdbcType="DECIMAL" />
+		<result property="custName" column="cust_name" jdbcType="VARCHAR" />
+		<result property="createUserId" column="create_user_id" jdbcType="DECIMAL" />
+		<result property="createUserName" column="create_username" jdbcType="VARCHAR" />
 		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
 	</resultMap>
 
@@ -30,16 +36,14 @@
 			product_id,
 			price,
 			amount,
-			manufactor_id,
-			identify_id,
-			create_user
+			cust_id,
+			create_user_id
 		) VALUES (
 			#{productId},
 			#{price},
 			#{amount},
-			#{manufactorId},
-			#{identifyId},
-			#{createUser}
+			#{custId},
+			#{createUserId}
 		)
 	</insert>
 
@@ -51,17 +55,19 @@
 
 	<select id="selectSelective" resultMap="ProductOut">
 		SELECT
-			productOut.id,product.brand_id,brand.name brand_name,product.id
-			product_id,product.product_no,product.product_name,tech.id
-			tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
-			thickness_name,productOut.amount,product.price,identify.id identify_id,
-			identify.name identify_name,productOut.create_user,productOut.create_time
+				productOut.id,brand.id brand_id,brand.name brand_name,product.id
+				product_id,product.product_no,product.product_name,tech.id
+				tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
+				thickness_name,productOut.amount,product.price stock_price,productOut.price,
+				user.id create_user_id,user.username create_username,productOut.create_time,
+				stock.identify_type
 		FROM t_product_out productOut
 		LEFT JOIN t_product product ON productOut.product_id = product.id
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
-		LEFT JOIN t_identify identify ON product.identify_id = identify.id
+		LEFT JOIN t_user USER ON productOut.create_user_id = user.id
+		LEFT JOIN t_stock stock ON stock.product_id = productOut.product_id
 	</select>
 
 	<select id="countBySelective" resultType="int">
@@ -71,7 +77,8 @@
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
-		LEFT JOIN t_identify identify ON product.identify_id = identify.id
+		LEFT JOIN t_identify identify ON productOut.identify_id = identify.id
+		LEFT JOIN t_user user ON productOut.create_user_id = user.id
 	</select>
 </mapper>
 

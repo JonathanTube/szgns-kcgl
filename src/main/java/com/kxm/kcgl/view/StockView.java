@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.kxm.kcgl.domain.Product;
-import com.kxm.kcgl.service.ProductService;
+import com.kxm.kcgl.domain.Stock;
+import com.kxm.kcgl.service.StockService;
 
 @Component
 @Scope("view")
@@ -19,10 +19,12 @@ public class StockView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<Product> stockList = new ArrayList<Product>();
+	private List<Stock> stockList = new ArrayList<Stock>();
 
 	@Autowired
-	private ProductService productService;
+	private StockService stockService;
+	
+	private Stock condition = new Stock();
 
 	@PostConstruct
 	public void init() {
@@ -30,14 +32,22 @@ public class StockView implements Serializable {
 	}
 
 	public void queryStock() {
-		stockList = productService.queryAll();
+		stockList = stockService.selectSelective(condition);
 	}
 
-	public List<Product> getStockList() {
+	public Stock getCondition() {
+		return condition;
+	}
+
+	public void setCondition(Stock condition) {
+		this.condition = condition;
+	}
+
+	public List<Stock> getStockList() {
 		return stockList;
 	}
 
-	public void setStockList(List<Product> stockList) {
+	public void setStockList(List<Stock> stockList) {
 		this.stockList = stockList;
 	}
 }

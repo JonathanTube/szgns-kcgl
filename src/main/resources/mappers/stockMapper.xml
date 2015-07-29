@@ -16,6 +16,7 @@
 		<result property="thicknessName" column="thickness_name" jdbcType="VARCHAR" />
 		<result property="amount" column="amount" jdbcType="DECIMAL" />
 		<result property="price" column="price" jdbcType="DECIMAL" />
+		<result property="identifyType" column="identify_type" jdbcType="VARCHAR" />
 		<result property="identifyId" column="identify_id" jdbcType="DECIMAL" />
 		<result property="identifyName" column="identify_name" jdbcType="VARCHAR" />
 		<result property="queryTimes" column="query_times" jdbcType="DECIMAL" />
@@ -23,19 +24,23 @@
 
 	<select id="selectSelective" resultMap="Stock">
 		SELECT
-		stock.id,product.brand_id,brand.name brand_name,product.id
-		product_id,product.product_no,product.product_name,tech.id
-		tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
-		thickness_name,stock.amount,product.price,stock.identify_id
+				stock.id,product.brand_id,brand.name brand_name,product.id
+				product_id,product.product_no,product.product_name,tech.id
+				tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
+				thickness_name,stock.amount,product.price,stock.identify_type
+				,identify.id identify_id,identify.name identify_name
 		FROM t_stock stock
 		LEFT JOIN t_product product ON stock.product_id = product.id
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
-		LEFT JOIN t_thickness
-		thickness ON product.thickness_id = thickness.id
+		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
+		LEFT JOIN t_identify identify ON stock.identify_id = stock.identify_id
 		<where>
+   			<if test=" productId != null">
+				AND stock.product_id = #{productId}
+			</if>
 			<if test=" productNo != null">
-				product.product_no = #{productNo}
+				AND product.product_no = #{productNo}
 			</if>
 			<if test=" productName != null">
 				AND product.product_name = #{productName}

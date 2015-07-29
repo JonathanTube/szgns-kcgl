@@ -71,14 +71,16 @@
 				<p:column headerText="厚度" width="30">
 						#{v.thicknessName}
 					</p:column>
-				<p:column headerText="库存数" width="40">
+				<ui:remove>
+					<p:column headerText="库存数" width="40">
 						#{v.amount}
 					</p:column>
+				</ui:remove>
 				<p:column headerText="标识" width="60">
 						#{v.identifyName}
 					</p:column>
 				<p:column headerText="入库数" width="40">
-						#{v.inAmount}
+						#{v.amount}
 					</p:column>
 				<p:column headerText="厂家" width="50">
 						#{v.manufactorName}
