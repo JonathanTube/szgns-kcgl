@@ -18,7 +18,8 @@
 					dropdown="true" completeMethod="#{mainView.completeProduct}"
 					var="p" itemLabel="#{p.productName}" itemValue="#{p}"
 					converter="productConverter" forceSelection="true">
-					<p:ajax event="itemSelect" listener="#{mainView.onItemSelect}" update="stock_table" />
+					<p:ajax event="itemSelect" listener="#{mainView.onItemSelect}"
+						update="stock_table" />
 					<p:column headerText="产品编号">
 						<h:outputText value="#{p.productNo}" />
 					</p:column>
@@ -69,7 +70,7 @@
 				</p:column>
 				<p:column headerText="累计查询次数">
 					<h:outputText value="#{v.queryTimes}" />
-				</p:column>				
+				</p:column>
 				<p:column headerText="标识">
 					<h:outputText
 						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
@@ -79,7 +80,5 @@
 				</p:column>
 			</p:dataTable>
 		</h:form>
-		<e:pieChart id="pieChart" value="#{mainView.model}"
-			showToolbox="false" />
 	</ui:define>
 </ui:composition>
