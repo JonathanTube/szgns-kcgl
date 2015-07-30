@@ -2,7 +2,6 @@ package com.kxm.kcgl.mapper;
 
 import java.util.List;
 
-import com.kxm.kcgl.domain.ProductIn;
 import com.kxm.kcgl.domain.ProductOut;
 
 /**

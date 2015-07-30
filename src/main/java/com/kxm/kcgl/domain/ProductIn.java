@@ -13,7 +13,7 @@ public class ProductIn {
 	private String techName;
 	private Integer thicknessId;
 	private String thicknessName;
-	private Integer amount; 
+	private Integer amount;
 	private double price;
 	private Integer manufactorId;
 	private String manufactorName;
@@ -25,6 +25,9 @@ public class ProductIn {
 	private Integer createUserId;
 	private String createUsername;
 	private Date createTime;
+
+	private Date productInStartDate;
+	private Date productInEndDate;
 
 	public Integer getId() {
 		return id;
@@ -200,5 +203,21 @@ public class ProductIn {
 
 	public void setInTypeName(String inTypeName) {
 		this.inTypeName = inTypeName;
+	}
+
+	public Date getProductInStartDate() {
+		return productInStartDate;
+	}
+
+	public Date getProductInEndDate() {
+		return productInEndDate;
+	}
+
+	public void setProductInStartDate(Date productInStartDate) {
+		this.productInStartDate = productInStartDate;
+	}
+
+	public void setProductInEndDate(Date productInEndDate) {
+		this.productInEndDate = productInEndDate;
 	}
 }

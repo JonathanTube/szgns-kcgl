@@ -24,11 +24,25 @@
 
 	<select id="selectSelective" resultMap="Stock">
 		SELECT
-				stock.id,product.brand_id,brand.name brand_name,product.id
-				product_id,product.product_no,product.product_name,tech.id
-				tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
-				thickness_name,stock.amount,product.price,stock.identify_type
-				,identify.id identify_id,identify.name identify_name
+			stock.id,product.brand_id,brand.name brand_name,product.id
+			product_id,product.product_no,product.product_name,tech.id
+			tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
+			thickness_name,stock.amount,product.price,stock.identify_type
+			,identify.id identify_id,identify.name identify_name,
+			(
+				SELECT COUNT(*) FROM t_product_query_times qt 
+				WHERE qt.product_id = stock.product_id
+				<if test="queryTimesStartDate != null">
+					<![CDATA[
+						qt.create_time >= #{queryTimesStartDate}
+					]]>				    
+				</if>
+				<if test="queryTimesEndDate != null">
+					<![CDATA[
+						qt.create_time <= #{queryTimesEndDate}
+					]]>				    
+				</if>
+			) query_times
 		FROM t_stock stock
 		LEFT JOIN t_product product ON stock.product_id = product.id
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
@@ -55,6 +69,7 @@
 				AND product.product_name = #{productName}
 			</if>
 		</where>
+		order by stock.amount desc
 	</select>
 
 	<select id="countBySelective" resultType="int">

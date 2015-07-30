@@ -99,5 +99,13 @@
 			</if>
 		</where>
 	</sql>
+	
+	<select id="search" resultMap="Product" parameterType="string">
+		select product_no,product_name from t_product 
+		where 
+			product_no like CONCAT('%',#{s},'%')
+		and 
+			product_name like CONCAT('%',#{s},'%')
+	</select>
 </mapper>
 

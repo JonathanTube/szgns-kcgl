@@ -10,5 +10,25 @@
 	<ui:define name="title">深圳格纳斯进销存管理系统</ui:define>
 
 	<ui:define name="content">
+		<h:form prependId="true">
+
+			<p:panelGrid columns="3" style="width:100%;text-align:center;">
+				<p:autoComplete value="#{mainView.product}" size="100"
+					completeMethod="#{mainView.completeProduct}" var="p"
+					itemLabel="#{p.productName}" itemValue="#{p}"
+					converter="productConverter" forceSelection="true">
+					<p:column>
+						<h:outputText value="#{p.productNo}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{p.productName}" />
+					</p:column>
+				</p:autoComplete>
+
+				<p:watermark value="输入产品编号或产品名称" for="@previous" />
+
+				<p:commandButton value="查询" actionListener="#{mainView.query()}" />
+			</p:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>

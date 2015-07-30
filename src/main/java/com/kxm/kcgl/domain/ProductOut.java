@@ -1,5 +1,7 @@
 package com.kxm.kcgl.domain;
 
+import java.util.Date;
+
 /**
  * @author kongxm
  * @date 2015 2015年7月27日 下午4:28:23
@@ -31,6 +33,9 @@ public class ProductOut {
 	private Integer createUserId;
 	private String createUserName;
 	private String createTime;
+
+	private Date productOutStartDate;
+	private Date productOutEndDate;
 
 	public Integer getId() {
 		return id;
@@ -238,5 +243,21 @@ public class ProductOut {
 
 	public void setMoney(double money) {
 		this.money = money;
+	}
+
+	public Date getProductOutStartDate() {
+		return productOutStartDate;
+	}
+
+	public Date getProductOutEndDate() {
+		return productOutEndDate;
+	}
+
+	public void setProductOutStartDate(Date productOutStartDate) {
+		this.productOutStartDate = productOutStartDate;
+	}
+
+	public void setProductOutEndDate(Date productOutEndDate) {
+		this.productOutEndDate = productOutEndDate;
 	}
 }

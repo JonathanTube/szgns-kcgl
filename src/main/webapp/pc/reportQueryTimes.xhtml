@@ -10,14 +10,15 @@
 
 	<ui:define name="content">
 		<h:form id="query_times_form" prependId="true">
-
 			<p:panel header="查询条件" collapsed="false" toggleable="true"
 				toggleTitle="点击展开查询条件">
-				<h:panelGrid columns="11">
-					<p:outputLabel value="开始时间：" />
-					<p:inputText value="#{queryTimesView.condition.productNo}" />
-					<p:outputLabel value="结束时间：" />
-					<p:inputText value="#{queryTimesView.condition.productNo}" />
+				<h:panelGrid columns="20">
+					<p:calendar value="#{queryTimesView.condition.queryTimesStartDate}"
+						pattern="MM/dd/yyyy HH:mm:ss" />
+					<p:watermark value="开始时间" for="@previous" />
+					<p:calendar value="#{queryTimesView.condition.queryTimesEndDate}"
+						pattern="MM/dd/yyyy HH:mm:ss" />
+					<p:watermark value="结束时间" for="@previous" />
 					<p:outputLabel value="品牌：" />
 					<p:selectOneMenu value="#{queryTimesView.condition.brandId}">
 						<f:selectItem itemLabel="请选择品牌" itemValue="" />
@@ -41,13 +42,26 @@
 						update="@form:query_times_table" />
 				</h:panelGrid>
 			</p:panel>
-
+			<p:toolbar style="margin-top:2px;">
+				<p:toolbarGroup align="left">
+					<p:commandButton value="下载" ajax="false">
+						<p:dataExporter type="xls" target="query_times_table"
+							fileName="query_times" />
+					</p:commandButton>
+					<p:commandButton value="打印" type="button">
+						<p:printer target="@form:query_times_table" />
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
 			<p:dataTable id="query_times_table"
 				value="#{queryTimesView.stockDataModel}" style="margin-top:2px;"
 				paginator="true" rows="25" paginatorPosition="bottom"
 				rowIndexVar="index" var="v"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="25,50,100" lazy="true">
+				<f:facet name="header">
+					<h:outputText value="型号查询次数统计表" />
+				</f:facet>
 				<p:column headerText="序号" width="30">
 						#{v.id}
 					</p:column>
@@ -73,7 +87,7 @@
 						#{v.price}
 					</p:column>
 				<p:column headerText="标识">
-						#{v.identifyName}
+						#{v.identifyType == 0 ? '中性标' : v.identifyName}
 					</p:column>
 				<p:column headerText="累计查询次数">
 						#{v.queryTimes}
