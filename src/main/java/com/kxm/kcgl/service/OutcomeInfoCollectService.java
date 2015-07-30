@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.kxm.kcgl.dao.BillDao;
 import com.kxm.kcgl.dao.OutcomeInfoCollectDao;
 import com.kxm.kcgl.dao.StockDao;
-import com.kxm.kcgl.domain.BillBean;
+import com.kxm.kcgl.domain.Bill;
 import com.kxm.kcgl.domain.OutcomeInfoBean;
 import com.kxm.kcgl.domain.Stock;
 
@@ -56,7 +56,7 @@ public class OutcomeInfoCollectService {
 			seq += "0000";
 		}
 
-		BillBean billBean = new BillBean();
+		Bill billBean = new Bill();
 		billBean.setSeq(seq);
 		billDao.insert(billBean);
 

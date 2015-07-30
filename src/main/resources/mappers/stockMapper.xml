@@ -39,6 +39,15 @@
    			<if test=" productId != null">
 				AND stock.product_id = #{productId}
 			</if>
+			<if test=" identifyType != null">
+				AND stock.identify_type = #{identifyType}
+			</if>
+			<if test=" identifyId != null">
+				AND stock.identify_id = #{identifyId}
+			</if>
+			<if test=" manufactorId != null">
+				AND stock.manufactor_id = #{manufactorId}
+			</if>
 			<if test=" productNo != null">
 				AND product.product_no = #{productNo}
 			</if>

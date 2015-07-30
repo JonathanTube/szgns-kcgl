@@ -21,37 +21,45 @@
 
 			<p:dialog widgetVar="product_out_dlg" closeOnEscape="true"
 				header="产品出货" width="1200" dynamic="true" minHeight="600">
-				<p:fieldset legend="筛选">
-					<h:panelGrid columns="7">
-						<h:outputText value="产品编号:" />
-						<p:inputText value="#{productOutView.productNo}" />
-						<p:commandButton id="btn_productNo"
-							actionListener="#{productOutView.addProductOut}" value="确定"
-							partialSubmit="true" process="@this @previous"
-							update="@form:product_out_tbl" />
+				<h:panelGrid columns="10">
+					<h:outputText value="产品编号:" />
+					<p:inputText value="#{productOutView.productNo}" />
+					<p:commandButton id="btn_productNo"
+						actionListener="#{productOutView.addProductOut}" value="确定"
+						partialSubmit="true" process="@this @previous"
+						update="@form:product_out_tbl" />
 
-						<h:outputText value="产品型号:" />
-						<p:selectOneMenu value="#{productOutView.productId}">
-							<f:selectItem itemLabel="请选择产品型号" itemValue="" />
-							<f:selectItems var="s" value="#{productOutView.productList}"
-								itemLabel="#{s.productName}" itemValue="#{s.id}" />
-						</p:selectOneMenu>
-						<p:commandButton id="btn_productId"
-							actionListener="#{productOutView.addProductOut}" value="确定"
-							partialSubmit="true" process="@this @previous"
-							update="@form:product_out_tbl" />
+					<h:outputText value="产品型号:" />
+					<p:selectOneMenu value="#{productOutView.productId}">
+						<f:selectItem itemLabel="请选择产品型号" itemValue="" />
+						<f:selectItems var="s" value="#{productOutView.productList}"
+							itemLabel="#{s.productName}" itemValue="#{s.id}" />
+					</p:selectOneMenu>
+					<p:commandButton id="btn_productId"
+						actionListener="#{productOutView.addProductOut}" value="确定"
+						partialSubmit="true" process="@this @previous"
+						update="@form:product_out_tbl" />
 
-						<p:commandButton value="执行出货" icon="ui-icon-disk"
-							actionListener="#{productOutView.productOut}"
-							partialSubmit="true" process="@this"
-							update="product_out_log_tbl product_out_tbl" />
-					</h:panelGrid>
-				</p:fieldset>
+					<p:outputLabel value="客户名称：" />
+					<p:selectOneMenu id="cust_sel" required="true"
+						requiredMessage="请选择客户" value="#{productOutView.custId}"
+						style="width:165px;">
+						<f:selectItem itemLabel="请选择客户" itemValue="" />
+						<f:selectItems var="v" value="#{productOutView.custList}"
+							itemLabel="#{v.name}" itemValue="#{v.id}" />
+					</p:selectOneMenu>
+					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户"
+						onclick="PF('cust_add_dlg').show();" />
+
+					<p:commandButton value="执行出货" icon="ui-icon-disk"
+						actionListener="#{productOutView.productOut}" partialSubmit="true"
+						process="@this cust_sel" update="bill_tbl product_out_tbl" />
+				</h:panelGrid>
 
 				<p:dataTable id="product_out_tbl" var="v"
-					value="#{productOutView.productOutList}">
+					value="#{productOutView.tempProductOutList}">
 					<f:facet name="header">
-						<h:outputText value="产品出库" />
+						<h:outputText value="产品出货" />
 					</f:facet>
 					<p:column headerText="产品编号">
 						<h:outputText value="#{v.productNo}" />
@@ -68,14 +76,17 @@
 					<p:column headerText="厚度">
 						<h:outputText value="#{v.thicknessName}" />
 					</p:column>
-					<p:column headerText="库存数量">
-						<h:outputText value="#{v.stockAmount}" />
+					<p:column headerText="库存数量"
+						style="background-color:#{v.stockAmount == 0 ? 'red' : 'white'}">
+						<h:outputText value="#{v.stockAmount}"
+							style="color:#{v.stockAmount == 0 ? 'white' : 'black'}" />
 					</p:column>
 					<p:column headerText="出厂价">
 						<h:outputText value="#{v.stockPrice}" />
 					</p:column>
 					<p:column headerText="标识">
-						<h:outputText value="#{v.identifyType == 0 ? '中性标' : '客户标'}" />
+						<h:outputText
+							value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
 					</p:column>
 					<p:column headerText="出货数量">
 						<h:outputText value="#{v.amount}" />
@@ -88,69 +99,21 @@
 							<h:outputText value="#{v.identifyName}" />
 						</p:column>
 					</ui:remove>
-					<p:column headerText="客户名称">
-						<h:outputText value="#{productOutView.getCustName(v.custId)}" />
-					</p:column>
 					<p:column headerText="业务员">
 						<h:outputText value="#{v.createUserName}" />
 					</p:column>
-					<p:column headerText="操作" width="60">
+					<p:column headerText="操作" width="120" style="text-align:center;">
 						<p:commandButton value="编辑" icon="ui-icon-pencil"
 							actionListener="#{productOutView.editExistTemp(v)}"
 							process="@this" update="@form:edit_dlg" />
+						<p:commandButton value="删除" icon="ui-icon-close"
+							actionListener="#{productOutView.delExistTemp(v)}"
+							process="@this" update="@form:product_out_tbl" />
 					</p:column>
 				</p:dataTable>
 			</p:dialog>
 
-			<p:dataTable var="v" id="product_out_log_tbl"
-				value="#{productOutView.productOutModel}" style="margin-top:2px;"
-				paginator="true" rows="50" paginatorPosition="bottom"
-				rowIndexVar="index"
-				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="50,100,200" lazy="true">
-				<f:facet name="header">
-					<h:outputText value="出库日志" />
-				</f:facet>
-				<p:column headerText="序号" width="30">
-					<h:outputText value="#{index + 1}" />
-				</p:column>
-				<p:column headerText="产品编号" width="50">
-					<h:outputText value="#{v.productNo}" />
-				</p:column>
-				<p:column headerText="品牌" width="50">
-					<h:outputText value="#{v.brandName}" />
-				</p:column>
-				<p:column headerText="产品名称">
-					<h:outputText value="#{v.productName}" />
-				</p:column>
-				<p:column headerText="工艺" width="50">
-					<h:outputText value="#{v.techName}" />
-				</p:column>
-				<p:column headerText="厚度" width="30">
-					<h:outputText value="#{v.thicknessName}" />
-				</p:column>
-				<p:column headerText="标识">
-					<h:outputText
-						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
-				</p:column>
-				<p:column headerText="出货数" width="40">
-					<h:outputText value="#{v.amount}" />
-				</p:column>
-				<p:column headerText="出货价格" width="50">
-					<h:outputText value="#{v.price}" />
-				</p:column>
-				<p:column headerText="业务员" width="50">
-					<h:outputText value="#{v.createUserName}" />
-				</p:column>
-				<p:column headerText="
-						出货时间" width="150">
-					<h:outputLabel value="#{v.createTime}">
-						<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8"
-							pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
-					</h:outputLabel>
-				</p:column>
-			</p:dataTable>
-
+			<!-- ***********************************编辑出货明细*********************************** -->
 			<p:dialog id="edit_dlg" widgetVar="edit_dlg" header="编辑出库信息">
 				<h:panelGrid columns="3">
 					<p:outputLabel value="产品编号：" />
@@ -209,17 +172,6 @@
 							minimum="#{productOutView.productOut.stockPrice}" />
 					</pe:inputNumber>
 					<p:spacer />
-
-					<p:outputLabel value="客户名称：" />
-					<p:selectOneMenu id="cust_sel" required="true"
-						requiredMessage="请选择客户"
-						value="#{productOutView.productOut.custId}" style="width:165px;">
-						<f:selectItem itemLabel="请选择客户" itemValue="" />
-						<f:selectItems var="v" value="#{productOutView.custList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
-					</p:selectOneMenu>
-					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户"
-						onclick="PF('cust_add_dlg').show();" />
 				</h:panelGrid>
 
 				<div style="float: right;">
@@ -227,6 +179,138 @@
 						actionListener="#{productOutView.editExistTemp}"
 						partialSubmit="true" process="@form:edit_dlg"
 						update="@form:product_out_tbl" />
+				</div>
+			</p:dialog>
+
+			<!-- ***********************************出货清单*********************************** -->
+			<p:dataTable var="v" id="bill_tbl"
+				value="#{productOutView.billDataModel}" style="margin-top:2px;"
+				paginator="true" rows="25" paginatorPosition="bottom"
+				rowIndexVar="index"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="25,50,100" lazy="true">
+				<f:facet name="header">
+					<h:outputText value="出货单" />
+				</f:facet>
+				<p:column headerText="序号" width="30">
+					<h:outputText value="#{index + 1}" />
+				</p:column>
+				<p:column headerText="出货单号" width="150">
+					<h:outputText value="#{v.seq}" />
+				</p:column>
+				<p:column headerText="合计数量">
+					<h:outputText value="#{v.totalAmount}" />
+				</p:column>
+				<p:column headerText="合计单价">
+					<h:outputText value="#{v.totalPrice}" />
+				</p:column>
+				<p:column headerText="合计金额">
+					<h:outputText value="#{v.totalMoney}" />
+				</p:column>
+				<p:column headerText="客户">
+					<h:outputText value="#{v.custName}" />
+				</p:column>
+				<p:column headerText="业务员">
+					<h:outputText value="#{v.createUserName}" />
+				</p:column>
+				<p:column headerText="
+						出货时间" width="150">
+					<h:outputLabel value="#{v.createTime}">
+						<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8"
+							pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
+					</h:outputLabel>
+				</p:column>
+				<p:column headerText="操作" width="50" style="text-align:center;">
+					<p:commandButton
+						actionListener="#{productOutView.showBillDetail(v)}" value="查看"
+						partialSubmit="true" process="@this" icon="ui-icon-search"
+						update="@form:bill_dlg" />
+				</p:column>
+			</p:dataTable>
+
+			<!-- ***********************************出货明细*********************************** -->
+			<p:dialog header="出货单" widgetVar="bill_dlg" id="bill_dlg"
+				width="1000">
+				<p:panelGrid id="bill_pg">
+					<h:panelGrid columns="1" style="width:100%;text-align:center;">
+						<h:outputText value="东莞市晟煜光电科技有限公司" />
+						<h:outputText value="地址：广东省东莞市大朗镇水口村水常四路六号" />
+						<h:outputText value="电话：0769-88895856    传真：0769-81129199" />
+						<h:outputText value="出货单" style="font-size:16px;font-weight:bold;" />
+					</h:panelGrid>
+					<h:panelGrid style="width:100%" columns="6">
+						<h:outputText value="单号:" />
+						<h:outputText value="#{productOutView.selectedBill.seq}" />
+						<h:outputText value="客户:" />
+						<h:outputText value="#{productOutView.selectedBill.custName}" />
+						<h:outputText value="出货时间:" />
+						<h:outputLabel value="#{productOutView.selectedBill.seq}">
+							<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8"
+								pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
+						</h:outputLabel>
+					</h:panelGrid>
+					<p:dataTable var="v" value="#{productOutView.productOutList}"
+						style="margin-top:2px;" rowIndexVar="index">
+						<p:column headerText="序号" width="30">
+							<h:outputText value="#{index + 1}" />
+						</p:column>
+						<p:column headerText="产品编号" width="50">
+							<h:outputText value="#{v.productNo}" />
+						</p:column>
+						<p:column headerText="品牌" width="50">
+							<h:outputText value="#{v.brandName}" />
+						</p:column>
+						<p:column headerText="产品名称">
+							<h:outputText value="#{v.productName}" />
+						</p:column>
+						<p:column headerText="工艺" width="50">
+							<h:outputText value="#{v.techName}" />
+						</p:column>
+						<p:column headerText="厚度" width="30">
+							<h:outputText value="#{v.thicknessName}" />
+						</p:column>
+						<ui:remove>
+							<p:column headerText="标识">
+								<h:outputText
+									value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
+							</p:column>
+						</ui:remove>
+						<p:column headerText="单位" width="30">
+							<h:outputText value="片" />
+						</p:column>
+						<p:column headerText="数量" width="50">
+							<h:outputText value="#{v.amount}" />
+						</p:column>
+						<p:column headerText="单价" width="50">
+							<h:outputText value="#{v.price}" />
+						</p:column>
+						<p:column headerText="金额" width="50">
+							<h:outputText value="#{v.money}" />
+						</p:column>
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column colspan="7" style="text-align:right" footerText="小计" />
+								<p:column style="text-align:right"
+									footerText="#{productOutView.selectedBill.totalAmount}" />
+								<p:column style="text-align:right"
+									footerText="#{productOutView.selectedBill.totalPrice}" />
+								<p:column style="text-align:right"
+									footerText="#{productOutView.selectedBill.totalMoney}" />
+							</p:row>
+						</p:columnGroup>
+					</p:dataTable>
+					<h:panelGrid columns="2" style="width:100%">
+						<h:outputText value="出货经手人:" />
+						<h:outputText value="业务员:" />
+					</h:panelGrid>
+				</p:panelGrid>
+				<div style="text-align: center;">
+					<p:commandButton value="打印" type="button" icon="ui-icon-print">
+						<p:printer target="bill_dlg" />
+					</p:commandButton>
+					<p:spacer width="20" />
+					<p:commandButton value="关闭" type="button" icon="ui-icon-close"
+						onclick="PF('bill_dlg').hide()" />
 				</div>
 			</p:dialog>
 
