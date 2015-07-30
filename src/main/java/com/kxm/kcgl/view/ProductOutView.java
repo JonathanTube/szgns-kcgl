@@ -1,11 +1,11 @@
 package com.kxm.kcgl.view;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ import org.springframework.stereotype.Component;
 import com.hyjd.frame.psm.base.LoginSession;
 import com.hyjd.frame.psm.datamodel.PaginationDataModel;
 import com.hyjd.frame.psm.utils.MsgTool;
-import com.kxm.kcgl.domain.Cust;
-import com.kxm.kcgl.domain.Product;
+import com.kxm.kcgl.LogicException;
+import com.kxm.kcgl.domain.Bill;
 import com.kxm.kcgl.domain.ProductOut;
 import com.kxm.kcgl.domain.Stock;
 import com.kxm.kcgl.domain.User;
-import com.kxm.kcgl.service.CustService;
+import com.kxm.kcgl.service.BillService;
 import com.kxm.kcgl.service.ProductOutService;
 import com.kxm.kcgl.service.ProductService;
 import com.kxm.kcgl.service.StockService;
@@ -39,49 +39,40 @@ public class ProductOutView implements Serializable {
 	@Autowired
 	private StockService stockService;
 
-	private PaginationDataModel<ProductOut> productOutModel;
+	private List<ProductOut> productOutList = new ArrayList<ProductOut>();
 
-	private List<ProductOut> productOutList = new LinkedList<ProductOut>();
-
-	private List<Product> productList;
-
-	private List<Cust> custList;
+	private Bill billCondition = new Bill();
 	@Autowired
-	private CustService custService;
-	private String custName;
+	private BillService billService;
+	private PaginationDataModel<Bill> billDataModel;
+	private Bill selectedBill = new Bill();
+
+	private List<ProductOut> tempProductOutList = new LinkedList<ProductOut>();
 
 	private ProductOut productOut = new ProductOut();
 
 	@Autowired
 	private LoginSession loginSession;
 
-	private int productId;
-	private String productNo;
-
 	@PostConstruct
 	public void init() {
-		query();
-		initCustList();
-		initProductList();
+		initBillList();
 	}
 
-	public void initCustList() {
-		custList = custService.selectSelective(new Cust());
+	public void initBillList() {
+		billDataModel = new PaginationDataModel<Bill>("com.kxm.kcgl.mapper.BillMapper.selectSelective", billCondition);
 	}
 
-	public void addCust() {
-		String msg = custService.addNew(custName);
-		MsgTool.addInfoMsg(msg);
-		initCustList();
+	public void showBillDetail(Bill bill) {
+		initProductOutList(bill.getId());
+		selectedBill = bill;
+		RequestContext.getCurrentInstance().execute("PF('bill_dlg').show()");
 	}
 
-	public void initProductList() {
-		productList = productService.queryAll();
-	}
-
-	public void query() {
-		productOutModel = new PaginationDataModel<ProductOut>(
-				"com.kxm.kcgl.mapper.ProductOutMapper.selectSelective");
+	private void initProductOutList(Integer billId) {
+		ProductOut condition = new ProductOut();
+		condition.setBillId(billId);
+		productOutList = productOutService.selectSelective(condition);
 	}
 
 	public void editExistTemp(ProductOut productOut) {
@@ -89,26 +80,39 @@ public class ProductOutView implements Serializable {
 		RequestContext.getCurrentInstance().execute("PF('edit_dlg').show()");
 	}
 
-	public void addProductOut(ActionEvent event) {
+	public void delExistTemp(ProductOut productOut) {
+		tempProductOutList.remove(productOut);
+	}
+
+	public void addProductOutByProductId(Integer productId) {
 		// 判断是否已经添加过
 		for (ProductOut productOut : productOutList) {
-			if (productOut.getProductId().equals(productId)
-					|| productOut.getProductNo().equals(productNo)) {
+			if (productOut.getProductId().equals(productId)) {
 				MsgTool.addInfoMsg("请不要重复添加出货的产品");
 				return;
 			}
 		}
-		String id = event.getComponent().getId();
-		List<Stock> stockList = null;
-		if ("btn_productId".equals(id)) {
-			Stock condition = new Stock();
-			condition.setProductId(productId);
-			stockList = stockService.selectSelective(condition);
-		} else {
-			Stock condition = new Stock();
-			condition.setProductNo(productNo);
-			stockList = stockService.selectSelective(condition);
+		Stock condition = new Stock();
+		condition.setProductId(productId);
+		List<Stock> stockList = stockService.selectSelective(condition);
+		addProductOut(stockList);
+	}
+
+	public void addProductOutByProductNo(String productNo) {
+		// 判断是否已经添加过
+		for (ProductOut productOut : productOutList) {
+			if (productOut.getProductNo().equals(productNo)) {
+				MsgTool.addInfoMsg("请不要重复添加出货的产品");
+				return;
+			}
 		}
+		Stock condition = new Stock();
+		condition.setProductNo(productNo);
+		List<Stock> stockList = stockService.selectSelective(condition);
+		addProductOut(stockList);
+	}
+
+	private void addProductOut(List<Stock> stockList) {
 		if (stockList == null || stockList.size() == 0) {
 			MsgTool.addInfoMsg("未查询到产品库存");
 			return;
@@ -134,7 +138,7 @@ public class ProductOutView implements Serializable {
 			User user = (User) loginSession.getSesionObj();
 			productOut.setCreateUserId(user.getId());
 			productOut.setCreateUserName(user.getRealname());
-			productOutList.add(productOut);
+			tempProductOutList.add(productOut);
 		}
 	}
 
@@ -148,54 +152,19 @@ public class ProductOutView implements Serializable {
 		RequestContext.getCurrentInstance().execute("PF('edit_dlg').hide()");
 	}
 
-	public String getCustName(int custId) {
-		for (Cust cust : custList) {
-			if (cust.getId() == custId) {
-				return cust.getName();
-			}
+	public void productOut(Integer custId) {
+		try {
+			User user = (User) loginSession.getSesionObj();
+			productOutService.productOut(tempProductOutList, user.getId(), custId);
+			tempProductOutList.clear();
+			MsgTool.addInfoMsg("出货成功");
+		} catch (LogicException e) {
+			MsgTool.addInfoMsg(e.getMessage());
 		}
-		return "";
-	}
-
-	public void productOut() {
-		productOutService.productOut(productOutList);
-	}
-
-	public List<Product> getProductList() {
-		return productList;
-	}
-
-	public void setProductList(List<Product> productList) {
-		this.productList = productList;
-	}
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public String getProductNo() {
-		return productNo;
-	}
-
-	public void setProductNo(String productNo) {
-		this.productNo = productNo;
-	}
-
-	public PaginationDataModel<ProductOut> getProductOutModel() {
-		return productOutModel;
 	}
 
 	public List<ProductOut> getProductOutList() {
 		return productOutList;
-	}
-
-	public void setProductOutModel(
-			PaginationDataModel<ProductOut> productOutModel) {
-		this.productOutModel = productOutModel;
 	}
 
 	public void setProductOutList(List<ProductOut> productOutList) {
@@ -210,19 +179,35 @@ public class ProductOutView implements Serializable {
 		this.productOut = productOut;
 	}
 
-	public List<Cust> getCustList() {
-		return custList;
+	public PaginationDataModel<Bill> getBillDataModel() {
+		return billDataModel;
 	}
 
-	public void setCustList(List<Cust> custList) {
-		this.custList = custList;
+	public void setBillDataModel(PaginationDataModel<Bill> billDataModel) {
+		this.billDataModel = billDataModel;
 	}
 
-	public String getCustName() {
-		return custName;
+	public Bill getBillCondition() {
+		return billCondition;
 	}
 
-	public void setCustName(String custName) {
-		this.custName = custName;
+	public void setBillCondition(Bill billCondition) {
+		this.billCondition = billCondition;
+	}
+
+	public List<ProductOut> getTempProductOutList() {
+		return tempProductOutList;
+	}
+
+	public void setTempProductOutList(List<ProductOut> tempProductOutList) {
+		this.tempProductOutList = tempProductOutList;
+	}
+
+	public Bill getSelectedBill() {
+		return selectedBill;
+	}
+
+	public void setSelectedBill(Bill selectedBill) {
+		this.selectedBill = selectedBill;
 	}
 }

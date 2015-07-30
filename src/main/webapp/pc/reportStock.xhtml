@@ -13,40 +13,43 @@
 			<p:toolbar>
 				<p:toolbarGroup align="left">
 					<p:commandButton value="下载" ajax="false">
-				        <p:dataExporter type="xls" target="stock_table" fileName="stock"/>
+						<p:dataExporter type="xls" target="stock_table" fileName="stock" />
 					</p:commandButton>
 					<p:commandButton value="打印" type="button">
 						<p:printer target="@form:stock_table" />
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable var="v" id="stock_table"
-				value="#{stockView.stockList}" style="margin-top:2px;"
-				rowIndexVar="index">
+			<p:dataTable var="v" id="stock_table" value="#{stockView.stockList}"
+				style="margin-top:2px;" rowIndexVar="index">
+				<f:facet name="header">
+					<h:outputText value="总库存日报表" />
+				</f:facet>
 				<p:column headerText="序号" width="30">
-						#{index + 1}
-					</p:column>
+					<h:outputText value="#{index + 1}" />
+				</p:column>
 				<p:column headerText="产品编号">
-						#{v.productNo}
-					</p:column>
+					<h:outputText value="#{v.productNo}" />
+				</p:column>
 				<p:column headerText="品牌">
-						#{v.brandName}
-					</p:column>
+					<h:outputText value="#{v.brandName}" />
+				</p:column>
 				<p:column headerText="型号">
-						#{v.productName}
-					</p:column>
+					<h:outputText value="#{v.productName}" />
+				</p:column>
 				<p:column headerText="工艺">
-						#{v.techName}
+					<h:outputText value="#{v.techName}" />
 				</p:column>
 				<p:column headerText="厚度">
-						#{v.thicknessName}
+					<h:outputText value="#{v.thicknessName}" />
 				</p:column>
 				<p:column headerText="库存数量">
-						#{v.amount}
-					</p:column>
+					<h:outputText value="#{v.amount}" />
+				</p:column>
 				<p:column headerText="标识">
-						#{v.identifyName}
-					</p:column>
+					<h:outputText
+						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
+				</p:column>
 			</p:dataTable>
 		</h:form>
 	</ui:define>

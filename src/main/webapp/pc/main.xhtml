@@ -5,10 +5,81 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:e="http://www.hyjd.com/component/echarts"
 	template="baseTemplate.xhtml">
 
 	<ui:define name="title">深圳格纳斯进销存管理系统</ui:define>
 
 	<ui:define name="content">
+		<h:form prependId="true">
+			<h:panelGrid columns="1"
+				style="width:100%;text-align:center;margin-top:40px;">
+				<p:autoComplete value="#{mainView.selectedProduct}" size="160"
+					dropdown="true" completeMethod="#{mainView.completeProduct}"
+					var="p" itemLabel="#{p.productName}" itemValue="#{p}"
+					converter="productConverter" forceSelection="true">
+					<p:ajax event="itemSelect" listener="#{mainView.onItemSelect}" update="stock_table" />
+					<p:column headerText="产品编号">
+						<h:outputText value="#{p.productNo}" />
+					</p:column>
+					<p:column headerText="品牌">
+						<h:outputText value="#{p.brandName}" />
+					</p:column>
+					<p:column headerText="工艺">
+						<h:outputText value="#{p.techName}" />
+					</p:column>
+					<p:column headerText="厚度">
+						<h:outputText value="#{p.thicknessName}" />
+					</p:column>
+					<p:column headerText="出厂价">
+						<h:outputText value="#{p.price}" />
+					</p:column>
+					<p:column headerText="产品名称">
+						<h:outputText value="#{p.productName}" />
+					</p:column>
+				</p:autoComplete>
+				<p:watermark value="输入产品编号或产品名称" for="@previous" />
+			</h:panelGrid>
+
+			<p:dataTable var="v" id="stock_table" value="#{mainView.stockList}"
+				style="margin-top:2px;" rowIndexVar="index">
+				<f:facet name="header">
+					<h:outputText value="总库存日报表" />
+				</f:facet>
+				<p:column headerText="序号" width="30">
+					<h:outputText value="#{index + 1}" />
+				</p:column>
+				<p:column headerText="产品编号">
+					<h:outputText value="#{v.productNo}" />
+				</p:column>
+				<p:column headerText="品牌">
+					<h:outputText value="#{v.brandName}" />
+				</p:column>
+				<p:column headerText="型号">
+					<h:outputText value="#{v.productName}" />
+				</p:column>
+				<p:column headerText="工艺">
+					<h:outputText value="#{v.techName}" />
+				</p:column>
+				<p:column headerText="厚度">
+					<h:outputText value="#{v.thicknessName}" />
+				</p:column>
+				<p:column headerText="库存数量">
+					<h:outputText value="#{v.amount}" />
+				</p:column>
+				<p:column headerText="累计查询次数">
+					<h:outputText value="#{v.queryTimes}" />
+				</p:column>				
+				<p:column headerText="标识">
+					<h:outputText
+						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
+				</p:column>
+				<p:column headerText="预出货">
+					<p:commandButton type="button" value="预出货" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		<e:pieChart id="pieChart" value="#{mainView.model}"
+			showToolbox="false" />
 	</ui:define>
 </ui:composition>

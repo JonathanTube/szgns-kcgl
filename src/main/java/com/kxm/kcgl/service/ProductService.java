@@ -22,37 +22,39 @@ public class ProductService {
 	public List<Product> queryAll() {
 		return productMapper.selectSelective(new Product());
 	}
-	
-	public Product queryByProductNo(String productNo){
+
+	public Product queryByProductNo(String productNo) {
 		Product condition = new Product();
 		condition.setProductNo(productNo);
 		List<Product> list = productMapper.selectSelective(condition);
-		if(list.size() > 0){
+		if (list.size() > 0) {
 			return list.get(0);
 		}
 		return null;
 	}
-	
-	public Product queryByProductId(int productId){
+
+	public Product queryByProductId(int productId) {
 		Product condition = new Product();
 		condition.setId(productId);
 		List<Product> list = productMapper.selectSelective(condition);
-		if(list.size() > 0){
+		if (list.size() > 0) {
 			return list.get(0);
 		}
 		return null;
 	}
 
-	
-	public Product queryByProductName(String productName){
+	public Product queryByProductName(String productName) {
 		Product condition = new Product();
 		condition.setProductName(productName);
 		List<Product> list = productMapper.selectSelective(condition);
-		if(list.size() > 0){
+		if (list.size() > 0) {
 			return list.get(0);
 		}
 		return null;
 	}
 
+	public List<Product> search(String keywords) {
+		return productMapper.search(keywords);
+	}
 
 }

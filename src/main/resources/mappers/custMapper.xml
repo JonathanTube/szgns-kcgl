@@ -7,13 +7,16 @@
 	<resultMap id="Cust" type="com.kxm.kcgl.domain.Cust">
 		<result property="id" column="ID" jdbcType="DECIMAL" />
 		<result property="name" column="name" jdbcType="VARCHAR" />
+		<result property="userId" column="user_id" jdbcType="DECIMAL" />
 	</resultMap>
 
 	<insert id="insert" parameterType="com.kxm.kcgl.domain.Cust">
 		INSERT INTO T_CUST (
-		name
+			name,
+			user_id
 		) VALUES (
-		#{name}
+			#{name},
+			#{userId}
 		)
 	</insert>
 
@@ -24,11 +27,24 @@
 	</delete>
 
 	<select id="selectSelective" resultMap="Cust">
-		SELECT * FROM T_CUST
+		SELECT * FROM T_CUST 
+		<include refid="condition" />
 	</select>
 
 	<select id="countBySelective" resultType="int">
 		SELECT count(*) FROM T_CUST
+		<include refid="condition" />
 	</select>
+	
+	<sql id="condition">
+	    <where>
+			<if test="name != null">
+				name = #{name}		    
+			</if>
+			<if test="userId != null">
+				user_id = #{userId}		    
+			</if>
+		</where>
+	</sql>
 </mapper>
 

@@ -1,5 +1,7 @@
 package com.kxm.kcgl.domain;
 
+import java.util.Date;
+
 public class Stock {
 	private Integer id;
 	private String productNo;
@@ -19,6 +21,9 @@ public class Stock {
 	private Integer manufactorId;
 	private String manufactorName;
 	private Integer queryTimes;
+
+	private Date queryTimesStartDate;
+	private Date queryTimesEndDate;
 
 	public Integer getId() {
 		return id;
@@ -162,5 +167,21 @@ public class Stock {
 
 	public void setManufactorName(String manufactorName) {
 		this.manufactorName = manufactorName;
+	}
+
+	public Date getQueryTimesStartDate() {
+		return queryTimesStartDate;
+	}
+
+	public void setQueryTimesStartDate(Date queryTimesStartDate) {
+		this.queryTimesStartDate = queryTimesStartDate;
+	}
+
+	public Date getQueryTimesEndDate() {
+		return queryTimesEndDate;
+	}
+
+	public void setQueryTimesEndDate(Date queryTimesEndDate) {
+		this.queryTimesEndDate = queryTimesEndDate;
 	}
 }

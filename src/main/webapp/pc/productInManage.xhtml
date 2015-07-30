@@ -37,7 +37,7 @@
 						<h:outputText value="产品型号:" />
 						<p:selectOneMenu value="#{productInView.productId}">
 							<f:selectItem itemLabel="请选择产品型号" itemValue="" />
-							<f:selectItems var="s" value="#{productInView.productList}"
+							<f:selectItems var="s" value="#{parameterView.productList}"
 								itemLabel="#{s.productName}" itemValue="#{s.id}" />
 						</p:selectOneMenu>
 
@@ -81,14 +81,13 @@
 					</p:column>
 					<p:column headerText="标识">
 						<h:outputText
-							value="#{v.identifyType == 0 ? '中性标' : productInView.getIdentifyName(v.identifyId)}" />
+							value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
 					</p:column>
 					<p:column headerText="厂家">
-						<h:outputText
-							value="#{productInView.getManufactorName(v.manufactorId)}" />
+						<h:outputText value="#{v.manufactorName}" />
 					</p:column>
 					<p:column headerText="入库类型">
-						<h:outputText value="#{productInView.getInTypeName(v.inTypeId)}" />
+						<h:outputText value="#{v.inTypeName}" />
 					</p:column>
 					<p:column headerText="操作" width="60">
 						<p:commandButton value="编辑" icon="ui-icon-pencil"
@@ -146,7 +145,7 @@
 						value="#{productInView.productIn.manufactorId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
-						<f:selectItems var="v" value="#{productInView.manufactorList}"
+						<f:selectItems var="v" value="#{parameterView.manufactorList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增厂家"
@@ -165,7 +164,7 @@
 					<p:selectOneMenu id="identify_sel2"
 						value="#{productInView.productIn.identifyId}" style="width:165px;">
 						<f:selectItem itemLabel="请选择客户标" itemValue="-1" />
-						<f:selectItems var="v" value="#{productInView.identifyList}"
+						<f:selectItems var="v" value="#{parameterView.identifyList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户标"
@@ -176,7 +175,7 @@
 						value="#{productInView.productIn.inTypeId}" style="width:165px;"
 						required="true" requiredMessage="请选择入库类型">
 						<f:selectItem itemLabel="请选择入库类型" itemValue="-1" />
-						<f:selectItems var="v" value="#{productInView.inTypeList}"
+						<f:selectItems var="v" value="#{parameterView.inTypeList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增入库类型"
@@ -193,10 +192,10 @@
 
 			<p:dataTable var="v" id="product_in_log_tbl"
 				value="#{productInView.productInModel}" style="margin-top:2px;"
-				paginator="true" rows="50" paginatorPosition="bottom"
+				paginator="true" rows="25" paginatorPosition="bottom"
 				rowIndexVar="index"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="50,100,200" lazy="true">
+				rowsPerPageTemplate="25,50,100" lazy="true">
 				<f:facet name="header">
 					<h:outputText value="入库日志" />
 				</f:facet>
@@ -219,7 +218,8 @@
 					<h:outputText value="#{v.thicknessName}" />
 				</p:column>
 				<p:column headerText="标识">
-					<h:outputText value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
+					<h:outputText
+						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
 				</p:column>
 				<p:column headerText="入库数" width="40">
 					<h:outputText value="#{v.amount}" />
@@ -257,7 +257,7 @@
 						value="#{productInView.productIn.brandId}" style="width:165px;"
 						requiredMessage="请选择品牌" required="true">
 						<f:selectItem itemLabel="请选择品牌" itemValue="" />
-						<f:selectItems var="v" value="#{productInView.brandList}"
+						<f:selectItems var="v" value="#{parameterView.brandList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增品牌"
@@ -274,7 +274,7 @@
 						value="#{productInView.productIn.techId}" style="width:165px;"
 						requiredMessage="请选择工艺" required="true">
 						<f:selectItem itemLabel="请选择工艺" itemValue="" />
-						<f:selectItems var="v" value="#{productInView.techList}"
+						<f:selectItems var="v" value="#{parameterView.techList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增工艺"
@@ -286,7 +286,7 @@
 						value="#{productInView.productIn.thicknessId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厚度" itemValue="" />
-						<f:selectItems var="v" value="#{productInView.thicknessList}"
+						<f:selectItems var="v" value="#{parameterView.thicknessList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增厚度"
@@ -312,7 +312,7 @@
 						value="#{productInView.productIn.manufactorId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
-						<f:selectItems var="v" value="#{productInView.manufactorList}"
+						<f:selectItems var="v" value="#{parameterView.manufactorList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增厂家"
@@ -331,7 +331,7 @@
 					<p:selectOneMenu id="identify_sel"
 						value="#{productInView.productIn.identifyId}" style="width:165px;">
 						<f:selectItem itemLabel="请选择客户标" itemValue="-1" />
-						<f:selectItems var="v" value="#{productInView.identifyList}"
+						<f:selectItems var="v" value="#{parameterView.identifyList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户标"
@@ -351,10 +351,10 @@
 				<h:panelGrid columns="3" id="brand_pg">
 					<h:outputLabel value="品牌：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{productInView.brandName}" />
+						value="#{requestScope.brandName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{productInView.addBrand}" partialSubmit="true"
-						process="brand_pg" update="brand_sel"
+						actionListener="#{parameterView.addBrand(requestScope.brandName)}"
+						partialSubmit="true" process="brand_pg" update="brand_sel"
 						onsuccess="PF('brand_add_dlg').hide()" />
 				</h:panelGrid>
 			</p:dialog>
@@ -364,9 +364,9 @@
 				<h:panelGrid columns="3" id="tech_pg">
 					<h:outputLabel value="工艺：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{productInView.techName}" />
+						value="#{requestScope.techName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{productInView.addTech}" partialSubmit="true"
+						actionListener="#{parameterView.addTech(requestScope.techName)}" partialSubmit="true"
 						process="tech_pg" update="tech_sel"
 						onsuccess="PF('tech_add_dlg').hide()" />
 				</h:panelGrid>
@@ -377,9 +377,9 @@
 				<h:panelGrid columns="3" id="thickness_pg">
 					<h:outputLabel value="厚度：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{productInView.thicknessName}" />
+						value="#{requestScope.thicknessName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{productInView.addThickness}"
+						actionListener="#{parameterView.addThickness(requestScope.thicknessName)}"
 						partialSubmit="true" process="thickness_pg" update="thickness_sel"
 						onsuccess="PF('thickness_add_dlg').hide()" />
 				</h:panelGrid>
@@ -390,9 +390,9 @@
 				<h:panelGrid columns="3" id="manufactor_pg">
 					<h:outputLabel value="标识：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{productInView.manufactorName}" />
+						value="#{requestScope.manufactorName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{productInView.addManufactor}"
+						actionListener="#{parameterView.addManufactor(requestScope.manufactorName)}"
 						partialSubmit="true" process="manufactor_pg"
 						update="manufactor_sel manufactor_sel2"
 						onsuccess="PF('manufactor_add_dlg').hide()" />
@@ -404,9 +404,9 @@
 				<h:panelGrid columns="3" id="identify_pg">
 					<h:outputLabel value="客户标识：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{productInView.identifyName}" />
+						value="#{requestScope.identifyName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{productInView.addIdentify}" partialSubmit="true"
+						actionListener="#{parameterView.addIdentify(requestScope.identifyName)}" partialSubmit="true"
 						process="identify_pg" update="identify_sel identify_sel2"
 						onsuccess="PF('identify_add_dlg').hide()" />
 				</h:panelGrid>
@@ -417,9 +417,9 @@
 				<h:panelGrid columns="3" id="inType_pg">
 					<h:outputLabel value="入库类型：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{productInView.inTypeName}" />
+						value="#{requestScope.inTypeName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{productInView.addInType}" partialSubmit="true"
+						actionListener="#{parameterView.addInType(requestScope.inTypeName)}" partialSubmit="true"
 						process="inType_pg" update="inType_sel"
 						onsuccess="PF('inType_add_dlg').hide()" />
 				</h:panelGrid>

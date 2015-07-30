@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.kxm.kcgl.mapper.ProductQueryTimesMapper">
+
+	<resultMap id="ProductQueryTimes" type="com.kxm.kcgl.domain.ProductQueryTimes">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="productId" column="product_id" jdbcType="DECIMAL" />
+		<result property="createUserId" column="create_user_id" jdbcType="DECIMAL" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.kxm.kcgl.domain.ProductQueryTimes">
+		INSERT INTO T_PRODUCT_QUERY_TIMES (
+			product_id,
+			create_user_id
+		) VALUES (
+			#{productId},
+			#{createUserId}
+		)
+	</insert>
+
+	<delete id="deleteByPk" parameterType="string">
+	    <![CDATA[
+	        DELETE FROM T_PRODUCT_QUERY_TIMES WHERE ID = #{id} 
+	    ]]>
+	</delete>
+
+	<select id="selectSelective" resultMap="ProductQueryTimes">
+	SELECT * FROM T_PRODUCT_QUERY_TIMES 
+		<include refid="condition" />
+	</select>
+
+	<select id="countBySelective" resultType="int">
+		SELECT count(*) FROM T_PRODUCT_QUERY_TIMES
+		<include refid="condition" />
+	</select>
+	
+	<sql id="condition">
+	    <where>
+			<if test="productId != null">
+				productId = #{productId}		    
+			</if>
+			<if test="create_user_id != null">
+				create_user_id = #{createUserId}		    
+			</if>
+		</where>
+	</sql>
+</mapper>
+

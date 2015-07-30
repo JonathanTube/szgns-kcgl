@@ -13,5 +13,7 @@ public interface CustMapper {
 
 	List<Cust> selectSelective(Cust cust); 
 
-	int insert(String record);
+	int insert(Cust cust);
+	
+	int countBySelective(Cust cust);
 }

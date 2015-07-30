@@ -11,32 +11,34 @@
 	<ui:define name="content">
 		<h:form prependId="true">
 			<p:panel header="查询条件" style="padding:0">
-				<h:panelGrid columns="10">
-					<p:outputLabel value="开始时间：" />
-					<p:inputText value="#{productInView.condition.brandId}" />
-					<p:outputLabel value="结束时间：" />
-					<p:inputText value="#{productInView.condition.brandId}" />
-					<p:spacer /><p:spacer /><p:spacer /><p:spacer /><p:spacer /><p:spacer />
+				<h:panelGrid columns="20">
+					<p:calendar value="#{productInView.condition.productInStartDate}"
+						pattern="MM/dd/yyyy HH:mm:ss" />
+					<p:watermark value="开始时间" for="@previous" />
+					<p:calendar value="#{productInView.condition.productInEndDate}"
+						pattern="MM/dd/yyyy HH:mm:ss" />
+					<p:watermark value="结束时间" for="@previous" />
+
 					<p:outputLabel value="品牌：" />
-					<p:selectOneMenu value="#{productInView.condition.brandId}" style="width:150px">
+					<p:selectOneMenu value="#{productInView.condition.brandId}">
 						<f:selectItem itemLabel="请选择品牌" itemValue="" />
 						<f:selectItems var="s" value="#{productInView.brandList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="工艺：" />
-					<p:selectOneMenu value="#{productInView.condition.techId}" style="width:150px">
+					<p:selectOneMenu value="#{productInView.condition.techId}">
 						<f:selectItem itemLabel="请选择工艺" itemValue="" />
 						<f:selectItems var="s" value="#{productInView.techList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="厚度：" />
-					<p:selectOneMenu value="#{productInView.condition.thicknessId}" style="width:150px">
+					<p:selectOneMenu value="#{productInView.condition.thicknessId}">
 						<f:selectItem itemLabel="请选择厚度" itemValue="" />
 						<f:selectItems var="s" value="#{productInView.thicknessList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="厂家：" />
-					<p:selectOneMenu value="#{productInView.condition.manufactorId}" style="width:150px">
+					<p:selectOneMenu value="#{productInView.condition.manufactorId}">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
 						<f:selectItems var="s" value="#{productInView.manufactorList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
@@ -47,15 +49,25 @@
 						update="@form:product_in_log_tbl" />
 				</h:panelGrid>
 			</p:panel>
-
+			<p:toolbar style="margin-top:2px;">
+				<p:toolbarGroup align="left">
+					<p:commandButton value="下载" ajax="false">
+						<p:dataExporter type="xls" target="product_in_log_tbl"
+							fileName="product_in_log" />
+					</p:commandButton>
+					<p:commandButton value="打印" type="button">
+						<p:printer target="@form:product_in_log_tbl" />
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
 			<p:dataTable var="v" id="product_in_log_tbl"
 				value="#{productInView.productInModel}" style="margin-top:2px;"
-				paginator="true" rows="50" paginatorPosition="bottom"
+				paginator="true" rows="25" paginatorPosition="bottom"
 				rowIndexVar="index"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="50,100,200" lazy="true">
+				rowsPerPageTemplate="25,50,100" lazy="true">
 				<f:facet name="header">
-					<h:outputText value="入库报表" />
+					<h:outputText value="入库日(月)报表" />
 				</f:facet>
 				<p:column headerText="序号" width="30">
 						#{index + 1}
@@ -81,7 +93,7 @@
 					</p:column>
 				</ui:remove>
 				<p:column headerText="标识" width="60">
-						#{v.identifyName}
+						#{v.identifyType==0? '中性标' : v.identifyName}
 					</p:column>
 				<p:column headerText="入库数" width="40">
 						#{v.amount}
@@ -92,7 +104,7 @@
 				<p:column headerText="员工" width="50">
 						#{v.createUsername}
 					</p:column>
-				<p:column headerText="入库时间">
+				<p:column headerText="入库时间" style="width:160px">
 					<h:outputLabel value="#{v.createTime}">
 						<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8"
 							pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
