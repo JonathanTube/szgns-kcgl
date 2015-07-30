@@ -38,6 +38,7 @@
 			bill_id,
 			product_id,
 			price,
+			stock_price;
 			amount,
 			money,
 			create_user_id
@@ -45,6 +46,7 @@
 			#{billId},
 			#{productId},
 			#{price},
+			#{stockPrice},
 			#{amount},
 			#{money},
 			#{createUserId}
@@ -62,7 +64,7 @@
 				productOut.id,brand.id brand_id,brand.name brand_name,product.id
 				product_id,product.product_no,product.product_name,tech.id
 				tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
-				thickness_name,productOut.amount,product.price stock_price,productOut.price,
+				thickness_name,productOut.amount,productOut.stock_price,productOut.price,
 				user.id create_user_id,user.username create_username,productOut.create_time,
 				stock.identify_type,productOut.bill_id,identify.id identify_id,identify.name identify_name,
 				productOut.money

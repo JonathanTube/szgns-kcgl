@@ -23,26 +23,26 @@
 				header="产品出货" width="1200" dynamic="true" minHeight="600">
 				<h:panelGrid columns="10">
 					<h:outputText value="产品编号:" />
-					<p:inputText value="#{requestScope.productNo}" />
+					<p:inputText value="#{productOutView.productNo}" required="true" requiredMessage="请输入产品编号"/>
 					<p:commandButton id="btn_productNo"
-						actionListener="#{productOutView.addProductOutByProductNo(requestScope.productNo)}"
+						actionListener="#{productOutView.addProductOutByProductNo}"
 						value="确定" partialSubmit="true" process="@this @previous"
 						update="@form:product_out_tbl" />
 
 					<h:outputText value="产品名称:" />
-					<p:selectOneMenu value="#{requestScope.productId}">
+					<p:selectOneMenu value="#{productOutView.productId}" required="true" requiredMessage="请选择产品名称">
 						<f:selectItem itemLabel="请选择产品型号" itemValue="" />
 						<f:selectItems var="s" value="#{parameterView.productList}"
 							itemLabel="#{s.productName}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:commandButton id="btn_productId"
-						actionListener="#{productOutView.addProductOutByProductId(requestScope.productId)}"
+						actionListener="#{productOutView.addProductOutByProductId}"
 						value="确定" partialSubmit="true" process="@this @previous"
 						update="@form:product_out_tbl" />
 
 					<p:outputLabel value="客户名称：" />
 					<p:selectOneMenu id="cust_sel" required="true"
-						requiredMessage="请选择客户" value="#{requestScope.custId}"
+						requiredMessage="请选择客户" value="#{productOutView.custId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择客户" itemValue="" />
 						<f:selectItems var="v" value="#{parameterView.ownerCustList}"
@@ -52,7 +52,7 @@
 						onclick="PF('cust_add_dlg').show();" />
 
 					<p:commandButton value="执行出货" icon="ui-icon-disk"
-						actionListener="#{productOutView.productOut(requestScope.custId)}"
+						actionListener="#{productOutView.productOut}"
 						partialSubmit="true" process="@this cust_sel"
 						update="bill_tbl product_out_tbl" />
 				</h:panelGrid>
@@ -320,9 +320,9 @@
 				<h:panelGrid columns="3" id="cust_pg">
 					<h:outputLabel value="客户名称：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{requestScope.custName}" />
+						value="#{parameter.custName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{parameterView.addCust(requestScope.custName)}"
+						actionListener="#{parameterView.addCust}"
 						partialSubmit="true" process="cust_pg" update="cust_sel"
 						onsuccess="PF('cust_add_dlg').hide()" />
 				</h:panelGrid>

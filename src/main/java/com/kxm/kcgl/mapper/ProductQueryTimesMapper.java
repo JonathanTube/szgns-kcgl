@@ -2,7 +2,7 @@ package com.kxm.kcgl.mapper;
 
 import java.util.List;
 
-import com.kxm.kcgl.domain.Identify;
+import com.kxm.kcgl.domain.ProductQueryTimes;
 
 /**
  *
@@ -11,7 +11,7 @@ import com.kxm.kcgl.domain.Identify;
  */
 public interface ProductQueryTimesMapper {
 
-	List<Identify> selectSelective(Identify identify); 
+	List<ProductQueryTimes> selectSelective(ProductQueryTimes pqt);
 
-	int insert(String record);
+	int insert(ProductQueryTimes ptq);
 }

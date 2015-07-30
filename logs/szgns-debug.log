@@ -1,0 +1,616 @@
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\test-classes\com\kxm\kcgl\dao\BrandDaoTest.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\dao\BillDao.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\dao\BrandDao.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\dao\DeliveryVoucherDao.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\dao\IncomeInfoCollectDao.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\dao\OutcomeInfoCollectDao.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\dao\StockDao.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\dao\TechDao.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\dao\ThicknessDao.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\dao\WarehouseVoucherDao.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\Bill.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\BrandBean.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\Cust.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\DeliveryVoucherBean.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\Func.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\Identify.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\IncomeInfoBean.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\InType.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\Manufactor.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\MessageResult.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\OutcomeInfoBean.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\Product.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\ProductIn.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\ProductOut.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\ProductQueryTimes.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\Right.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\RightFunc.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\Stock.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\TechBean.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\ThicknessBean.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\User.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\UserRight.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\domain\WarehouseVoucherBean.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\LogicException.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\BillMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\CustMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\FuncMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\IdentifyMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\InTypeMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\ManufactorMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\ProductInMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\ProductMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\ProductOutMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\ProductQueryTimesMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\RightFuncMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\RightMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\StockMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\UserMapper.class]
+Identified candidate component class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\mapper\UserRightMapper.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\ProductConverter.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\BillService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\BrandService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\CustService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\DeliveryVoucherService$MapKey.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\DeliveryVoucherService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\FuncService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\IdentifyService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\IncomeInfoCollectService$1.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\IncomeInfoCollectService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\InTypeService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\ManufactorService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\OutcomeInfoCollectService$1.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\OutcomeInfoCollectService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\ProductInService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\ProductOutService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\ProductQueryTimesService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\ProductService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\RightFuncService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\RightService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\StockService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\TechService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\ThicknessService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\UserRightService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\UserService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\WarehouseVoucherService$MapKey.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\service\WarehouseVoucherService.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\LoginView.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\MainView.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\ParameterView.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\PriceView.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\ProductInView.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\ProductOutView.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\QueryTimesView.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\ReportProductOutView.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\RightView.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\StockView.class]
+Ignored because not a concrete top-level class: file [G:\workspace_git\szgns-kcgl\target\classes\com\kxm\kcgl\view\UserView.class]
+Creating MapperFactoryBean with name 'billMapper' and 'com.kxm.kcgl.mapper.BillMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'billMapper'.
+Creating MapperFactoryBean with name 'custMapper' and 'com.kxm.kcgl.mapper.CustMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'custMapper'.
+Creating MapperFactoryBean with name 'funcMapper' and 'com.kxm.kcgl.mapper.FuncMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'funcMapper'.
+Creating MapperFactoryBean with name 'identifyMapper' and 'com.kxm.kcgl.mapper.IdentifyMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'identifyMapper'.
+Creating MapperFactoryBean with name 'inTypeMapper' and 'com.kxm.kcgl.mapper.InTypeMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'inTypeMapper'.
+Creating MapperFactoryBean with name 'manufactorMapper' and 'com.kxm.kcgl.mapper.ManufactorMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'manufactorMapper'.
+Creating MapperFactoryBean with name 'productInMapper' and 'com.kxm.kcgl.mapper.ProductInMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'productInMapper'.
+Creating MapperFactoryBean with name 'productMapper' and 'com.kxm.kcgl.mapper.ProductMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'productMapper'.
+Creating MapperFactoryBean with name 'productOutMapper' and 'com.kxm.kcgl.mapper.ProductOutMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'productOutMapper'.
+Creating MapperFactoryBean with name 'productQueryTimesMapper' and 'com.kxm.kcgl.mapper.ProductQueryTimesMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'productQueryTimesMapper'.
+Creating MapperFactoryBean with name 'rightFuncMapper' and 'com.kxm.kcgl.mapper.RightFuncMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'rightFuncMapper'.
+Creating MapperFactoryBean with name 'rightMapper' and 'com.kxm.kcgl.mapper.RightMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'rightMapper'.
+Creating MapperFactoryBean with name 'stockMapper' and 'com.kxm.kcgl.mapper.StockMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'stockMapper'.
+Creating MapperFactoryBean with name 'userMapper' and 'com.kxm.kcgl.mapper.UserMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'userMapper'.
+Creating MapperFactoryBean with name 'userRightMapper' and 'com.kxm.kcgl.mapper.UserRightMapper' mapperInterface
+Enabling autowire by type for MapperFactoryBean with name 'userRightMapper'.
+Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+dialectClass: com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect 
+Class not found: org.jboss.vfs.VFS
+JBoss 6 VFS API is not available in this environment.
+Class not found: org.jboss.vfs.VirtualFile
+VFS implementation org.apache.ibatis.io.JBoss6VFS is not valid in this environment.
+Using VFS adapter org.apache.ibatis.io.DefaultVFS
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm
+Reader entry: kcgl
+Listing file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm/kcgl
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm/kcgl
+Reader entry: dao
+Listing file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm/kcgl
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm/kcgl/dao
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm/kcgl/dao
+Reader entry: BrandDaoTest.class
+Listing file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm/kcgl/dao
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm/kcgl/dao/BrandDaoTest.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/test-classes/com/kxm/kcgl/dao/BrandDaoTest.class
+Reader entry: Êþº¾   2 E  com/kxm/kcgl/dao/BrandDaoTest  java/lang/Object brandDao Lcom/kxm/kcgl/dao/BrandDao; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm
+Reader entry: kcgl
+Listing file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl
+Reader entry: dao
+Reader entry: domain
+Reader entry: LogicException.class
+Reader entry: mapper
+Reader entry: ProductConverter.class
+Reader entry: service
+Reader entry: view
+Listing file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao
+Reader entry: BillDao.class
+Reader entry: BrandDao.class
+Reader entry: DeliveryVoucherDao.class
+Reader entry: IncomeInfoCollectDao.class
+Reader entry: OutcomeInfoCollectDao.class
+Reader entry: StockDao.class
+Reader entry: TechDao.class
+Reader entry: ThicknessDao.class
+Reader entry: WarehouseVoucherDao.class
+Listing file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/BillDao.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/BillDao.class
+Reader entry: Êþº¾   2 c  com/kxm/kcgl/dao/BillDao  java/lang/Object jdbcTemplate ,Lorg/springframework/jdbc/core/JdbcTemplate; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/BrandDao.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/BrandDao.class
+Reader entry: Êþº¾   2 i  com/kxm/kcgl/dao/BrandDao  java/lang/Object jdbcTemplate ,Lorg/springframework/jdbc/core/JdbcTemplate; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/DeliveryVoucherDao.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/DeliveryVoucherDao.class
+Reader entry: Êþº¾   2 ?  #com/kxm/kcgl/dao/DeliveryVoucherDao  java/lang/Object jdbcTemplate ,Lorg/springframework/jdbc/core/JdbcTemplate; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; incomeInfoCollectDao 'Lcom/kxm/kcgl/dao/IncomeInfoCollectDao; stockDao Lcom/kxm/kcgl/dao/StockDao; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/IncomeInfoCollectDao.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/IncomeInfoCollectDao.class
+Reader entry: Êþº¾   2 K  %com/kxm/kcgl/dao/IncomeInfoCollectDao  java/lang/Object jdbcTemplate ,Lorg/springframework/jdbc/core/JdbcTemplate; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/OutcomeInfoCollectDao.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/OutcomeInfoCollectDao.class
+Reader entry: Êþº¾   2 [  &com/kxm/kcgl/dao/OutcomeInfoCollectDao  java/lang/Object jdbcTemplate ,Lorg/springframework/jdbc/core/JdbcTemplate; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/StockDao.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/StockDao.class
+Reader entry: Êþº¾   2 ?  com/kxm/kcgl/dao/StockDao  java/lang/Object jdbcTemplate ,Lorg/springframework/jdbc/core/JdbcTemplate; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/TechDao.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/TechDao.class
+Reader entry: Êþº¾   2 i  com/kxm/kcgl/dao/TechDao  java/lang/Object jdbcTemplate ,Lorg/springframework/jdbc/core/JdbcTemplate; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/ThicknessDao.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/ThicknessDao.class
+Reader entry: Êþº¾   2 i  com/kxm/kcgl/dao/ThicknessDao  java/lang/Object jdbcTemplate ,Lorg/springframework/jdbc/core/JdbcTemplate; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/WarehouseVoucherDao.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/dao/WarehouseVoucherDao.class
+Reader entry: Êþº¾   2 -  $com/kxm/kcgl/dao/WarehouseVoucherDao  java/lang/Object jdbcTemplate ,Lorg/springframework/jdbc/core/JdbcTemplate; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain
+Reader entry: Bill.class
+Reader entry: BrandBean.class
+Reader entry: Cust.class
+Reader entry: DeliveryVoucherBean.class
+Reader entry: Func.class
+Reader entry: Identify.class
+Reader entry: IncomeInfoBean.class
+Reader entry: InType.class
+Reader entry: Manufactor.class
+Reader entry: MessageResult.class
+Reader entry: OutcomeInfoBean.class
+Reader entry: Product.class
+Reader entry: ProductIn.class
+Reader entry: ProductOut.class
+Reader entry: ProductQueryTimes.class
+Reader entry: Right.class
+Reader entry: RightFunc.class
+Reader entry: Stock.class
+Reader entry: TechBean.class
+Reader entry: ThicknessBean.class
+Reader entry: User.class
+Reader entry: UserRight.class
+Reader entry: WarehouseVoucherBean.class
+Listing file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Bill.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Bill.class
+Reader entry: Êþº¾   2 N  com/kxm/kcgl/domain/Bill  java/lang/Object id Ljava/lang/Integer; seq Ljava/lang/String; custId custName totalAmount 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/BrandBean.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/BrandBean.class
+Reader entry: Êþº¾   2 4  com/kxm/kcgl/domain/BrandBean  java/lang/Object  java/io/Serializable id I name Ljava/lang/String; flag 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Cust.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Cust.class
+Reader entry: Êþº¾   2 %  com/kxm/kcgl/domain/Cust  java/lang/Object id Ljava/lang/Integer; name Ljava/lang/String; userId <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/DeliveryVoucherBean.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/DeliveryVoucherBean.class
+Reader entry: Êþº¾   2 d  'com/kxm/kcgl/domain/DeliveryVoucherBean  java/lang/Object amount I brandId 	brandName Ljava/lang/String; 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Func.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Func.class
+Reader entry: Êþº¾   2 -  com/kxm/kcgl/domain/Func  java/lang/Object id Ljava/lang/Long; name Ljava/lang/String; url type I <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Identify.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Identify.class
+Reader entry: Êþº¾   2    com/kxm/kcgl/domain/Identify  java/lang/Object id I name Ljava/lang/String; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/IncomeInfoBean.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/IncomeInfoBean.class
+Reader entry: Êþº¾   2 1  "com/kxm/kcgl/domain/IncomeInfoBean  java/lang/Object id I brandId 	productId techId thicknessId amount <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/InType.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/InType.class
+Reader entry: Êþº¾   2    com/kxm/kcgl/domain/InType  java/lang/Object id I name Ljava/lang/String; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Manufactor.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Manufactor.class
+Reader entry: Êþº¾   2    com/kxm/kcgl/domain/Manufactor  java/lang/Object id I name Ljava/lang/String; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/MessageResult.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/MessageResult.class
+Reader entry: Êþº¾   2   !com/kxm/kcgl/domain/MessageResult  java/lang/Object msg Ljava/lang/String; <init> (Ljava/lang/String;)V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/OutcomeInfoBean.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/OutcomeInfoBean.class
+Reader entry: Êþº¾   2 C  #com/kxm/kcgl/domain/OutcomeInfoBean  java/lang/Object seq Ljava/lang/String; brandId I 	productId techId thicknessId custId amount 	unitPrice 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Product.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Product.class
+Reader entry: Êþº¾   2 b  com/kxm/kcgl/domain/Product  java/lang/Object id Ljava/lang/Integer; 	productNo Ljava/lang/String; productName brandId 	brandName techId techName thicknessId 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/ProductIn.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/ProductIn.class
+Reader entry: Êþº¾   2 ?  com/kxm/kcgl/domain/ProductIn  java/lang/Object id Ljava/lang/Integer; 	productNo Ljava/lang/String; brandId 	brandName 	productId productName techId techName thicknessId 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/ProductOut.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/ProductOut.class
+Reader entry: Êþº¾   2 ?  com/kxm/kcgl/domain/ProductOut  java/lang/Object id Ljava/lang/Integer; 	productNo Ljava/lang/String; 	productId productName brandId 	brandName techId techName thicknessId 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/ProductQueryTimes.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/ProductQueryTimes.class
+Reader entry: Êþº¾   2 *  %com/kxm/kcgl/domain/ProductQueryTimes  java/lang/Object id Ljava/lang/Integer; 	productId createUserId 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Right.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Right.class
+Reader entry: Êþº¾   2 %  com/kxm/kcgl/domain/Right  java/lang/Object id Ljava/lang/Long; name Ljava/lang/String; description <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/RightFunc.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/RightFunc.class
+Reader entry: Êþº¾   2 "  com/kxm/kcgl/domain/RightFunc  java/lang/Object id Ljava/lang/Integer; funcId rightId <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Stock.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/Stock.class
+Reader entry: Êþº¾   2 ?  com/kxm/kcgl/domain/Stock  java/lang/Object id Ljava/lang/Integer; 	productNo Ljava/lang/String; brandId 	brandName 	productId productName techId techName thicknessId 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/TechBean.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/TechBean.class
+Reader entry: Êþº¾   2 2  com/kxm/kcgl/domain/TechBean  java/lang/Object id I name Ljava/lang/String; flag 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/ThicknessBean.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/ThicknessBean.class
+Reader entry: Êþº¾   2 -  !com/kxm/kcgl/domain/ThicknessBean  java/lang/Object id I name Ljava/lang/String; 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/User.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/User.class
+Reader entry: Êþº¾   2 P  com/kxm/kcgl/domain/User  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/UserRight.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/UserRight.class
+Reader entry: Êþº¾   2 "  com/kxm/kcgl/domain/UserRight  java/lang/Object id Ljava/lang/Integer; userId rightId <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/WarehouseVoucherBean.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/domain/WarehouseVoucherBean.class
+Reader entry: Êþº¾   2 M  (com/kxm/kcgl/domain/WarehouseVoucherBean  java/lang/Object id I brandId 	brandName Ljava/lang/String; 	productId productName techId techName thicknessId 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/LogicException.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/LogicException.class
+Reader entry: Êþº¾   2   com/kxm/kcgl/LogicException  java/lang/Exception serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper
+Reader entry: BillMapper.class
+Reader entry: CustMapper.class
+Reader entry: FuncMapper.class
+Reader entry: IdentifyMapper.class
+Reader entry: InTypeMapper.class
+Reader entry: ManufactorMapper.class
+Reader entry: ProductInMapper.class
+Reader entry: ProductMapper.class
+Reader entry: ProductOutMapper.class
+Reader entry: ProductQueryTimesMapper.class
+Reader entry: RightFuncMapper.class
+Reader entry: RightMapper.class
+Reader entry: StockMapper.class
+Reader entry: UserMapper.class
+Reader entry: UserRightMapper.class
+Listing file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/BillMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/BillMapper.class
+Reader entry: Êþº¾   2   com/kxm/kcgl/mapper/BillMapper  java/lang/Object selectSelective ,(Lcom/kxm/kcgl/domain/Bill;)Ljava/util/List; 	Signature H(Lcom/kxm/kcgl/domain/Bill;)Ljava/util/List<Lcom/kxm/kcgl/domain/Bill;>; insert (Lcom/kxm/kcgl/domain/Bill;)I countBySelective update 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/CustMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/CustMapper.class
+Reader entry: Êþº¾   2   com/kxm/kcgl/mapper/CustMapper  java/lang/Object selectSelective ,(Lcom/kxm/kcgl/domain/Cust;)Ljava/util/List; 	Signature H(Lcom/kxm/kcgl/domain/Cust;)Ljava/util/List<Lcom/kxm/kcgl/domain/Cust;>; insert (Lcom/kxm/kcgl/domain/Cust;)I countBySelective 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/FuncMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/FuncMapper.class
+Reader entry: Êþº¾   2   com/kxm/kcgl/mapper/FuncMapper  java/lang/Object selectSelective ,(Lcom/kxm/kcgl/domain/Func;)Ljava/util/List; 	Signature H(Lcom/kxm/kcgl/domain/Func;)Ljava/util/List<Lcom/kxm/kcgl/domain/Func;>; queryFuncListByUserId (I)Ljava/util/List; /(I)Ljava/util/List<Lcom/kxm/kcgl/domain/Func;>; 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/IdentifyMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/IdentifyMapper.class
+Reader entry: Êþº¾   2 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/InTypeMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/InTypeMapper.class
+Reader entry: Êþº¾   2 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/ManufactorMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/ManufactorMapper.class
+Reader entry: Êþº¾   2 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/ProductInMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/ProductInMapper.class
+Reader entry: Êþº¾   2   #com/kxm/kcgl/mapper/ProductInMapper  java/lang/Object selectSelective 1(Lcom/kxm/kcgl/domain/ProductIn;)Ljava/util/List; 	Signature R(Lcom/kxm/kcgl/domain/ProductIn;)Ljava/util/List<Lcom/kxm/kcgl/domain/ProductIn;>; countBySelective "(Lcom/kxm/kcgl/domain/ProductIn;)I insert 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/ProductMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/ProductMapper.class
+Reader entry: Êþº¾   2   !com/kxm/kcgl/mapper/ProductMapper  java/lang/Object selectSelective /(Lcom/kxm/kcgl/domain/Product;)Ljava/util/List; 	Signature N(Lcom/kxm/kcgl/domain/Product;)Ljava/util/List<Lcom/kxm/kcgl/domain/Product;>; countBySelective  (Lcom/kxm/kcgl/domain/Product;)I insert update search $(Ljava/lang/String;)Ljava/util/List; C(Ljava/lang/String;)Ljava/util/List<Lcom/kxm/kcgl/domain/Product;>; 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/ProductOutMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/ProductOutMapper.class
+Reader entry: Êþº¾   2   $com/kxm/kcgl/mapper/ProductOutMapper  java/lang/Object selectSelective 2(Lcom/kxm/kcgl/domain/ProductOut;)Ljava/util/List; 	Signature T(Lcom/kxm/kcgl/domain/ProductOut;)Ljava/util/List<Lcom/kxm/kcgl/domain/ProductOut;>; countBySelective #(Lcom/kxm/kcgl/domain/ProductOut;)I insert 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/ProductQueryTimesMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/ProductQueryTimesMapper.class
+Reader entry: Êþº¾   2 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/RightFuncMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/RightFuncMapper.class
+Reader entry: Êþº¾   2   #com/kxm/kcgl/mapper/RightFuncMapper  java/lang/Object selectSelective 1(Lcom/kxm/kcgl/domain/RightFunc;)Ljava/util/List; 	Signature R(Lcom/kxm/kcgl/domain/RightFunc;)Ljava/util/List<Lcom/kxm/kcgl/domain/RightFunc;>; deleteByRightId (I)V insert "(Lcom/kxm/kcgl/domain/RightFunc;)V 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/RightMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/RightMapper.class
+Reader entry: Êþº¾   2 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/StockMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/StockMapper.class
+Reader entry: Êþº¾   2   com/kxm/kcgl/mapper/StockMapper  java/lang/Object selectSelective -(Lcom/kxm/kcgl/domain/Stock;)Ljava/util/List; 	Signature J(Lcom/kxm/kcgl/domain/Stock;)Ljava/util/List<Lcom/kxm/kcgl/domain/Stock;>; countBySelective (Lcom/kxm/kcgl/domain/Stock;)I insert update 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/UserMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/UserMapper.class
+Reader entry: Êþº¾   2   com/kxm/kcgl/mapper/UserMapper  java/lang/Object insert (Lcom/kxm/kcgl/domain/User;)I 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/UserRightMapper.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/mapper/UserRightMapper.class
+Reader entry: Êþº¾   2   #com/kxm/kcgl/mapper/UserRightMapper  java/lang/Object selectSelective 1(Lcom/kxm/kcgl/domain/UserRight;)Ljava/util/List; 	Signature R(Lcom/kxm/kcgl/domain/UserRight;)Ljava/util/List<Lcom/kxm/kcgl/domain/UserRight;>; deleteByRightId (I)V insert "(Lcom/kxm/kcgl/domain/UserRight;)V 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/ProductConverter.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/ProductConverter.class
+Reader entry: Êþº¾   2 p  com/kxm/kcgl/ProductConverter  java/lang/Object  javax/faces/convert/Converter <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service
+Reader entry: BillService.class
+Reader entry: BrandService.class
+Reader entry: CustService.class
+Reader entry: DeliveryVoucherService.class
+Reader entry: DeliveryVoucherService$MapKey.class
+Reader entry: FuncService.class
+Reader entry: IdentifyService.class
+Reader entry: IncomeInfoCollectService.class
+Reader entry: IncomeInfoCollectService$1.class
+Reader entry: InTypeService.class
+Reader entry: ManufactorService.class
+Reader entry: OutcomeInfoCollectService.class
+Reader entry: OutcomeInfoCollectService$1.class
+Reader entry: ProductInService.class
+Reader entry: ProductOutService.class
+Reader entry: ProductQueryTimesService.class
+Reader entry: ProductService.class
+Reader entry: RightFuncService.class
+Reader entry: RightService.class
+Reader entry: StockService.class
+Reader entry: TechService.class
+Reader entry: ThicknessService.class
+Reader entry: UserRightService.class
+Reader entry: UserService.class
+Reader entry: WarehouseVoucherService.class
+Reader entry: WarehouseVoucherService$MapKey.class
+Listing file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/BillService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/BillService.class
+Reader entry: Êþº¾   2 !   com/kxm/kcgl/service/BillService  java/lang/Object 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/BrandService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/BrandService.class
+Reader entry: Êþº¾   2 d  !com/kxm/kcgl/service/BrandService  java/lang/Object brandDao Lcom/kxm/kcgl/dao/BrandDao; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/CustService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/CustService.class
+Reader entry: Êþº¾   2 Z   com/kxm/kcgl/service/CustService  java/lang/Object 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/DeliveryVoucherService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/DeliveryVoucherService.class
+Reader entry: Êþº¾   2 ?  +com/kxm/kcgl/service/DeliveryVoucherService  java/lang/Object deliveryVoucherDao %Lcom/kxm/kcgl/dao/DeliveryVoucherDao; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/DeliveryVoucherService$MapKey.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/DeliveryVoucherService$MapKey.class
+Reader entry: Êþº¾   2 =  2com/kxm/kcgl/service/DeliveryVoucherService$MapKey  java/lang/Object 	brandName Ljava/lang/String; productName techName 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/FuncService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/FuncService.class
+Reader entry: Êþº¾   2 )   com/kxm/kcgl/service/FuncService  java/lang/Object 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/IdentifyService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/IdentifyService.class
+Reader entry: Êþº¾   2 F  $com/kxm/kcgl/service/IdentifyService  java/lang/Object identifyMapper $Lcom/kxm/kcgl/mapper/IdentifyMapper; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/IncomeInfoCollectService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/IncomeInfoCollectService.class
+Reader entry: Êþº¾   2 ?  -com/kxm/kcgl/service/IncomeInfoCollectService  java/lang/Object gson Lcom/google/gson/Gson; incomeInfoCollectDao 'Lcom/kxm/kcgl/dao/IncomeInfoCollectDao; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; stockDao Lcom/kxm/kcgl/dao/StockDao; <clinit> ()V Code  com/google/gson/Gson
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/IncomeInfoCollectService$1.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/IncomeInfoCollectService$1.class
+Reader entry: Êþº¾   2   /com/kxm/kcgl/service/IncomeInfoCollectService$1  !com/google/gson/reflect/TypeToken this$0 /Lcom/kxm/kcgl/service/IncomeInfoCollectService; <init> 2(Lcom/kxm/kcgl/service/IncomeInfoCollectService;)V Code	    
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/InTypeService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/InTypeService.class
+Reader entry: Êþº¾   2 F  "com/kxm/kcgl/service/InTypeService  java/lang/Object inTypeMapper "Lcom/kxm/kcgl/mapper/InTypeMapper; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ManufactorService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ManufactorService.class
+Reader entry: Êþº¾   2 F  &com/kxm/kcgl/service/ManufactorService  java/lang/Object manufactoryMapper &Lcom/kxm/kcgl/mapper/ManufactorMapper; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/OutcomeInfoCollectService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/OutcomeInfoCollectService.class
+Reader entry: Êþº¾   2	  .com/kxm/kcgl/service/OutcomeInfoCollectService  java/lang/Object gson Lcom/google/gson/Gson; outcomeInfoCollectDao (Lcom/kxm/kcgl/dao/OutcomeInfoCollectDao; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; stockDao Lcom/kxm/kcgl/dao/StockDao; billDao Lcom/kxm/kcgl/dao/BillDao; <clinit> ()V Code  com/google/gson/Gson
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/OutcomeInfoCollectService$1.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/OutcomeInfoCollectService$1.class
+Reader entry: Êþº¾   2   0com/kxm/kcgl/service/OutcomeInfoCollectService$1  !com/google/gson/reflect/TypeToken this$0 0Lcom/kxm/kcgl/service/OutcomeInfoCollectService; <init> 3(Lcom/kxm/kcgl/service/OutcomeInfoCollectService;)V Code	    
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ProductInService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ProductInService.class
+Reader entry: Êþº¾   2 ?  %com/kxm/kcgl/service/ProductInService  java/lang/Object productInMapper %Lcom/kxm/kcgl/mapper/ProductInMapper; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ProductOutService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ProductOutService.class
+Reader entry: Êþº¾   2"  &com/kxm/kcgl/service/ProductOutService  java/lang/Object productOutMapper &Lcom/kxm/kcgl/mapper/ProductOutMapper; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; stockMapper !Lcom/kxm/kcgl/mapper/StockMapper; 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ProductQueryTimesService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ProductQueryTimesService.class
+Reader entry: Êþº¾   2    -com/kxm/kcgl/service/ProductQueryTimesService  java/lang/Object productQueryTimesMapper -Lcom/kxm/kcgl/mapper/ProductQueryTimesMapper; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ProductService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ProductService.class
+Reader entry: Êþº¾   2 V  #com/kxm/kcgl/service/ProductService  java/lang/Object 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/RightFuncService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/RightFuncService.class
+Reader entry: Êþº¾   2 \  %com/kxm/kcgl/service/RightFuncService  java/lang/Object rightFuncMapper %Lcom/kxm/kcgl/mapper/RightFuncMapper; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/RightService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/RightService.class
+Reader entry: Êþº¾   2    !com/kxm/kcgl/service/RightService  java/lang/Object rightMapper !Lcom/kxm/kcgl/mapper/RightMapper; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/StockService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/StockService.class
+Reader entry: Êþº¾   2 !  !com/kxm/kcgl/service/StockService  java/lang/Object stockMapper !Lcom/kxm/kcgl/mapper/StockMapper; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/TechService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/TechService.class
+Reader entry: Êþº¾   2 d   com/kxm/kcgl/service/TechService  java/lang/Object techDao Lcom/kxm/kcgl/dao/TechDao; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ThicknessService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/ThicknessService.class
+Reader entry: Êþº¾   2 d  %com/kxm/kcgl/service/ThicknessService  java/lang/Object thicknessDao Lcom/kxm/kcgl/dao/ThicknessDao; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/UserRightService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/UserRightService.class
+Reader entry: Êþº¾   2 \  %com/kxm/kcgl/service/UserRightService  java/lang/Object userRightMapper %Lcom/kxm/kcgl/mapper/UserRightMapper; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/UserService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/UserService.class
+Reader entry: Êþº¾   2 K   com/kxm/kcgl/service/UserService  java/lang/Object 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/WarehouseVoucherService.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/WarehouseVoucherService.class
+Reader entry: Êþº¾   2 ?  ,com/kxm/kcgl/service/WarehouseVoucherService  java/lang/Object warehouseVoucherDao &Lcom/kxm/kcgl/dao/WarehouseVoucherDao; RuntimeVisibleAnnotations 8Lorg/springframework/beans/factory/annotation/Autowired; <init> ()V Code
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/WarehouseVoucherService$MapKey.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/service/WarehouseVoucherService$MapKey.class
+Reader entry: Êþº¾   2 =  3com/kxm/kcgl/service/WarehouseVoucherService$MapKey  java/lang/Object 	brandName Ljava/lang/String; productName techName 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view
+Reader entry: LoginView.class
+Reader entry: MainView.class
+Reader entry: ParameterView.class
+Reader entry: PriceView.class
+Reader entry: ProductInView.class
+Reader entry: ProductOutView.class
+Reader entry: QueryTimesView.class
+Reader entry: ReportProductOutView.class
+Reader entry: RightView.class
+Reader entry: StockView.class
+Reader entry: UserView.class
+Listing file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/LoginView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/LoginView.class
+Reader entry: Êþº¾   2 ?  com/kxm/kcgl/view/LoginView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/MainView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/MainView.class
+Reader entry: Êþº¾   2 ?  com/kxm/kcgl/view/MainView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/ParameterView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/ParameterView.class
+Reader entry: Êþº¾   2 ?  com/kxm/kcgl/view/ParameterView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/PriceView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/PriceView.class
+Reader entry: Êþº¾   2 ;  com/kxm/kcgl/view/PriceView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/ProductInView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/ProductInView.class
+Reader entry: Êþº¾   2B  com/kxm/kcgl/view/ProductInView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/ProductOutView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/ProductOutView.class
+Reader entry: Êþº¾   2~   com/kxm/kcgl/view/ProductOutView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/QueryTimesView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/QueryTimesView.class
+Reader entry: Êþº¾   2 ?   com/kxm/kcgl/view/QueryTimesView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/ReportProductOutView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/ReportProductOutView.class
+Reader entry: Êþº¾   2 @  &com/kxm/kcgl/view/ReportProductOutView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/RightView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/RightView.class
+Reader entry: Êþº¾   2 ?  com/kxm/kcgl/view/RightView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/StockView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/StockView.class
+Reader entry: Êþº¾   2 G  com/kxm/kcgl/view/StockView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Find JAR URL: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/UserView.class
+Not a JAR: file:/G:/workspace_git/szgns-kcgl/target/classes/com/kxm/kcgl/view/UserView.class
+Reader entry: Êþº¾   2 w  com/kxm/kcgl/view/UserView  java/lang/Object  java/io/Serializable serialVersionUID J 
+Checking to see if class com.kxm.kcgl.dao.BrandDaoTest matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.dao.BillDao matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.dao.BrandDao matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.dao.DeliveryVoucherDao matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.dao.IncomeInfoCollectDao matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.dao.OutcomeInfoCollectDao matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.dao.StockDao matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.dao.TechDao matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.dao.ThicknessDao matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.dao.WarehouseVoucherDao matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.Bill matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.BrandBean matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.Cust matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.DeliveryVoucherBean matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.Func matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.Identify matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.IncomeInfoBean matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.InType matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.Manufactor matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.MessageResult matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.OutcomeInfoBean matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.Product matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.ProductIn matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.ProductOut matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.ProductQueryTimes matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.Right matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.RightFunc matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.Stock matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.TechBean matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.ThicknessBean matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.User matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.UserRight matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.domain.WarehouseVoucherBean matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.LogicException matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.BillMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.CustMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.FuncMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.IdentifyMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.InTypeMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.ManufactorMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.ProductInMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.ProductMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.ProductOutMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.ProductQueryTimesMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.RightFuncMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.RightMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.StockMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.UserMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.mapper.UserRightMapper matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.ProductConverter matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.BillService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.BrandService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.CustService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.DeliveryVoucherService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.DeliveryVoucherService$MapKey matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.FuncService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.IdentifyService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.IncomeInfoCollectService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.IncomeInfoCollectService$1 matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.InTypeService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.ManufactorService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.OutcomeInfoCollectService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.OutcomeInfoCollectService$1 matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.ProductInService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.ProductOutService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.ProductQueryTimesService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.ProductService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.RightFuncService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.RightService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.StockService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.TechService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.ThicknessService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.UserRightService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.UserService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.WarehouseVoucherService matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.service.WarehouseVoucherService$MapKey matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.LoginView matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.MainView matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.ParameterView matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.PriceView matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.ProductInView matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.ProductOutView matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.QueryTimesView matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.ReportProductOutView matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.RightView matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.StockView matches criteria [is assignable to Object]
+Checking to see if class com.kxm.kcgl.view.UserView matches criteria [is assignable to Object]
+Scanned package: 'com.kxm' for aliases
+Registered plugin: 'com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor@7a1f45ed'
+Logging initialized using 'class org.apache.ibatis.logging.log4j.Log4jImpl' adapter.
+Parsed configuration file: 'class path resource [mybatisConfig.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\billMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\custMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\funcMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\identifyMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\inTypeMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\manufactorMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\productInMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\productMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\productOutMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\productQueryTimesMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\rightFuncMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\rightMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\stockMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\userMapper.xml]'
+Parsed mapper file: 'file [G:\workspace_git\szgns-kcgl\target\classes\mappers\userRightMapper.xml]'

@@ -22,25 +22,25 @@
 					<p:outputLabel value="品牌：" />
 					<p:selectOneMenu value="#{productInView.condition.brandId}">
 						<f:selectItem itemLabel="请选择品牌" itemValue="" />
-						<f:selectItems var="s" value="#{productInView.brandList}"
+						<f:selectItems var="s" value="#{parameterView.brandList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="工艺：" />
 					<p:selectOneMenu value="#{productInView.condition.techId}">
 						<f:selectItem itemLabel="请选择工艺" itemValue="" />
-						<f:selectItems var="s" value="#{productInView.techList}"
+						<f:selectItems var="s" value="#{parameterView.techList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="厚度：" />
 					<p:selectOneMenu value="#{productInView.condition.thicknessId}">
 						<f:selectItem itemLabel="请选择厚度" itemValue="" />
-						<f:selectItems var="s" value="#{productInView.thicknessList}"
+						<f:selectItems var="s" value="#{parameterView.thicknessList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="厂家：" />
 					<p:selectOneMenu value="#{productInView.condition.manufactorId}">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
-						<f:selectItems var="s" value="#{productInView.manufactorList}"
+						<f:selectItems var="s" value="#{parameterView.manufactorList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:spacer />

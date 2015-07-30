@@ -63,6 +63,14 @@ public class ParameterView implements Serializable {
 	@Autowired
 	private InTypeService inTypeService;
 
+	private String thicknessName;
+	private String manufactorName;
+	private String inTypeName;
+	private String brandName;
+	private String techName;
+	private String identifyName;
+	private String custName;
+
 	public List<BrandBean> getBrandList() {
 		return brandService.queryAllBrand();
 	}
@@ -107,37 +115,37 @@ public class ParameterView implements Serializable {
 		return inTypeService.queryAll();
 	}
 
-	public void addBrand(String brandName) {
+	public void addBrand() {
 		String msg = brandService.addNewBrand(brandName);
 		MsgTool.addInfoMsg(msg);
 	}
 
-	public void addIdentify(String identifyName) {
+	public void addIdentify() {
 		String msg = identifyService.addNew(identifyName);
 		MsgTool.addInfoMsg(msg);
 	}
 
-	public void addTech(String techName) {
+	public void addTech() {
 		String msg = techService.addNewTech(techName);
 		MsgTool.addInfoMsg(msg);
 	}
 
-	public void addInType(String inTypeName) {
+	public void addInType() {
 		String msg = inTypeService.addNew(inTypeName);
 		MsgTool.addInfoMsg(msg);
 	}
 
-	public void addManufactor(String manufactorName) {
+	public void addManufactor() {
 		String msg = manufactorService.addNew(manufactorName);
 		MsgTool.addInfoMsg(msg);
 	}
 
-	public void addThickness(String thicknessName) {
+	public void addThickness() {
 		String msg = thicknessService.addNewThickness(thicknessName);
 		MsgTool.addInfoMsg(msg);
 	}
 
-	public void addCust(String custName) {
+	public void addCust() {
 		String msg;
 		try {
 			User user = (User) loginSession.getSesionObj();
@@ -146,6 +154,62 @@ public class ParameterView implements Serializable {
 		} catch (LogicException e) {
 			MsgTool.addInfoMsg(e.getMessage());
 		}
+	}
+
+	public String getCustName() {
+		return custName;
+	}
+
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
+
+	public String getThicknessName() {
+		return thicknessName;
+	}
+
+	public void setThicknessName(String thicknessName) {
+		this.thicknessName = thicknessName;
+	}
+
+	public String getManufactorName() {
+		return manufactorName;
+	}
+
+	public void setManufactorName(String manufactorName) {
+		this.manufactorName = manufactorName;
+	}
+
+	public String getInTypeName() {
+		return inTypeName;
+	}
+
+	public void setInTypeName(String inTypeName) {
+		this.inTypeName = inTypeName;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public String getTechName() {
+		return techName;
+	}
+
+	public void setTechName(String techName) {
+		this.techName = techName;
+	}
+
+	public String getIdentifyName() {
+		return identifyName;
+	}
+
+	public void setIdentifyName(String identifyName) {
+		this.identifyName = identifyName;
 	}
 
 }

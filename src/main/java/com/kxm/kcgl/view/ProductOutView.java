@@ -54,13 +54,18 @@ public class ProductOutView implements Serializable {
 	@Autowired
 	private LoginSession loginSession;
 
+	private String productNo;
+	private Integer productId;
+	private Integer custId;
+
 	@PostConstruct
 	public void init() {
 		initBillList();
 	}
 
 	public void initBillList() {
-		billDataModel = new PaginationDataModel<Bill>("com.kxm.kcgl.mapper.BillMapper.selectSelective", billCondition);
+		billDataModel = new PaginationDataModel<Bill>(
+				"com.kxm.kcgl.mapper.BillMapper.selectSelective", billCondition);
 	}
 
 	public void showBillDetail(Bill bill) {
@@ -84,7 +89,7 @@ public class ProductOutView implements Serializable {
 		tempProductOutList.remove(productOut);
 	}
 
-	public void addProductOutByProductId(Integer productId) {
+	public void addProductOutByProductId() {
 		// 判断是否已经添加过
 		for (ProductOut productOut : productOutList) {
 			if (productOut.getProductId().equals(productId)) {
@@ -98,7 +103,7 @@ public class ProductOutView implements Serializable {
 		addProductOut(stockList);
 	}
 
-	public void addProductOutByProductNo(String productNo) {
+	public void addProductOutByProductNo() {
 		// 判断是否已经添加过
 		for (ProductOut productOut : productOutList) {
 			if (productOut.getProductNo().equals(productNo)) {
@@ -152,10 +157,11 @@ public class ProductOutView implements Serializable {
 		RequestContext.getCurrentInstance().execute("PF('edit_dlg').hide()");
 	}
 
-	public void productOut(Integer custId) {
+	public void productOut() {
 		try {
 			User user = (User) loginSession.getSesionObj();
-			productOutService.productOut(tempProductOutList, user.getId(), custId);
+			productOutService.productOut(tempProductOutList, user.getId(),
+					custId);
 			tempProductOutList.clear();
 			MsgTool.addInfoMsg("出货成功");
 		} catch (LogicException e) {
@@ -209,5 +215,29 @@ public class ProductOutView implements Serializable {
 
 	public void setSelectedBill(Bill selectedBill) {
 		this.selectedBill = selectedBill;
+	}
+
+	public Integer getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Integer custId) {
+		this.custId = custId;
+	}
+
+	public String getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(String productNo) {
+		this.productNo = productNo;
+	}
+
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
 	}
 }

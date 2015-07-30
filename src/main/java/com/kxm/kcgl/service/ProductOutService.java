@@ -38,7 +38,8 @@ public class ProductOutService {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void productOut(List<ProductOut> productOutList, Integer createUserId, Integer custId) throws LogicException {
+	public void productOut(List<ProductOut> productOutList,
+			Integer createUserId, Integer custId) throws LogicException {
 		if (productOutList.size() == 0) {
 			throw new LogicException("请填写出货单");
 		}
@@ -89,7 +90,8 @@ public class ProductOutService {
 		return productOutMapper.selectSelective(po);
 	}
 
-	private void checkStockAndPrice(ProductOut productOut, Stock stock) throws LogicException {
+	private void checkStockAndPrice(ProductOut productOut, Stock stock)
+			throws LogicException {
 		// 需要查找一下,防止库存不足,和价格调价
 		String productName = productOut.getProductName();
 		List<Stock> stocks = stockMapper.selectSelective(stock);

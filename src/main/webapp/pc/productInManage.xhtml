@@ -351,9 +351,9 @@
 				<h:panelGrid columns="3" id="brand_pg">
 					<h:outputLabel value="品牌：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{requestScope.brandName}" />
+						value="#{parameterView.brandName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{parameterView.addBrand(requestScope.brandName)}"
+						actionListener="#{parameterView.addBrand()}"
 						partialSubmit="true" process="brand_pg" update="brand_sel"
 						onsuccess="PF('brand_add_dlg').hide()" />
 				</h:panelGrid>
@@ -364,9 +364,9 @@
 				<h:panelGrid columns="3" id="tech_pg">
 					<h:outputLabel value="工艺：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{requestScope.techName}" />
+						value="#{parameterView.techName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{parameterView.addTech(requestScope.techName)}" partialSubmit="true"
+						actionListener="#{parameterView.addTech}" partialSubmit="true"
 						process="tech_pg" update="tech_sel"
 						onsuccess="PF('tech_add_dlg').hide()" />
 				</h:panelGrid>
@@ -377,9 +377,9 @@
 				<h:panelGrid columns="3" id="thickness_pg">
 					<h:outputLabel value="厚度：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{requestScope.thicknessName}" />
+						value="#{parameterView.thicknessName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{parameterView.addThickness(requestScope.thicknessName)}"
+						actionListener="#{parameterView.addThickness}"
 						partialSubmit="true" process="thickness_pg" update="thickness_sel"
 						onsuccess="PF('thickness_add_dlg').hide()" />
 				</h:panelGrid>
@@ -390,9 +390,9 @@
 				<h:panelGrid columns="3" id="manufactor_pg">
 					<h:outputLabel value="标识：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{requestScope.manufactorName}" />
+						value="#{parameterView.manufactorName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{parameterView.addManufactor(requestScope.manufactorName)}"
+						actionListener="#{parameterView.addManufactor}"
 						partialSubmit="true" process="manufactor_pg"
 						update="manufactor_sel manufactor_sel2"
 						onsuccess="PF('manufactor_add_dlg').hide()" />
@@ -404,9 +404,9 @@
 				<h:panelGrid columns="3" id="identify_pg">
 					<h:outputLabel value="客户标识：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{requestScope.identifyName}" />
+						value="#{parameterView.identifyName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{parameterView.addIdentify(requestScope.identifyName)}" partialSubmit="true"
+						actionListener="#{parameterView.addIdentify}" partialSubmit="true"
 						process="identify_pg" update="identify_sel identify_sel2"
 						onsuccess="PF('identify_add_dlg').hide()" />
 				</h:panelGrid>
@@ -417,9 +417,9 @@
 				<h:panelGrid columns="3" id="inType_pg">
 					<h:outputLabel value="入库类型：" />
 					<h:inputText maxlength="20" required="true"
-						value="#{requestScope.inTypeName}" />
+						value="#{parameterView.inTypeName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{parameterView.addInType(requestScope.inTypeName)}" partialSubmit="true"
+						actionListener="#{parameterView.addInType}" partialSubmit="true"
 						process="inType_pg" update="inType_sel"
 						onsuccess="PF('inType_add_dlg').hide()" />
 				</h:panelGrid>

@@ -21,12 +21,6 @@
 		)
 	</insert>
 
-	<delete id="deleteByPk" parameterType="string">
-	    <![CDATA[
-	        DELETE FROM T_PRODUCT_QUERY_TIMES WHERE ID = #{id} 
-	    ]]>
-	</delete>
-
 	<select id="selectSelective" resultMap="ProductQueryTimes">
 	SELECT * FROM T_PRODUCT_QUERY_TIMES 
 		<include refid="condition" />
