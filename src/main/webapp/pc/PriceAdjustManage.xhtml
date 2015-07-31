@@ -1,0 +1,147 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="baseTemplate.xhtml">
+
+	<ui:define name="title">价格调整</ui:define>
+
+	<ui:define name="content">
+		<h:form id="price_form" prependId="true">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="调价" type="button"
+						onclick="PF('price_adjust_dlg').show()" />
+					<p:commandButton value="下载" ajax="false">
+						<p:dataExporter type="xls" target="price_adjust_table"
+							fileName="price" />
+					</p:commandButton>
+					<p:commandButton value="打印" type="button">
+						<p:printer target="@form:price_adjust_table" />
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dialog widgetVar="price_adjust_dlg" closeOnEscape="true"
+				resizable="false" header="价格调整" width="800" dynamic="true"
+				minHeight="600">
+				<h:panelGrid columns="10">
+					<h:outputText value="产品编号:" />
+					<p:inputText value="#{priceAdjustView.productNo}" required="true"
+						requiredMessage="请输入产品编号" />
+					<p:commandButton id="btn_productNo"
+						actionListener="#{priceAdjustView.addByProductNo}" value="确定"
+						partialSubmit="true" process="@this @previous"
+						update="@form:temp_tbl" />
+
+					<h:outputText value="产品名称:" />
+					<p:selectOneMenu value="#{priceAdjustView.productId}"
+						required="true" requiredMessage="请选择产品名称">
+						<f:selectItem itemLabel="请选择产品型号" itemValue="" />
+						<f:selectItems var="s" value="#{parameterView.productList}"
+							itemLabel="#{s.productName}" itemValue="#{s.id}" />
+					</p:selectOneMenu>
+					<p:commandButton id="btn_productId"
+						actionListener="#{priceAdjustView.addByProductId}" value="确定"
+						partialSubmit="true" process="@this @previous"
+						update="@form:temp_tbl" />
+
+					<p:commandButton value="执行调价" icon="ui-icon-disk"
+						actionListener="#{priceAdjustView.priceAdjust}"
+						partialSubmit="true" process="@this"
+						update="price_adjust_table temp_tbl" />
+				</h:panelGrid>
+
+				<p:dataTable id="temp_tbl" var="v" editable="true" editMode="cell"
+					editingRow="11" value="#{priceAdjustView.tempList}">
+					<f:facet name="header">
+						<h:outputText value="产品出货" />
+					</f:facet>
+					<p:column headerText="产品编号">
+						<h:outputText value="#{v.productNo}" />
+					</p:column>
+					<p:column headerText="品牌">
+						<h:outputText value="#{v.brandName}" />
+					</p:column>
+					<p:column headerText="型号" id="productName">
+						<h:outputText value="#{v.productName}" />
+					</p:column>
+					<p:column headerText="工艺">
+						<h:outputText value="#{v.techName}" />
+					</p:column>
+					<p:column headerText="厚度">
+						<h:outputText value="#{v.thicknessName}" />
+					</p:column>
+					<p:column headerText="出厂价">
+						<h:outputText value="#{v.price}" />
+					</p:column>
+					<p:column headerText="调整价">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:inputText value="#{v.price}" readonly="true"
+									style="width:90%" />
+							</f:facet>
+							<f:facet name="input">
+								<pe:inputNumber value="#{v.price}" required="true"
+									style="width:90%" validatorMessage="价格不能小于等于0">
+									<f:validateDoubleRange minimum="0.01" />
+								</pe:inputNumber>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="操作" width="60" style="text-align:center;">
+						<p:commandButton value="删除" icon="ui-icon-close"
+							actionListener="#{priceAdjustView.delExistTemp(v)}"
+							process="@this" update="@form:temp_tbl" />
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+
+			<p:dataTable var="v" id="price_adjust_table"
+				value="#{priceAdjustView.priceAdjustModel}" style="margin-top:2px;"
+				paginator="true" rows="25" paginatorPosition="bottom"
+				rowIndexVar="index"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="25,50,100" lazy="true">
+				<f:facet name="header">
+					<h:outputText value="调价日志" />
+				</f:facet>
+				<p:column headerText="编号" width="30">
+					<h:outputText value="#{index + 1}" />
+				</p:column>
+				<p:column headerText="产品编号">
+					<h:outputText value="#{v.productNo}" />
+				</p:column>
+				<p:column headerText="品牌">
+					<h:outputText value="#{v.brandName}" />
+				</p:column>
+				<p:column headerText="型号">
+					<h:outputText value="#{v.productName}" />
+				</p:column>
+				<p:column headerText="工艺">
+					<h:outputText value="#{v.techName}" />
+				</p:column>
+				<p:column headerText="厚度">
+					<h:outputText value="#{v.thicknessName}" />
+				</p:column>
+				<p:column headerText="出厂价">
+					<h:outputText value="#{v.price}" />
+				</p:column>
+				<p:column headerText="调整价">
+					<h:outputText value="#{v.adjustPrice}" />
+				</p:column>
+				<p:column headerText="调价人" width="50">
+					<h:outputText value="#{v.createUserName}" />
+				</p:column>
+				<p:column headerText="调价时间" width="150">
+					<h:outputLabel value="#{v.createTime}">
+						<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8"
+							pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
+					</h:outputLabel>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
