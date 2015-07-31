@@ -11,8 +11,10 @@
 				<h:panelGrid columns="7" >
 					<p:outputLabel value="用户名：" />
 					<p:inputText value="#{userView.condition.username}" />
-					<p:outputLabel value="真实姓名：" />
-					<p:inputText value="#{userView.condition.realname}" />
+					<ui:remove>
+						<p:outputLabel value="真实姓名：" />
+						<p:inputText value="#{userView.condition.realname}" />
+					</ui:remove>
 					<p:outputLabel value="状态：" />
 					<p:selectOneMenu value="#{userView.condition.status}">
 						<f:selectItem itemLabel="请选择" itemValue="" />
@@ -45,9 +47,11 @@
 					<p:column headerText="密码">
 						#{v.password}
 					</p:column>
-					<p:column headerText="真实姓名">
-						#{v.realname}
-					</p:column>
+					<ui:remove>
+						<p:column headerText="真实姓名">
+							#{v.realname}
+						</p:column>
+					</ui:remove>
 					<p:column headerText="状态" width="80">
 						#{v.status == 0? "在职":"离职"}
 					</p:column>
@@ -66,23 +70,25 @@
 					</p:column>
 			</p:dataTable>
 
-			<p:dialog widgetVar="user_add_dlg" header="添加"  closeOnEscape="true" resizable="false"  dynamic="true"  showEffect="bounce">
+			<p:dialog id="user_add_dlg" widgetVar="user_add_dlg" header="添加"  closeOnEscape="true" resizable="false"  dynamic="true"  showEffect="bounce">
 				<h:panelGrid columns="2" style="width:100%;">
 						<p:outputLabel value="用户名：" />
-						<p:inputText value="#{userView.user.username}"  required="true" maxlength="20"/>
+						<p:inputText value="#{userView.user.username}"  required="true" maxlength="20" requiredMessage="用户名不能为空"/>
 						<p:outputLabel value="密码：" />
-						<p:inputText value="#{userView.user.password}" required="true" maxlength="20"/>
+						<p:inputText value="#{userView.user.password}" required="true" maxlength="20" requiredMessage="密码不能为空"/>
 						<p:outputLabel value="状态：" />
-						<p:selectOneMenu value="#{userView.user.status}" required="true">
+						<p:selectOneMenu value="#{userView.user.status}" required="true" requiredMessage="请选择状态">
 							<f:selectItem itemLabel="请选择" itemValue="" />
 							<f:selectItem itemLabel="在职" itemValue="0" />
 							<f:selectItem itemLabel="离职" itemValue="1" />						
 						</p:selectOneMenu>
-						<p:outputLabel value="真实姓名：" />
-						<p:inputText value="#{userView.user.realname}"  required="true" maxlength="20" />
+						<ui:remove>
+							<p:outputLabel value="真实姓名：" />
+							<p:inputText value="#{userView.user.realname}"  required="true" maxlength="20" />
+						</ui:remove>
 					<f:facet name="footer">
 						<div style="float: right;">
-							<p:commandButton value="保存" icon="ui-icon-search" actionListener="#{userView.addUser}" update="user_table" />
+							<p:commandButton value="保存" icon="ui-icon-disk" actionListener="#{userView.addUser}" partialSubmit="true" process="@this user_add_dlg"  update="user_table" />
 							<p:commandButton value="重置" icon="ui-icon-arrowrefresh-1-e" type="reset" />
 						</div>
 					</f:facet>
@@ -101,11 +107,13 @@
 							<f:selectItem itemLabel="在职" itemValue="0" />
 							<f:selectItem itemLabel="离职" itemValue="1" />						
 						</p:selectOneMenu>
-						<p:outputLabel value="真实姓名：" />
-						<p:inputText value="#{userView.user.realname}"  required="true" maxlength="20" />
+						<ui:remove>
+							<p:outputLabel value="真实姓名：" />
+							<p:inputText value="#{userView.user.realname}"  required="true" maxlength="20" />
+						</ui:remove>
 					<f:facet name="footer">
 						<div style="float: right;">
-							<p:commandButton value="保存" icon="ui-icon-search" partialSubmit="true"  process="@this @form:user_update_dlg" actionListener="#{userView.updateUser}" update="user_table" />
+							<p:commandButton value="保存" icon="ui-icon-disk" partialSubmit="true"  process="@this @form:user_update_dlg" actionListener="#{userView.updateUser}" update="user_table" />
 							<p:commandButton value="重置" icon="ui-icon-arrowrefresh-1-e" type="reset" />
 						</div>
 					</f:facet>

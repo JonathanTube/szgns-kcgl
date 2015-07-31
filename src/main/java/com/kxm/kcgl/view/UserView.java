@@ -52,6 +52,8 @@ public class UserView implements Serializable {
 	public void addUser(ActionEvent e) {
 		boolean isOk = false;
 		try {
+			//两个一样，username和realname
+			user.setRealname(user.getUsername());
 			isOk = userService.insertUser(user);
 		} catch (LogicException le) {
 			MsgTool.addInfoMsg(le.getMessage());
@@ -65,6 +67,8 @@ public class UserView implements Serializable {
 	}
 	
 	public void updateUser(){
+		//两个一样，username和realname
+		user.setRealname(user.getUsername());
 		boolean isOk = userService.updateUser(user);
 		if (isOk) {
 			queryUsers();
