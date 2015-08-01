@@ -13,7 +13,7 @@
 		<h:form id="right_form" prependId="true">
 			<p:fieldset legend="角色">
 				<p:selectOneRadio value="#{rightView.selectedRightId}" columns="8">
-					<f:selectItems value="#{rightView.rights}" var="v" itemLabel="#{v.name}" itemValue="#{v.id}" />
+					<f:selectItems value="#{rightView.rights}" var="v" emptyMessage="未查询到数据" itemLabel="#{v.name}" itemValue="#{v.id}" />
 					<p:ajax update="@form:selected_users @form:selected_funcs" event="valueChange" listener="#{rightView.onRightChange}" />
 				</p:selectOneRadio>
 			</p:fieldset>

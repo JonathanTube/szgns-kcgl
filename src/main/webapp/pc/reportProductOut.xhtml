@@ -53,7 +53,7 @@
 				</h:panelGrid>
 			</p:panel>
 
-			<p:dataTable var="v" id="product_out_log_tbl"
+			<p:dataTable var="v" emptyMessage="未查询到数据" id="product_out_log_tbl"
 				value="#{reportProductOutView.productOutDataModel}"
 				style="margin-top:2px;" paginator="true" rows="25"
 				paginatorPosition="bottom"

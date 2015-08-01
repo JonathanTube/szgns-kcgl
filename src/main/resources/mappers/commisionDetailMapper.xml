@@ -7,6 +7,7 @@
 	<resultMap id="CommisionDetail" type="com.kxm.kcgl.domain.CommisionDetail">
 		<result property="userId" column="user_id" jdbcType="DECIMAL" />
 		<result property="productNo" column="product_no" jdbcType="VARCHAR" />
+		<result property="productName" column="product_name" jdbcType="VARCHAR" />
 		<result property="brandName" column="brand_name" jdbcType="VARCHAR" />
 		<result property="techName" column="tech_name" jdbcType="VARCHAR" />
 		<result property="thicknessName" column="thickness_name" jdbcType="VARCHAR" />
@@ -21,21 +22,22 @@
 	<select id="selectSelective" resultMap="CommisionDetail">
 		SELECT 
 			u.id user_id,
-			u.username, 
+			p.product_no,
 			brand.name brand_name,
-			p.product_name,
-			thickness.name thickness_name,
+			p.product_name, 
 			tech.name tech_name,
-			p.product_name, IFNULL(SUM(o.amount),0) sale_amount, IFNULL(SUM(o.amount * o.stock_price),0) total_cost, IFNULL(SUM(o.amount * o.price),0) sale_price
-		FROM t_user u
-		LEFT JOIN t_product_out o ON u.id = o.create_user_id
+			thickness.name thickness_name,
+			IFNULL(SUM(o.amount),0) sale_amount, 
+			IFNULL(SUM(o.amount * o.stock_price),0) total_cost, 
+			IFNULL(SUM(o.amount * o.price),0) sale_price
+		FROM t_product_out o
+		LEFT JOIN t_user u ON u.id = o.create_user_id
 		LEFT JOIN t_product p ON p.id = o.product_id
 		left join t_brand brand on brand.id = p.brand_id
 		left join t_tech tech on tech.id = p.tech_id
 		left join t_thickness thickness on thickness.id = p.thickness_id
-		GROUP BY u.username,p.product_name
-		where 
-			u.user_id = #{userId}
+		WHERE u.id = #{userId}
+		group by p.product_no
 	</select>
 </mapper>
 

@@ -53,7 +53,7 @@
 					</h:panelGrid>
 				</p:fieldset>
 
-				<p:dataTable id="product_in_exist_tbl" var="v" rowIndexVar="index"
+				<p:dataTable id="product_in_exist_tbl" var="v" emptyMessage="未查询到数据" rowIndexVar="index"
 					value="#{productInView.productInList}">
 					<p:column headerText="序号" width="30">
 						#{index + 1}
@@ -145,7 +145,7 @@
 						value="#{productInView.productIn.manufactorId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
-						<f:selectItems var="v" value="#{parameterView.manufactorList}"
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.manufactorList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增厂家"
@@ -164,7 +164,7 @@
 					<p:selectOneMenu id="identify_sel2"
 						value="#{productInView.productIn.identifyId}" style="width:165px;">
 						<f:selectItem itemLabel="请选择客户标" itemValue="-1" />
-						<f:selectItems var="v" value="#{parameterView.identifyList}"
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.identifyList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户标"
@@ -175,7 +175,7 @@
 						value="#{productInView.productIn.inTypeId}" style="width:165px;"
 						required="true" requiredMessage="请选择入库类型">
 						<f:selectItem itemLabel="请选择入库类型" itemValue="-1" />
-						<f:selectItems var="v" value="#{parameterView.inTypeList}"
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.inTypeList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增入库类型"
@@ -190,7 +190,7 @@
 				</div>
 			</p:dialog>
 
-			<p:dataTable var="v" id="product_in_log_tbl"
+			<p:dataTable var="v" emptyMessage="未查询到数据" id="product_in_log_tbl"
 				value="#{productInView.productInModel}" style="margin-top:2px;"
 				paginator="true" rows="25" paginatorPosition="bottom"
 				rowIndexVar="index"
@@ -257,7 +257,7 @@
 						value="#{productInView.productIn.brandId}" style="width:165px;"
 						requiredMessage="请选择品牌" required="true">
 						<f:selectItem itemLabel="请选择品牌" itemValue="" />
-						<f:selectItems var="v" value="#{parameterView.brandList}"
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.brandList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增品牌"
@@ -274,7 +274,7 @@
 						value="#{productInView.productIn.techId}" style="width:165px;"
 						requiredMessage="请选择工艺" required="true">
 						<f:selectItem itemLabel="请选择工艺" itemValue="" />
-						<f:selectItems var="v" value="#{parameterView.techList}"
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.techList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增工艺"
@@ -286,7 +286,7 @@
 						value="#{productInView.productIn.thicknessId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厚度" itemValue="" />
-						<f:selectItems var="v" value="#{parameterView.thicknessList}"
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.thicknessList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增厚度"
@@ -312,7 +312,7 @@
 						value="#{productInView.productIn.manufactorId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
-						<f:selectItems var="v" value="#{parameterView.manufactorList}"
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.manufactorList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增厂家"
@@ -331,7 +331,7 @@
 					<p:selectOneMenu id="identify_sel"
 						value="#{productInView.productIn.identifyId}" style="width:165px;">
 						<f:selectItem itemLabel="请选择客户标" itemValue="-1" />
-						<f:selectItems var="v" value="#{parameterView.identifyList}"
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.identifyList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户标"

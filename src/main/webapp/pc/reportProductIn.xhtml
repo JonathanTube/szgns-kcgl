@@ -60,7 +60,7 @@
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable var="v" id="product_in_log_tbl"
+			<p:dataTable var="v" emptyMessage="未查询到数据" id="product_in_log_tbl"
 				value="#{productInView.productInModel}" style="margin-top:2px;"
 				paginator="true" rows="25" paginatorPosition="bottom"
 				rowIndexVar="index"

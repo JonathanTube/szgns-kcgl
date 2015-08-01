@@ -20,7 +20,7 @@
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable var="v" id="stock_table" value="#{stockView.stockList}"
+			<p:dataTable var="v" emptyMessage="未查询到数据" id="stock_table" value="#{stockView.stockList}"
 				style="margin-top:2px;" rowIndexVar="index">
 				<f:facet name="header">
 					<h:outputText value="总库存日报表" />

@@ -13,19 +13,32 @@
 			<p:toolbar>
 				<p:toolbarGroup align="left">
 					<p:commandButton value="下载" ajax="false">
-						<p:dataExporter type="xls" target="price_table" fileName="price" />
+						<p:dataExporter type="xls" target="commision_table" fileName="price" />
 					</p:commandButton>
 					<p:commandButton value="打印" type="button">
-						<p:printer target="@form:price_table" />
+						<p:printer target="@form:commision_table" />
 					</p:commandButton>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:commandButton id="toggler" type="button" value="过滤表格列"
 						style="float:right" icon="ui-icon-calculator" />
-					<p:columnToggler datasource="price_table" trigger="toggler" />
+					<p:columnToggler datasource="commision_table" trigger="toggler" />
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable var="v" id="price_table"
+			<p:panel header="查询条件">
+				<h:panelGrid columns="9" id="condition_pg">
+					<h:outputLabel value="年度：" />
+					<h:outputText id="year_output" value="#{commisionView.year}" />
+					<h:inputHidden id="year" value="#{commisionView.year}" />
+					<p:slider for="year" display="year_output"  style="width:200px;" minValue="1990" maxValue="2030" />
+					<h:outputLabel value="月份：" />
+					<h:outputText id="month_output" value="#{commisionView.month}" />
+					<h:inputHidden id="month" value="#{commisionView.month}" />
+					<p:slider for="month" display="month_output" style="width:200px" maxValue="12" minValue="1" />
+					<p:commandButton value="确定" actionListener="#{commisionView.initCommision}"  partialSubmit="true" process="@form:condition_pg" update="commision_table" />
+				</h:panelGrid>
+			</p:panel>
+			<p:dataTable var="v" emptyMessage="未查询到数据" id="commision_table"
 				value="#{commisionView.commisionModel}" style="margin-top:2px;"
 				paginator="true" rows="25" paginatorPosition="bottom"
 				rowIndexVar="index"
@@ -55,10 +68,81 @@
 				<p:column headerText="佣金(元)">
 					<h:outputText value="#{(v.salePrice - v.totalCost) * 0.15}" />
 				</p:column>
-				<p:column>
-					<p:commandButton value="明细"  actionListener="#{commisionView.showDetail(v.id)}" />
+				<p:column headerText="操作" style="width:50px;text-align:center;">
+					<p:commandButton value="明细"
+						actionListener="#{commisionView.showDetail(v)}" update="@form:detail_dlg"/>
 				</p:column>
 			</p:dataTable>
+			<p:dialog widgetVar="detail_dlg" id="detail_dlg" width="1000" closeOnEscape="true" resizable="false" header="业务员结佣明细表">
+				<p:toolbar>
+					<p:toolbarGroup align="left">
+						<p:commandButton value="下载" ajax="false">
+							<p:dataExporter type="xls" target="detail_tbl" fileName="detail" />
+						</p:commandButton>
+						<p:commandButton value="打印" type="button">
+							<p:printer target="@form:detail_tbl" />
+						</p:commandButton>
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:dataTable var="v" emptyMessage="未查询到数据" id="detail_tbl"
+					value="#{commisionView.detailList}" style="margin-top:2px;"
+					rowIndexVar="index">
+					<ui:remove>
+						<p:columnGroup type="header">
+							<p:row>
+								<p:column colspan="1" headerText="时间：" />
+								<p:column colspan="4" />
+								<p:column colspan="2" />
+								<p:column colspan="1" headerText="业务员：" />
+								<p:column colspan="3"/>
+							</p:row>
+						</p:columnGroup>
+					</ui:remove>
+					<p:column headerText="编号" width="30">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+					<p:column headerText="产品编号">
+						<h:outputText value="#{v.productNo}" />
+					</p:column>
+					<p:column headerText="品牌">
+						<h:outputText value="#{v.brandName}" />
+					</p:column>
+					<p:column headerText="型号">
+						<h:outputText value="#{v.productName}" />
+					</p:column>
+					<p:column headerText="工艺">
+						<h:outputText value="#{v.techName}" />
+					</p:column>
+					<p:column headerText="厚度">
+						<h:outputText value="#{v.thicknessName}" />
+					</p:column>
+					<p:column headerText="出货数量">
+						<h:outputText value="#{v.saleAmount}" />
+					</p:column>
+					<p:column headerText="出货成本">
+						<h:outputText value="#{v.totalCost}" />
+					</p:column>
+					<p:column headerText="销售总金额">
+						<h:outputText value="#{v.salePrice}" />
+					</p:column>
+					<p:column headerText="提成比例">
+						<h:outputText value="15%" />
+					</p:column>
+					<p:column headerText="佣金(元)">
+						<h:outputText value="#{(v.salePrice - v.totalCost) * 0.15}" />
+					</p:column>
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column colspan="6" footerText="小计" />
+							<p:column headerText="#{commisionView.selectedCommision.saleAmount}" />
+							<p:column headerText="#{commisionView.selectedCommision.totalCost}" />
+							<p:column headerText="#{commisionView.selectedCommision.salePrice}" />
+							<p:column headerText="15%" />
+							<p:column headerText="#{(commisionView.selectedCommision.salePrice - commisionView.selectedCommision.totalCost) * 0.15}" />
+						</p:row>
+					</p:columnGroup>
+				</p:dataTable>
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

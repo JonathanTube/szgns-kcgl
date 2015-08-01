@@ -42,7 +42,7 @@
 				<p:watermark value="输入产品编号或产品名称" for="@previous" />
 			</h:panelGrid>
 
-			<p:dataTable var="v" id="stock_table" value="#{mainView.stockModel}"
+			<p:dataTable var="v" emptyMessage="未查询到数据" id="stock_table" value="#{mainView.stockModel}"
 				style="margin-top:2px;" paginator="true" rows="25"
 				paginatorPosition="bottom" rowIndexVar="index"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
@@ -106,7 +106,7 @@
 						requiredMessage="请选择客户" value="#{requestScope.custId}"
 						style="width:150px;">
 						<f:selectItem itemLabel="请选择客户" itemValue="" />
-						<f:selectItems var="v" value="#{parameterView.ownerCustList}"
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.ownerCustList}"
 							itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户"

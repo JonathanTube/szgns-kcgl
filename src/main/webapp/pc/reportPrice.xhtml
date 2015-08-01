@@ -25,7 +25,7 @@
 					<p:columnToggler datasource="price_table" trigger="toggler" />
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable var="v" id="price_table" value="#{priceView.priceList}"
+			<p:dataTable var="v" emptyMessage="未查询到数据" id="price_table" value="#{priceView.priceList}"
 				style="margin-top:2px;" rowIndexVar="index">
 				<f:facet name="header">
 					<h:outputText value="价格表" />

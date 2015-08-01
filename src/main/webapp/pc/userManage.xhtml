@@ -34,7 +34,7 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			
-			<p:dataTable id="user_table" value="#{userView.userDataModel}" var="v" style="margin-top:2px;"
+			<p:dataTable id="user_table" value="#{userView.userDataModel}" var="v" emptyMessage="未查询到数据" style="margin-top:2px;"
 				paginator="true" rows="10" paginatorPosition="bottom" rowIndexVar="index"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="5,10,15" lazy="true">

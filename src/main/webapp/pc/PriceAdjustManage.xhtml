@@ -54,7 +54,7 @@
 						update="price_adjust_table temp_tbl" />
 				</h:panelGrid>
 
-				<p:dataTable id="temp_tbl" var="v" editable="true" editMode="cell"
+				<p:dataTable id="temp_tbl" var="v" emptyMessage="未查询到数据" editable="true" editMode="cell"
 					editingRow="11" value="#{priceAdjustView.tempList}">
 					<f:facet name="header">
 						<h:outputText value="产品出货" />
@@ -98,7 +98,7 @@
 				</p:dataTable>
 			</p:dialog>
 
-			<p:dataTable var="v" id="price_adjust_table"
+			<p:dataTable var="v" emptyMessage="未查询到数据" id="price_adjust_table"
 				value="#{priceAdjustView.priceAdjustModel}" style="margin-top:2px;"
 				paginator="true" rows="25" paginatorPosition="bottom"
 				rowIndexVar="index"
