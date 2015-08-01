@@ -21,7 +21,7 @@ public class UserService {
 
 	@Autowired
 	private UserMapper userMapper;
-	
+
 	@Autowired
 	private LoginSession loginSession;
 
@@ -37,7 +37,7 @@ public class UserService {
 			User record = new User();
 			record.setUsername(entity.getUsername());
 			int size = userMapper.countBySelective(record);
-			if(size > 0){
+			if (size > 0) {
 				throw new LogicException("用户名已存在");
 			}
 			userMapper.insert(entity);
@@ -55,9 +55,24 @@ public class UserService {
 
 		return false;
 	}
-	
-	public List<User> queryUser(User record){
+
+	public List<User> queryUser(User record) {
 		return userMapper.selectSelective(record);
+	}
+
+	public int changePassword(Integer userId, String oldPassword,
+			String newPassword1, String newPassword2) throws LogicException {
+		User user = userMapper.selectByPk(userId);
+		if(user!=null && !user.getPassword().equals(oldPassword)){
+			throw new LogicException("原密码不正确");
+		}
+		if (!newPassword1.equals(newPassword2)) {
+			throw new LogicException("两次密码不一致");
+		}
+		User condition = new User();
+		condition.setId(userId);
+		condition.setPassword(newPassword1);
+		return userMapper.updateSelectiveByPk(condition);
 	}
 
 }

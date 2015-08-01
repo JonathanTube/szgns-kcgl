@@ -89,6 +89,9 @@
 					<p:column headerText="入库类型">
 						<h:outputText value="#{v.inTypeName}" />
 					</p:column>
+					<p:column headerText="品质">
+						<h:outputText value="#{v.quantityName}" />
+					</p:column>
 					<p:column headerText="操作" width="60">
 						<p:commandButton value="编辑" icon="ui-icon-pencil"
 							actionListener="#{productInView.editExistTemp(v)}"
@@ -171,7 +174,7 @@
 						onclick="PF('identify_add_dlg').show();" />
 
 					<p:outputLabel value="入库类型：" />
-					<p:selectOneMenu id="inType_sel"
+					<p:selectOneMenu id="inType_sel2"
 						value="#{productInView.productIn.inTypeId}" style="width:165px;"
 						required="true" requiredMessage="请选择入库类型">
 						<f:selectItem itemLabel="请选择入库类型" itemValue="-1" />
@@ -180,7 +183,19 @@
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增入库类型"
 						onclick="PF('inType_add_dlg').show();" />
-
+						
+					<p:outputLabel value="品质：" />
+					<p:selectOneMenu id="quantity_sel2"
+						value="#{productInView.productIn.quantityId}" style="width:165px;"
+						required="true" requiredMessage="请选择品质">
+						<f:selectItem itemLabel="请选择品质" itemValue="-1" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.quantityList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
+					</p:selectOneMenu>
+					<p:commandButton type="button" icon="ui-icon-plus" title="新增品质"
+						onclick="PF('quantity_add_dlg').show();" />
+						
 				</h:panelGrid>
 				<div style="float: right;">
 					<p:commandButton value="保存" icon="ui-icon-disk"
@@ -229,6 +244,9 @@
 				</p:column>
 				<p:column headerText="厂家" width="50">
 					<h:outputText value="#{v.manufactorName}" />
+				</p:column>
+				<p:column headerText="品质" width="50">
+					<h:outputText value="#{v.quantityName}" />
 				</p:column>
 				<p:column headerText="操作人" width="50">
 					<h:outputText value="#{v.createUsername}" />
@@ -337,6 +355,28 @@
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户标"
 						onclick="PF('identify_add_dlg').show();" />
 
+					<p:outputLabel value="入库类型：" />
+					<p:selectOneMenu id="inType_sel"
+						value="#{productInView.productIn.inTypeId}" style="width:165px;"
+						required="true" requiredMessage="请选择入库类型">
+						<f:selectItem itemLabel="请选择入库类型" itemValue="-1" />
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.inTypeList}"
+							itemLabel="#{v.name}" itemValue="#{v.id}" />
+					</p:selectOneMenu>
+					<p:commandButton type="button" icon="ui-icon-plus" title="新增入库类型"
+						onclick="PF('inType_add_dlg').show();" />
+						
+					<p:outputLabel value="品质：" />
+					<p:selectOneMenu id="quantity_sel"
+						value="#{productInView.productIn.quantityId}" style="width:165px;"
+						required="true" requiredMessage="请选择品质">
+						<f:selectItem itemLabel="请选择品质" itemValue="-1" />
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.quantityList}"
+							itemLabel="#{v.name}" itemValue="#{v.id}" />
+					</p:selectOneMenu>
+					<p:commandButton type="button" icon="ui-icon-plus" title="新增品质"
+						onclick="PF('quantity_add_dlg').show();" />
+						
 				</h:panelGrid>
 				<div style="float: right;">
 					<p:commandButton value="保存" icon="ui-icon-disk"
@@ -420,8 +460,21 @@
 						value="#{parameterView.inTypeName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
 						actionListener="#{parameterView.addInType}" partialSubmit="true"
-						process="inType_pg" update="inType_sel"
+						process="inType_pg" update="inType_sel inType_sel2"
 						onsuccess="PF('inType_add_dlg').hide()" />
+				</h:panelGrid>
+			</p:dialog>
+			
+			<p:dialog widgetVar="quantity_add_dlg" header="添加品质"
+				resizable="false" closeOnEscape="true">
+				<h:panelGrid columns="3" id="quantity_pg">
+					<h:outputLabel value="品质名称：" />
+					<h:inputText maxlength="20" required="true"
+						value="#{parameterView.quantityName}" />
+					<p:commandButton value="新增" icon="ui-icon-disk"
+						actionListener="#{parameterView.addQuantity}" partialSubmit="true"
+						process="quantity_pg" update="quantity_sel quantity_sel2"
+						onsuccess="PF('quantity_add_dlg').hide()" />
 				</h:panelGrid>
 			</p:dialog>
 		</h:form>

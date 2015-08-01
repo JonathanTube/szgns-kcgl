@@ -89,6 +89,9 @@
 						<h:outputText
 							value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
 					</p:column>
+					<p:column headerText="品质">
+						<h:outputText value="#{v.quantityName}" />
+					</p:column>
 					<p:column headerText="出货数量">
 						<h:outputText value="#{v.amount}" />
 					</p:column>

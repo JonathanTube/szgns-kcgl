@@ -38,15 +38,19 @@
 	</insert>
 
 	<update id="updateSelectiveByPk">
-    <![CDATA[
         UPDATE T_USER SET
-	        username = #{username} ,
-	        password = #{password} ,
-	        status = #{status},
+        	<if test="username != null">
+		        username = #{username} ,
+        	</if>
+        	<if test="password != null">
+		        password = #{password} ,
+        	</if>
+        	<if test="status != null">
+		        status = #{stauts} ,
+        	</if>
 	        updateTime = now()
         WHERE 
 	        ID = #{id} 
-    ]]>
 	</update>
 
 	<delete id="deleteByPk" parameterType="string">

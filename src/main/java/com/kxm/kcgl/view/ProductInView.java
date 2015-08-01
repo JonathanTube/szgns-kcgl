@@ -64,6 +64,8 @@ public class ProductInView implements Serializable {
 			User user = (User) loginSession.getSesionObj();
 			productIn.setCreateUserId(user.getId());
 			productInService.addNotExist(productIn);
+			MsgTool.addInfoMsg("入库成功");
+			RequestContext.getCurrentInstance().execute("PF('product_in_not_exist_dlg').hide()");
 		} catch (LogicException e) {
 			MsgTool.addWarningMsg(e.getMessage());
 		}

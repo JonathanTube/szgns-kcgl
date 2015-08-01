@@ -38,7 +38,7 @@
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:commandButton value="查询" icon="ui-icon-search"
-						actionListener="#{queryTimesView.initQuery}"
+						actionListener="#{queryTimesView.initQuery}" partialSubmit="true" process="@parent"
 						update="@form:query_times_table" />
 				</h:panelGrid>
 			</p:panel>

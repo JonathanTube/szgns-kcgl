@@ -34,12 +34,12 @@
 				WHERE qt.product_id = stock.product_id
 				<if test="queryTimesStartDate != null">
 					<![CDATA[
-						qt.create_time >= #{queryTimesStartDate}
+						AND qt.create_time >= #{queryTimesStartDate}
 					]]>				    
 				</if>
 				<if test="queryTimesEndDate != null">
 					<![CDATA[
-						qt.create_time <= #{queryTimesEndDate}
+						AND qt.create_time <= #{queryTimesEndDate}
 					]]>				    
 				</if>
 			) query_times

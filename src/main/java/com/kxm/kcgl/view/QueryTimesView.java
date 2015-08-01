@@ -53,13 +53,14 @@ public class QueryTimesView implements Serializable {
 	public void initTechList() {
 		techList = techService.queryAllTech();
 	}
-	
+
 	public void initThicknessList() {
 		thicknessList = thicknessService.queryAllThickness();
 	}
-	
+
 	public void initQuery() {
-		stockDataModel = new PaginationDataModel<Stock>("com.kxm.kcgl.mapper.StockMapper.selectSelective", condition);
+		stockDataModel = new PaginationDataModel<Stock>(
+				"com.kxm.kcgl.mapper.StockMapper.selectSelective", condition);
 	}
 
 	public List<BrandBean> getBrandList() {

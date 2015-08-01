@@ -69,6 +69,7 @@
 
 					<p:menu toggleable="true">
 						<p:submenu label="系统管理">
+							<p:menuitem value="修改密码" onclick="PF('pwd_dlg').show()" icon="ui-icon-link"/>
 							<c:forEach items="#{loginView.loginSession.sesionObj.funcList}"
 								var="v">
 								<c:if test="#{v.type == 0}">
@@ -101,6 +102,20 @@
 				</h:form>
 			</p:layoutUnit>
 			<p:layoutUnit position="center">
+				<p:dialog header="修改密码" widgetVar="pwd_dlg">
+					<h:form>
+						<h:panelGrid columns="2">
+							<h:outputText value="原密码：" />
+							<p:password value="#{userView.oldPassword}" />
+							<h:outputText value="新密码：" />
+							<p:password value="#{userView.newPassword1}" />
+							<h:outputText value="确认密码：" />
+							<p:password value="#{userView.newPassword2}" />
+						</h:panelGrid>
+						<p:commandButton actionListener="#{userView.changePassword}"
+							value="保存" icon="ui-icon-disk" style="float:right;" />
+					</h:form>
+				</p:dialog>
 				<ui:insert name="content" />
 			</p:layoutUnit>
 		</p:layout>
@@ -145,10 +160,12 @@
 			</div>
 		</pe:ajaxErrorHandler>
 
-		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-		 
-		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-		    <p:graphicImage library="szgns"  name="images/ajaxloadingbar.gif" />
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage library="szgns" name="images/ajaxloadingbar.gif" />
 		</p:dialog>
 
 	</h:body>

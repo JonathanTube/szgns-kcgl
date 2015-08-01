@@ -22,6 +22,8 @@ public class ProductIn {
 	private String identifyName;
 	private Integer inTypeId;
 	private String inTypeName;
+	private Integer quantityId;
+	private String quantityName;
 	private Integer createUserId;
 	private String createUsername;
 	private Date createTime;
@@ -219,5 +221,21 @@ public class ProductIn {
 
 	public void setProductInEndDate(Date productInEndDate) {
 		this.productInEndDate = productInEndDate;
+	}
+
+	public Integer getQuantityId() {
+		return quantityId;
+	}
+
+	public void setQuantityId(Integer quantityId) {
+		this.quantityId = quantityId;
+	}
+
+	public String getQuantityName() {
+		return quantityName;
+	}
+
+	public void setQuantityName(String quantityName) {
+		this.quantityName = quantityName;
 	}
 }

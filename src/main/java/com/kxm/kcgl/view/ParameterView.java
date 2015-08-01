@@ -16,6 +16,7 @@ import com.kxm.kcgl.domain.Identify;
 import com.kxm.kcgl.domain.InType;
 import com.kxm.kcgl.domain.Manufactor;
 import com.kxm.kcgl.domain.Product;
+import com.kxm.kcgl.domain.Quantity;
 import com.kxm.kcgl.domain.TechBean;
 import com.kxm.kcgl.domain.ThicknessBean;
 import com.kxm.kcgl.domain.User;
@@ -25,6 +26,7 @@ import com.kxm.kcgl.service.IdentifyService;
 import com.kxm.kcgl.service.InTypeService;
 import com.kxm.kcgl.service.ManufactorService;
 import com.kxm.kcgl.service.ProductService;
+import com.kxm.kcgl.service.QuantityService;
 import com.kxm.kcgl.service.TechService;
 import com.kxm.kcgl.service.ThicknessService;
 import com.kxm.kcgl.service.UserService;
@@ -63,6 +65,9 @@ public class ParameterView implements Serializable {
 	@Autowired
 	private InTypeService inTypeService;
 
+	@Autowired
+	private QuantityService quantityService;
+
 	private String thicknessName;
 	private String manufactorName;
 	private String inTypeName;
@@ -70,6 +75,7 @@ public class ParameterView implements Serializable {
 	private String techName;
 	private String identifyName;
 	private String custName;
+	private String quantityName;
 
 	public List<BrandBean> getBrandList() {
 		return brandService.queryAllBrand();
@@ -85,6 +91,10 @@ public class ParameterView implements Serializable {
 
 	public List<Manufactor> getManufactorList() {
 		return manufactorService.queryAll();
+	}
+
+	public List<Quantity> getQuantityList() {
+		return quantityService.queryAll();
 	}
 
 	public List<Cust> getCustList() {
@@ -137,6 +147,11 @@ public class ParameterView implements Serializable {
 
 	public void addManufactor() {
 		String msg = manufactorService.addNew(manufactorName);
+		MsgTool.addInfoMsg(msg);
+	}
+	
+	public void addQuantity() {
+		String msg = quantityService.addNew(quantityName);
 		MsgTool.addInfoMsg(msg);
 	}
 
@@ -210,6 +225,14 @@ public class ParameterView implements Serializable {
 
 	public void setIdentifyName(String identifyName) {
 		this.identifyName = identifyName;
+	}
+
+	public String getQuantityName() {
+		return quantityName;
+	}
+
+	public void setQuantityName(String quantityName) {
+		this.quantityName = quantityName;
 	}
 
 }

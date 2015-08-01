@@ -48,7 +48,7 @@ public interface UserMapper {
 	/**
 	 * 根据主键查找对象
 	 */
-	User selectByPk(String id);
+	User selectByPk(Integer id);
 	
 	/**
 	 * 根据传入的对象条件查找对象列表

@@ -30,6 +30,8 @@ public class ProductOut {
 	private double stockPrice;
 	private double price;
 	private double money;
+	private Integer quantityId;
+	private String quantityName;
 	private Integer createUserId;
 	private String createUserName;
 	private String createTime;
@@ -259,5 +261,21 @@ public class ProductOut {
 
 	public void setProductOutEndDate(Date productOutEndDate) {
 		this.productOutEndDate = productOutEndDate;
+	}
+
+	public Integer getQuantityId() {
+		return quantityId;
+	}
+
+	public void setQuantityId(Integer quantityId) {
+		this.quantityId = quantityId;
+	}
+
+	public String getQuantityName() {
+		return quantityName;
+	}
+
+	public void setQuantityName(String quantityName) {
+		this.quantityName = quantityName;
 	}
 }

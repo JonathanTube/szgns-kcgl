@@ -35,9 +35,9 @@
 			</p:toolbar>
 			
 			<p:dataTable id="user_table" value="#{userView.userDataModel}" var="v" emptyMessage="未查询到数据" style="margin-top:2px;"
-				paginator="true" rows="10" paginatorPosition="bottom" rowIndexVar="index"
+				paginator="true" rows="20" paginatorPosition="bottom" rowIndexVar="index"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="5,10,15" lazy="true">
+				rowsPerPageTemplate="20,40,80,160" lazy="true">
 					<p:column headerText="编号" width="40">
 						#{index + 1}
 					</p:column>

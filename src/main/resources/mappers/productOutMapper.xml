@@ -28,6 +28,8 @@
 		<result property="billId" column="billId" jdbcType="DECIMAL" />
 		<result property="custId" column="cust_id" jdbcType="DECIMAL" />
 		<result property="custName" column="cust_name" jdbcType="VARCHAR" />
+		<result property="quantityId" column="quantity_id" jdbcType="DECIMAL" />
+		<result property="quantityName" column="quantity_name" jdbcType="VARCHAR" />
 		<result property="createUserId" column="create_user_id" jdbcType="DECIMAL" />
 		<result property="createUserName" column="create_username" jdbcType="VARCHAR" />
 		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
@@ -67,7 +69,7 @@
 				thickness_name,productOut.amount,productOut.stock_price,productOut.price,
 				user.id create_user_id,user.username create_username,productOut.create_time,
 				stock.identify_type,productOut.bill_id,identify.id identify_id,identify.name identify_name,
-				productOut.money
+				productOut.money,quantity.id quantity_id,quantity.name quantity_name
 		FROM t_product_out productOut
 		LEFT JOIN t_product product ON productOut.product_id = product.id
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
@@ -76,6 +78,7 @@
 		LEFT JOIN t_user USER ON productOut.create_user_id = user.id
 		LEFT JOIN t_stock stock ON stock.product_id = productOut.product_id
 		LEFT JOIN t_identify identify ON identify.id = stock.identify_id
+		LEFT JOIN t_quantity quantity ON quantity.id = productOut.quantity_id
 		<include refid="condition" />
 	</select>
 
@@ -89,6 +92,7 @@
 		LEFT JOIN t_user USER ON productOut.create_user_id = user.id
 		LEFT JOIN t_stock stock ON stock.product_id = productOut.product_id
 		LEFT JOIN t_identify identify ON identify.id = stock.identify_id
+		LEFT JOIN t_quantity quantity ON quantity.id = productOut.quantity_id
 		<include refid="condition" />
 	</select>
 	
