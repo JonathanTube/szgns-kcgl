@@ -80,11 +80,10 @@
 					<p:column headerText="调整价">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:inputText value="#{v.price}" readonly="true"
-									style="width:90%" />
+								<h:outputText value="#{v.adjustPrice}"  style="color:red;"/>
 							</f:facet>
 							<f:facet name="input">
-								<pe:inputNumber value="#{v.price}" required="true"
+								<pe:inputNumber value="#{v.adjustPrice}" required="true"
 									style="width:90%" validatorMessage="价格不能小于等于0">
 									<f:validateDoubleRange minimum="0.01" />
 								</pe:inputNumber>

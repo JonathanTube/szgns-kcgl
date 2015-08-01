@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="baseTemplate.xhtml">
+
+	<ui:define name="title">佣金月报表</ui:define>
+
+	<ui:define name="content">
+		<h:form id="price_form" prependId="true">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="下载" ajax="false">
+						<p:dataExporter type="xls" target="price_table" fileName="price" />
+					</p:commandButton>
+					<p:commandButton value="打印" type="button">
+						<p:printer target="@form:price_table" />
+					</p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:commandButton id="toggler" type="button" value="过滤表格列"
+						style="float:right" icon="ui-icon-calculator" />
+					<p:columnToggler datasource="price_table" trigger="toggler" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable var="v" id="price_table"
+				value="#{commisionView.commisionModel}" style="margin-top:2px;"
+				paginator="true" rows="25" paginatorPosition="bottom"
+				rowIndexVar="index"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="25,50,100" lazy="true">
+				<f:facet name="header">
+					<h:outputText value="佣金月报表" />
+				</f:facet>
+				<p:column headerText="编号" width="30">
+					<h:outputText value="#{index + 1}" />
+				</p:column>
+				<p:column headerText="姓名">
+					<h:outputText value="#{v.username}" />
+				</p:column>
+				<p:column headerText="销售额(片)">
+					<h:outputText value="#{v.saleAmount}" />
+				</p:column>
+				<p:column headerText="销售总金额(元)">
+					<h:outputText value="#{v.salePrice}" />
+				</p:column>
+				<p:column headerText="总成本">
+					<h:outputText value="#{v.totalCost}" />
+				</p:column>
+				<p:column headerText="提成比例">
+					<h:outputText value="15%" />
+				</p:column>
+				<p:column headerText="佣金(元)">
+					<h:outputText value="#{(v.salePrice - v.totalCost) * 0.15}" />
+				</p:column>
+				<p:column>
+					<p:commandButton value="明细"  actionListener="#{commisionView.showDetail(v.id)}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
