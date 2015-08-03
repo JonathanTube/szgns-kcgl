@@ -14,6 +14,8 @@
 		<result property="techName" column="tech_name" jdbcType="VARCHAR" />
 		<result property="thicknessId" column="thickness_id" jdbcType="DECIMAL" />
 		<result property="thicknessName" column="thickness_name" jdbcType="VARCHAR" />
+		<result property="quantityId" column="quantity_id" jdbcType="DECIMAL" />
+		<result property="quantityName" column="quantity_name" jdbcType="VARCHAR" />
 		<result property="amount" column="amount" jdbcType="DECIMAL" />
 		<result property="price" column="price" jdbcType="DECIMAL" />
 		<result property="identifyType" column="identify_type" jdbcType="VARCHAR" />
@@ -27,8 +29,9 @@
 			stock.id,product.brand_id,brand.name brand_name,product.id
 			product_id,product.product_no,product.product_name,tech.id
 			tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
-			thickness_name,stock.amount,product.price,stock.identify_type
+			thickness_name,stock.amount,price.price,stock.identify_type
 			,identify.id identify_id,identify.name identify_name,
+			quantity.id quantity_id,quantity.name quantity_name,
 			(
 				SELECT COUNT(*) FROM t_product_query_times qt 
 				WHERE qt.product_id = stock.product_id
@@ -49,6 +52,8 @@
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
 		LEFT JOIN t_identify identify ON stock.identify_id = stock.identify_id
+		LEFT JOIN t_quantity quantity ON quantity.id = stock.quantity_id
+		LEFT JOIN t_price price on price.product_id = stock.product_id
 		<where>
    			<if test=" productId != null">
 				AND stock.product_id = #{productId}
@@ -96,12 +101,14 @@
 			identify_type,
 			identify_id,
 			manufactor_id,
+			quantity_id,
 			amount
 		) VALUES (
 			#{productId},
 			#{identifyType},
 			#{identifyId},
 			#{manufactorId},
+			#{quantityId},
 			#{amount}
 		)
 	</insert>
@@ -121,6 +128,9 @@
 			</if>
 			<if test="manufactorId != null">
 			  and manufactor_id = #{manufactorId}  
+			</if>
+			<if test="quantityId != null">
+			  and quantity_id = #{quantityId}  
 			</if>
 		</where>
 	</update>

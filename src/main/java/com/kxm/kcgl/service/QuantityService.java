@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kxm.kcgl.domain.Manufactor;
 import com.kxm.kcgl.domain.Quantity;
 import com.kxm.kcgl.mapper.QuantityMapper;
 
@@ -20,13 +19,13 @@ public class QuantityService {
 	@Autowired
 	private QuantityMapper quantityMapper;
 
-	public List<Quantity> queryAll() {
-		return quantityMapper.selectSelective(new Quantity());
-	}
-
 	public String addNew(String quantityName) {
 		int i = quantityMapper.insert(quantityName);
 		return i > 0 ? quantityName + "添加成功" : quantityName + "添加失败";
+	}
+
+	public List<Quantity> selectSelective(Quantity quantity) {
+		return quantityMapper.selectSelective(quantity);
 	}
 
 }

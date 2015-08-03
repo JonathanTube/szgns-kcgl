@@ -15,7 +15,7 @@
 			<h:panelGrid columns="1"
 				style="width:100%;text-align:center;margin-top:40px;">
 				<p:autoComplete value="#{mainView.selectedProduct}" size="100"
-					dropdown="true" completeMethod="#{mainView.completeProduct}"
+					dropdown="true" completeMethod="#{mainView.completeProduct}" minQueryLength="1" 
 					var="p" itemLabel="#{p.productName}" itemValue="#{p}"
 					converter="productConverter" forceSelection="true">
 					<p:ajax event="itemSelect" listener="#{mainView.onItemSelect}"

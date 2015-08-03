@@ -18,13 +18,13 @@ public class IdentifyService {
 	@Autowired
 	private IdentifyMapper identifyMapper;
 
-	public List<Identify> queryAll() {
-		return identifyMapper.selectSelective(new Identify());
-	}
-
 	public String addNew(String identifyName) {
 		int i = identifyMapper.insert(identifyName);
 		return i > 0 ? identifyName + "添加成功" : identifyName + "添加失败";
+	}
+
+	public List<Identify> selectSelective(Identify identify) {
+		return identifyMapper.selectSelective(identify);
 	}
 
 }

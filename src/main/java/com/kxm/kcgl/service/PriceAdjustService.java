@@ -5,17 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kxm.kcgl.domain.Price;
 import com.kxm.kcgl.domain.PriceAdjust;
-import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.mapper.PriceAdjustMapper;
-import com.kxm.kcgl.mapper.ProductMapper;
+import com.kxm.kcgl.mapper.PriceMapper;
 
 @Service
 public class PriceAdjustService {
 	@Autowired
 	private PriceAdjustMapper priceAdjustMapper;
 	@Autowired
-	private ProductMapper produtMapper;
+	private PriceMapper priceMapper;
 
 	public void insert(List<PriceAdjust> tempList, Integer createUserId) {
 		for (PriceAdjust priceAdjust : tempList) {
@@ -23,10 +23,11 @@ public class PriceAdjustService {
 			// 记录调价日志
 			priceAdjustMapper.insert(priceAdjust);
 			// 产品调价
-			Product product = new Product();
-			product.setId(priceAdjust.getProductId());
-			product.setPrice(priceAdjust.getAdjustPrice());
-			produtMapper.update(product);
+			Price price = new Price();
+			price.setProductId(priceAdjust.getProductId());
+			price.setQuantityId(priceAdjust.getQuantityId());
+			price.setPrice(priceAdjust.getAdjustPrice());
+			priceMapper.update(price);
 		}
 	}
 

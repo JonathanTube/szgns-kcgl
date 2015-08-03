@@ -13,6 +13,8 @@ public class PriceAdjust {
 	private String techName;
 	private Integer thicknessId;
 	private String thicknessName;
+	private Integer quantityId;
+	private String quantityName;
 	private Double price;
 	private Double adjustPrice;
 	private Integer createUserId;
@@ -137,5 +139,21 @@ public class PriceAdjust {
 
 	public void setCreateUserName(String createUserName) {
 		this.createUserName = createUserName;
+	}
+
+	public Integer getQuantityId() {
+		return quantityId;
+	}
+
+	public void setQuantityId(Integer quantityId) {
+		this.quantityId = quantityId;
+	}
+
+	public String getQuantityName() {
+		return quantityName;
+	}
+
+	public void setQuantityName(String quantityName) {
+		this.quantityName = quantityName;
 	}
 }

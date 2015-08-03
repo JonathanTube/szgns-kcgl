@@ -2,10 +2,9 @@ package com.kxm.kcgl.domain;
 
 import java.util.Date;
 
-public class TechBean {
+public class Thickness {
 	private int id;
 	private String name;
-	private int flag;
 	private Date createTime;
 	private int create_user;
 
@@ -39,13 +38,5 @@ public class TechBean {
 
 	public void setCreate_user(int create_user) {
 		this.create_user = create_user;
-	}
-
-	public int getFlag() {
-		return flag;
-	}
-
-	public void setFlag(int flag) {
-		this.flag = flag;
 	}
 }

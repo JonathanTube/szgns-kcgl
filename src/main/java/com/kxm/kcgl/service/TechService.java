@@ -5,40 +5,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
-import com.kxm.kcgl.dao.BrandDao;
-import com.kxm.kcgl.dao.TechDao;
-import com.kxm.kcgl.domain.BrandBean;
-import com.kxm.kcgl.domain.TechBean;
+import com.kxm.kcgl.LogicException;
+import com.kxm.kcgl.domain.Tech;
+import com.kxm.kcgl.mapper.TechMapper;
 
 @Service
 public class TechService {
 	@Autowired
-	private TechDao techDao;
+	private TechMapper techMapper;
+
 	@Transactional
-	public String addNewTech(String name) {
-		if (StringUtils.isEmpty(name)) {
-			return "工艺不能为空";
-		}
-		int count = techDao.count(name);
+	public int add(String name) throws LogicException {
+		Tech tech = new Tech();
+		tech.setName(name.trim());
+		int count = techMapper.countBySelective(tech);
 		if (count > 0) {
-			techDao.update(name);
+			throw new LogicException(name + "已存在");
 		}
 
-		TechBean param = new TechBean();
-		param.setName(name.trim());
-		// TODO:where is user?
-		param.setCreate_user(11);
-		int size = techDao.insert(param);
-		return size > 0 ? "工艺" + name + "添加成功" : "工艺" + name + "添加失败";
+		return techMapper.insert(tech);
 	}
 
-	public List<TechBean> queryAllTech() {
-		return techDao.query();
-	}
-
-	public void deleteTech(int id) {
-		techDao.delete(id);
+	public List<Tech> selectSelective(Tech tech) {
+		return techMapper.selectSelective(tech);
 	}
 }

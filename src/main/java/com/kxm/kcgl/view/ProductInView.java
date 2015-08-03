@@ -105,6 +105,10 @@ public class ProductInView implements Serializable {
 		this.productIn = productIn;
 		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').show()");
 	}
+	
+	public void delExistTemp(ProductIn productIn) {
+		productInList.remove(productId);
+	}
 
 	public void addExistProduct(ActionEvent event) {
 		String id = event.getComponent().getId();

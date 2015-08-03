@@ -25,13 +25,6 @@ public class UserService {
 	@Autowired
 	private LoginSession loginSession;
 
-	/**
-	 * @return
-	 */
-	public List<User> queryAll() {
-		return userMapper.selectSelective(new User());
-	}
-
 	public boolean insertUser(User entity) throws LogicException {
 		if (entity != null) {
 			User record = new User();
@@ -73,6 +66,10 @@ public class UserService {
 		condition.setId(userId);
 		condition.setPassword(newPassword1);
 		return userMapper.updateSelectiveByPk(condition);
+	}
+
+	public List<User> selectSelective(User user) {
+		return userMapper.selectSelective(user);
 	}
 
 }

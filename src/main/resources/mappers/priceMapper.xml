@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kxm.kcgl.mapper.PriceMapper">
+
+	<insert id="insert" parameterType="com.kxm.kcgl.domain.Price">
+		INSERT INTO T_PRICE (
+			product_id,
+			quantity_id,
+			price
+		)
+		VALUES (
+			#{productId},
+			#{quantityId},
+			#{price}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.kxm.kcgl.domain.Price">
+		update t_price set 
+			price = #{price}
+		where product_id = #{product_id}
+		and 	  quantity_id = #{quantityId}
+	</update>
+	
+</mapper>
+

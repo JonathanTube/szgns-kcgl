@@ -26,6 +26,10 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:dataTable var="v" emptyMessage="未查询到数据" id="price_table" value="#{priceView.priceList}"
+				paginator="true" rows="25" paginatorPosition="bottom"
+				rowIndexVar="index"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="25,50,100" lazy="true"
 				style="margin-top:2px;" rowIndexVar="index">
 				<f:facet name="header">
 					<h:outputText value="价格表" />

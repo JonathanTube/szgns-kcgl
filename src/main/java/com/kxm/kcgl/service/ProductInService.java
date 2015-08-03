@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kxm.kcgl.LogicException;
+import com.kxm.kcgl.domain.Price;
 import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductIn;
 import com.kxm.kcgl.domain.Stock;
+import com.kxm.kcgl.mapper.PriceMapper;
 import com.kxm.kcgl.mapper.ProductInMapper;
 import com.kxm.kcgl.mapper.ProductMapper;
 import com.kxm.kcgl.mapper.StockMapper;
@@ -30,6 +32,9 @@ public class ProductInService {
 
 	@Autowired
 	private StockMapper stockMapper;
+	
+	@Autowired
+	private PriceMapper priceMapper;
 
 	@Transactional(rollbackFor = Exception.class)
 	public void addNotExist(ProductIn record) throws LogicException {
@@ -61,15 +66,21 @@ public class ProductInService {
 		product.setBrandId(record.getBrandId());
 		product.setTechId(record.getTechId());
 		product.setThicknessId(record.getThicknessId());
-		product.setPrice(record.getPrice());
 		product.setCreateUserId(record.getCreateUserId());
 		productMapper.insert(product);
+		//插入价格
+		Price price = new Price();
+		price.setProductId(product.getId());
+		price.setQuantityId(record.getQuantityId());
+		price.setPrice(record.getPrice());
+		priceMapper.insert(price);
 		// 插入库存
 		Stock stock = new Stock();
 		stock.setProductId(product.getId());
 		stock.setIdentifyType(record.getIdentifyType());
 		stock.setIdentifyId(record.getIdentifyId());
 		stock.setManufactorId(record.getManufactorId());
+		stock.setQuantityId(record.getQuantityId());
 		stock.setAmount(record.getAmount());
 		stockMapper.insert(stock);
 		record.setProductId(product.getId());
@@ -85,6 +96,7 @@ public class ProductInService {
 			stock.setIdentifyType(productIn.getIdentifyType());
 			stock.setIdentifyId(productIn.getIdentifyId());
 			stock.setManufactorId(productIn.getManufactorId());
+			stock.setQuantityId(productIn.getQuantityId());
 			stock.setAmount(productIn.getAmount());
 			// 判断库存是否存在
 			int size = stockMapper.countBySelective(stock);
@@ -97,10 +109,12 @@ public class ProductInService {
 			}
 
 			// 更新价格(入库时进行调价)
-			Product product = new Product();
-			product.setId(productIn.getProductId());
-			product.setPrice(productIn.getPrice());
-			productMapper.update(product);
+			//TODO:入库调价是需要记录日志的，目前没有记
+			Price price = new Price();
+			price.setProductId(productIn.getProductId());
+			price.setQuantityId(productIn.getQuantityId());
+			price.setPrice(productIn.getPrice());
+			priceMapper.update(price);
 
 			// 插入入库日志
 			productIn.setCreateUserId(userId);

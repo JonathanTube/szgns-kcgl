@@ -53,8 +53,8 @@
 					</h:panelGrid>
 				</p:fieldset>
 
-				<p:dataTable id="product_in_exist_tbl" var="v" emptyMessage="未查询到数据" rowIndexVar="index"
-					value="#{productInView.productInList}">
+				<p:dataTable id="product_in_exist_tbl" var="v" emptyMessage="未查询到数据"
+					rowIndexVar="index" value="#{productInView.productInList}">
 					<p:column headerText="序号" width="30">
 						#{index + 1}
 					</p:column>
@@ -64,7 +64,7 @@
 					<p:column headerText="品牌">
 						<h:outputText value="#{v.brandName}" />
 					</p:column>
-					<p:column headerText="型号" id="productName">
+					<p:column headerText="产品名称" id="productName">
 						<h:outputText value="#{v.productName}" />
 					</p:column>
 					<p:column headerText="工艺">
@@ -92,10 +92,13 @@
 					<p:column headerText="品质">
 						<h:outputText value="#{v.quantityName}" />
 					</p:column>
-					<p:column headerText="操作" width="60">
+					<p:column headerText="操作" width="120" style="text-align:center;">
 						<p:commandButton value="编辑" icon="ui-icon-pencil"
 							actionListener="#{productInView.editExistTemp(v)}"
 							process="@this" update="@form:add_exist_dlg" />
+						<p:commandButton value="删除" icon="ui-icon-close"
+							actionListener="#{productInView.delExistTemp(v)}"
+							process="@this" update="@form:product_in_exist_tbl" />
 					</p:column>
 				</p:dataTable>
 			</p:dialog>
@@ -148,8 +151,9 @@
 						value="#{productInView.productIn.manufactorId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
-						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.manufactorList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.manufactorList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增厂家"
 						onclick="PF('manufactor_add_dlg').show();" />
@@ -167,8 +171,9 @@
 					<p:selectOneMenu id="identify_sel2"
 						value="#{productInView.productIn.identifyId}" style="width:165px;">
 						<f:selectItem itemLabel="请选择客户标" itemValue="-1" />
-						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.identifyList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.identifyList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户标"
 						onclick="PF('identify_add_dlg').show();" />
@@ -178,12 +183,13 @@
 						value="#{productInView.productIn.inTypeId}" style="width:165px;"
 						required="true" requiredMessage="请选择入库类型">
 						<f:selectItem itemLabel="请选择入库类型" itemValue="-1" />
-						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.inTypeList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.inTypeList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增入库类型"
 						onclick="PF('inType_add_dlg').show();" />
-						
+
 					<p:outputLabel value="品质：" />
 					<p:selectOneMenu id="quantity_sel2"
 						value="#{productInView.productIn.quantityId}" style="width:165px;"
@@ -195,7 +201,7 @@
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增品质"
 						onclick="PF('quantity_add_dlg').show();" />
-						
+
 				</h:panelGrid>
 				<div style="float: right;">
 					<p:commandButton value="保存" icon="ui-icon-disk"
@@ -275,16 +281,17 @@
 						value="#{productInView.productIn.brandId}" style="width:165px;"
 						requiredMessage="请选择品牌" required="true">
 						<f:selectItem itemLabel="请选择品牌" itemValue="" />
-						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.brandList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.brandList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增品牌"
 						onclick="PF('brand_add_dlg').show();" />
 
 
-					<p:outputLabel value="型号：" />
+					<p:outputLabel value="产品名称：" />
 					<p:inputText value="#{productInView.productIn.productName}"
-						required="true" requiredMessage="型号不能为空" maxlength="50" />
+						required="true" requiredMessage="产品名称不能为空" maxlength="50" />
 					<p:spacer />
 
 					<p:outputLabel value="工艺：" />
@@ -292,8 +299,9 @@
 						value="#{productInView.productIn.techId}" style="width:165px;"
 						requiredMessage="请选择工艺" required="true">
 						<f:selectItem itemLabel="请选择工艺" itemValue="" />
-						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.techList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.techList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增工艺"
 						onclick="PF('tech_add_dlg').show();" />
@@ -304,8 +312,9 @@
 						value="#{productInView.productIn.thicknessId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厚度" itemValue="" />
-						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.thicknessList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.thicknessList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增厚度"
 						onclick="PF('thickness_add_dlg').show();" />
@@ -330,8 +339,9 @@
 						value="#{productInView.productIn.manufactorId}"
 						style="width:165px;">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
-						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.manufactorList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.manufactorList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增厂家"
 						onclick="PF('manufactor_add_dlg').show();" />
@@ -349,8 +359,9 @@
 					<p:selectOneMenu id="identify_sel"
 						value="#{productInView.productIn.identifyId}" style="width:165px;">
 						<f:selectItem itemLabel="请选择客户标" itemValue="-1" />
-						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.identifyList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.identifyList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户标"
 						onclick="PF('identify_add_dlg').show();" />
@@ -360,23 +371,25 @@
 						value="#{productInView.productIn.inTypeId}" style="width:165px;"
 						required="true" requiredMessage="请选择入库类型">
 						<f:selectItem itemLabel="请选择入库类型" itemValue="-1" />
-						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.inTypeList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.inTypeList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增入库类型"
 						onclick="PF('inType_add_dlg').show();" />
-						
+
 					<p:outputLabel value="品质：" />
 					<p:selectOneMenu id="quantity_sel"
 						value="#{productInView.productIn.quantityId}" style="width:165px;"
 						required="true" requiredMessage="请选择品质">
 						<f:selectItem itemLabel="请选择品质" itemValue="-1" />
-						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.quantityList}"
-							itemLabel="#{v.name}" itemValue="#{v.id}" />
+						<f:selectItems var="v" emptyMessage="未查询到数据"
+							value="#{parameterView.quantityList}" itemLabel="#{v.name}"
+							itemValue="#{v.id}" />
 					</p:selectOneMenu>
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增品质"
 						onclick="PF('quantity_add_dlg').show();" />
-						
+
 				</h:panelGrid>
 				<div style="float: right;">
 					<p:commandButton value="保存" icon="ui-icon-disk"
@@ -393,8 +406,8 @@
 					<h:inputText maxlength="20" required="true"
 						value="#{parameterView.brandName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"
-						actionListener="#{parameterView.addBrand()}"
-						partialSubmit="true" process="brand_pg" update="brand_sel"
+						actionListener="#{parameterView.addBrand()}" partialSubmit="true"
+						process="brand_pg" update="brand_sel"
 						onsuccess="PF('brand_add_dlg').hide()" />
 				</h:panelGrid>
 			</p:dialog>
@@ -464,7 +477,7 @@
 						onsuccess="PF('inType_add_dlg').hide()" />
 				</h:panelGrid>
 			</p:dialog>
-			
+
 			<p:dialog widgetVar="quantity_add_dlg" header="添加品质"
 				resizable="false" closeOnEscape="true">
 				<h:panelGrid columns="3" id="quantity_pg">

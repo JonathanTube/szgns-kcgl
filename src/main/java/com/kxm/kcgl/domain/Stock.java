@@ -18,6 +18,8 @@ public class Stock {
 	private Integer identifyType;
 	private Integer identifyId;
 	private String identifyName;
+	private Integer quantityId;
+	private String quantityName;
 	private Integer manufactorId;
 	private String manufactorName;
 	private Integer queryTimes;
@@ -183,5 +185,21 @@ public class Stock {
 
 	public void setQueryTimesEndDate(Date queryTimesEndDate) {
 		this.queryTimesEndDate = queryTimesEndDate;
+	}
+
+	public Integer getQuantityId() {
+		return quantityId;
+	}
+
+	public void setQuantityId(Integer quantityId) {
+		this.quantityId = quantityId;
+	}
+
+	public String getQuantityName() {
+		return quantityName;
+	}
+
+	public void setQuantityName(String quantityName) {
+		this.quantityName = quantityName;
 	}
 }

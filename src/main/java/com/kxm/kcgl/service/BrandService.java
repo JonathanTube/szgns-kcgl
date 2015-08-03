@@ -5,38 +5,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
-import com.kxm.kcgl.dao.BrandDao;
-import com.kxm.kcgl.domain.BrandBean;
+import com.kxm.kcgl.LogicException;
+import com.kxm.kcgl.domain.Brand;
+import com.kxm.kcgl.mapper.BrandMapper;
 
 @Service
 public class BrandService {
 	@Autowired
-	private BrandDao brandDao;
+	private BrandMapper brandMapper;
+
 	@Transactional
-	public String addNewBrand(String name) {
-		if (StringUtils.isEmpty(name)) {
-			return "品牌不能为空";
-		}
-		int count = brandDao.count(name);
+	public int add(String name) throws LogicException {
+		Brand brand = new Brand();
+		brand.setName(name.trim());
+		int count = brandMapper.countBySelective(brand);
 		if (count > 0) {
-			brandDao.update(name);
+			throw new LogicException(name + "已存在");
 		}
 
-		BrandBean param = new BrandBean();
-		param.setName(name.trim());
-		// TODO:where is user?
-		param.setCreate_user(11);
-		int size = brandDao.insert(param);
-		return size > 0 ? "品牌" + name + "添加成功" : "品牌" + name + "添加失败";
+		return brandMapper.insert(brand);
 	}
 
-	public List<BrandBean> queryAllBrand() {
-		return brandDao.query();
-	}
-
-	public void deleteBrand(int id) {
-		brandDao.delete(id);
+	public List<Brand> selectSelective(Brand brand) {
+		return brandMapper.selectSelective(brand);
 	}
 }

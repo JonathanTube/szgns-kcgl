@@ -22,19 +22,19 @@
 					<p:outputLabel value="品牌：" />
 					<p:selectOneMenu value="#{queryTimesView.condition.brandId}">
 						<f:selectItem itemLabel="请选择品牌" itemValue="" />
-						<f:selectItems var="s" value="#{queryTimesView.brandList}"
+						<f:selectItems var="s" value="#{parameterView.brandList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="工艺：" />
 					<p:selectOneMenu value="#{queryTimesView.condition.techId}">
 						<f:selectItem itemLabel="请选择工艺" itemValue="" />
-						<f:selectItems var="s" value="#{queryTimesView.techList}"
+						<f:selectItems var="s" value="#{parameterView.techList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="厚度：" />
 					<p:selectOneMenu value="#{queryTimesView.condition.thicknessId}">
 						<f:selectItem itemLabel="请选择厚度" itemValue="" />
-						<f:selectItems var="s" value="#{queryTimesView.thicknessList}"
+						<f:selectItems var="s" value="#{parameter.thicknessList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:commandButton value="查询" icon="ui-icon-search"

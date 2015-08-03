@@ -1,8 +1,6 @@
 package com.kxm.kcgl.view;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -10,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.hyjd.frame.psm.datamodel.PaginationDataModel;
 import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.service.ProductService;
 
@@ -19,7 +18,7 @@ public class PriceView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<Product> priceList = new ArrayList<Product>();
+	private PaginationDataModel<Product> priceModel;
 
 	@Autowired
 	private ProductService productService;
@@ -30,14 +29,14 @@ public class PriceView implements Serializable {
 	}
 
 	public void queryPrice() {
-		priceList = productService.queryAll();
+		priceModel = new PaginationDataModel<Product>("com.kxm.kcgl.mapper.ProductMapper.selectSelective");
 	}
 
-	public List<Product> getPriceList() {
-		return priceList;
+	public PaginationDataModel<Product> getPriceModel() {
+		return priceModel;
 	}
 
-	public void setPriceList(List<Product> priceList) {
-		this.priceList = priceList;
+	public void setPriceModel(PaginationDataModel<Product> priceModel) {
+		this.priceModel = priceModel;
 	}
 }

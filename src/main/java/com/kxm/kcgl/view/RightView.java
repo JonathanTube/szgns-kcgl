@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import com.hyjd.frame.psm.utils.MsgTool;
 import com.kxm.kcgl.domain.Func;
 import com.kxm.kcgl.domain.Right;
-import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.service.FuncService;
 import com.kxm.kcgl.service.RightFuncService;
 import com.kxm.kcgl.service.RightService;
@@ -36,8 +35,6 @@ public class RightView implements Serializable {
 
 	private List<Right> rights;
 
-	private List<User> users;
-
 	private List<Func> funcs;
 
 	private int selectedRightId;
@@ -55,16 +52,11 @@ public class RightView implements Serializable {
 	@PostConstruct
 	public void init() {
 		initRight();
-		initUser();
 		initFunc();
 	}
 
 	public void initRight() {
 		rights = rightService.queryAllRight();
-	}
-
-	public void initUser() {
-		users = userService.queryAll();
 	}
 
 	public void initFunc() {
@@ -92,14 +84,6 @@ public class RightView implements Serializable {
 
 	public void setRights(List<Right> rights) {
 		this.rights = rights;
-	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
 	}
 
 	public List<Func> getFuncs() {

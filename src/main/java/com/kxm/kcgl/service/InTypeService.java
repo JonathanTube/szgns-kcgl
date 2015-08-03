@@ -18,13 +18,13 @@ public class InTypeService {
 	@Autowired
 	private InTypeMapper inTypeMapper;
 
-	public List<InType> queryAll() {
-		return inTypeMapper.selectSelective(new InType());
-	}
-
 	public String addNew(String inTypeName) {
 		int i = inTypeMapper.insert(inTypeName);
 		return i > 0 ? inTypeName + "添加成功" : inTypeName + "添加失败";
+	}
+
+	public List<InType> selectSelective(InType inType) {
+		return inTypeMapper.selectSelective(inType);
 	}
 
 }

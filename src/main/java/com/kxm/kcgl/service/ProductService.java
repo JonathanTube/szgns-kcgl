@@ -19,10 +19,6 @@ public class ProductService {
 	@Autowired
 	private ProductMapper productMapper;
 
-	public List<Product> queryAll() {
-		return productMapper.selectSelective(new Product());
-	}
-
 	public Product queryByProductNo(String productNo) {
 		Product condition = new Product();
 		condition.setProductNo(productNo);
@@ -55,6 +51,10 @@ public class ProductService {
 
 	public List<Product> search(String keywords) {
 		return productMapper.search(keywords);
+	}
+
+	public List<Product> selectSelective(Product product) {
+		return productMapper.selectSelective(product);
 	}
 
 }

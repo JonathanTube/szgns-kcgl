@@ -3,6 +3,8 @@ package com.kxm.kcgl.view;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -10,15 +12,15 @@ import org.springframework.stereotype.Component;
 import com.hyjd.frame.psm.base.LoginSession;
 import com.hyjd.frame.psm.utils.MsgTool;
 import com.kxm.kcgl.LogicException;
-import com.kxm.kcgl.domain.BrandBean;
+import com.kxm.kcgl.domain.Brand;
 import com.kxm.kcgl.domain.Cust;
 import com.kxm.kcgl.domain.Identify;
 import com.kxm.kcgl.domain.InType;
 import com.kxm.kcgl.domain.Manufactor;
 import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.Quantity;
-import com.kxm.kcgl.domain.TechBean;
-import com.kxm.kcgl.domain.ThicknessBean;
+import com.kxm.kcgl.domain.Tech;
+import com.kxm.kcgl.domain.Thickness;
 import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.service.BrandService;
 import com.kxm.kcgl.service.CustService;
@@ -77,28 +79,92 @@ public class ParameterView implements Serializable {
 	private String custName;
 	private String quantityName;
 
-	public List<BrandBean> getBrandList() {
-		return brandService.queryAllBrand();
+	private List<Brand> brandList;
+	private List<Tech> techList;
+	private List<Thickness> thicknessList;
+	private List<Manufactor> manufactorList;
+	private List<Quantity> quantityList;
+	private List<Cust> custList;
+	private List<Identify> identifyList;
+	private List<User> userList;
+	private List<Product> productList;
+	private List<InType> inTypeList;
+
+	@PostConstruct
+	public void init() {
+		initBrandList();
+		initTechList();
+		initThicknessList();
+		initManufactorList();
+		initQuantityList();
+		initIdentifyList();
+		initProductList();
+		initInTypeList();
+
 	}
 
-	public List<TechBean> getTechList() {
-		return techService.queryAllTech();
+	public void initBrandList() {
+		brandList = brandService.selectSelective(new Brand());
 	}
 
-	public List<ThicknessBean> getThicknessList() {
-		return thicknessService.queryAllThickness();
+	public void initTechList() {
+		techList = techService.selectSelective(new Tech());
+	}
+
+	public void initThicknessList() {
+		thicknessList = thicknessService.selectSelective(new Thickness());
+	}
+
+	public void initManufactorList() {
+		manufactorList = manufactorService.selectSelective(new Manufactor());
+	}
+
+	public void initQuantityList() {
+		quantityList = quantityService.selectSelective(new Quantity());
+	}
+
+	public void initIdentifyList() {
+		identifyList = identifyService.selectSelective(new Identify());
+	}
+
+	public void initUserList() {
+		userList = userService.selectSelective(new User());
+	}
+
+	public void initCustList() {
+		custList = custService.selectSelective(new Cust());
+	}
+
+	public void initProductList() {
+		productList = productService.selectSelective(new Product());
+	}
+
+	public void initInTypeList() {
+		inTypeList = inTypeService.selectSelective(new InType());
+	}
+
+	public List<Brand> getBrandList() {
+		return this.brandList;
+	}
+
+	public List<Tech> getTechList() {
+		return this.techList;
+	}
+
+	public List<Thickness> getThicknessList() {
+		return this.thicknessList;
 	}
 
 	public List<Manufactor> getManufactorList() {
-		return manufactorService.queryAll();
+		return this.manufactorList;
 	}
 
 	public List<Quantity> getQuantityList() {
-		return quantityService.queryAll();
+		return this.quantityList;
 	}
 
 	public List<Cust> getCustList() {
-		return custService.selectSelective(new Cust());
+		return this.custList;
 	}
 
 	public List<Cust> getOwnerCustList() {
@@ -110,24 +176,33 @@ public class ParameterView implements Serializable {
 	}
 
 	public List<User> getUserList() {
-		return userService.queryAll();
+		return this.userList;
 	}
 
 	public List<Identify> getIdentifyList() {
-		return identifyService.queryAll();
+		return this.identifyList;
 	}
 
 	public List<Product> getProductList() {
-		return productService.queryAll();
+		return this.productList;
 	}
 
 	public List<InType> getInTypeList() {
-		return inTypeService.queryAll();
+		return this.inTypeList;
 	}
 
 	public void addBrand() {
-		String msg = brandService.addNewBrand(brandName);
-		MsgTool.addInfoMsg(msg);
+		try {
+			int result = brandService.add(brandName);
+			if (result > 0) {
+				MsgTool.addInfoMsg(brandName + "添加成功");
+			} else {
+				MsgTool.addErrorMsg(brandName + "添加失败");
+			}
+			initBrandList();
+		} catch (LogicException e) {
+			MsgTool.addErrorMsg(e.getMessage());
+		}
 	}
 
 	public void addIdentify() {
@@ -136,8 +211,16 @@ public class ParameterView implements Serializable {
 	}
 
 	public void addTech() {
-		String msg = techService.addNewTech(techName);
-		MsgTool.addInfoMsg(msg);
+		try {
+			int result = techService.add(techName);
+			if (result > 0) {
+				MsgTool.addInfoMsg(techName + "添加成功");
+			} else {
+				MsgTool.addErrorMsg(techName + "添加失败");
+			}
+		} catch (LogicException e) {
+			MsgTool.addErrorMsg(e.getMessage());
+		}
 	}
 
 	public void addInType() {
@@ -149,15 +232,23 @@ public class ParameterView implements Serializable {
 		String msg = manufactorService.addNew(manufactorName);
 		MsgTool.addInfoMsg(msg);
 	}
-	
+
 	public void addQuantity() {
 		String msg = quantityService.addNew(quantityName);
 		MsgTool.addInfoMsg(msg);
 	}
 
 	public void addThickness() {
-		String msg = thicknessService.addNewThickness(thicknessName);
-		MsgTool.addInfoMsg(msg);
+		try {
+			int result = thicknessService.add(thicknessName);
+			if (result > 0) {
+				MsgTool.addInfoMsg(thicknessName + "添加成功");
+			} else {
+				MsgTool.addErrorMsg(thicknessName + "添加失败");
+			}
+		} catch (LogicException e) {
+			MsgTool.addErrorMsg(e.getMessage());
+		}
 	}
 
 	public void addCust() {

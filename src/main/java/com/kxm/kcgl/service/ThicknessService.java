@@ -5,40 +5,29 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
-import com.kxm.kcgl.dao.BrandDao;
-import com.kxm.kcgl.dao.ThicknessDao;
-import com.kxm.kcgl.domain.BrandBean;
-import com.kxm.kcgl.domain.ThicknessBean;
+import com.kxm.kcgl.LogicException;
+import com.kxm.kcgl.domain.Thickness;
+import com.kxm.kcgl.mapper.ThicknessMapper;
 
 @Service
 public class ThicknessService {
 	@Autowired
-	private ThicknessDao thicknessDao;
+	private ThicknessMapper thicknessMapper;
+
 	@Transactional
-	public String addNewThickness(String name) {
-		if (StringUtils.isEmpty(name)) {
-			return "厚度不能为空";
-		}
-		int count = thicknessDao.count(name);
+	public int add(String name) throws LogicException {
+		Thickness thickness = new Thickness();
+		thickness.setName(name.trim());
+		int count = thicknessMapper.countBySelective(thickness);
 		if (count > 0) {
-			thicknessDao.update(name);;
+			throw new LogicException(name + "已存在");
 		}
 
-		ThicknessBean param = new ThicknessBean();
-		param.setName(name.trim());
-		// TODO:where is user?
-		param.setCreate_user(11);
-		int size = thicknessDao.insert(param);
-		return size > 0 ? "厚度" + name + "添加成功" : "厚度" + name + "添加失败";
+		return thicknessMapper.insert(thickness);
 	}
 
-	public List<ThicknessBean> queryAllThickness() {
-		return thicknessDao.query();
-	}
-
-	public void deleteThickness(int id) {
-		thicknessDao.delete(id);
+	public List<Thickness> selectSelective(Thickness thickness) {
+		return thicknessMapper.selectSelective(thickness);
 	}
 }
