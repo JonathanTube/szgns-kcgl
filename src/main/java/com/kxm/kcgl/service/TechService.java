@@ -16,15 +16,19 @@ public class TechService {
 	private TechMapper techMapper;
 
 	@Transactional
-	public int add(String name) throws LogicException {
+	public String add(String name) throws LogicException {
 		Tech tech = new Tech();
 		tech.setName(name.trim());
 		int count = techMapper.countBySelective(tech);
 		if (count > 0) {
 			throw new LogicException(name + "已存在");
 		}
-
-		return techMapper.insert(tech);
+		int result = techMapper.insert(tech);
+		if (result > 0) {
+			return name + "添加成功";
+		} else {
+			return name + "添加失败";
+		}
 	}
 
 	public List<Tech> selectSelective(Tech tech) {

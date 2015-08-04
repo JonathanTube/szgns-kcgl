@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.Manufactor;
 import com.kxm.kcgl.mapper.ManufactorMapper;
 
@@ -19,9 +20,16 @@ public class ManufactorService {
 	@Autowired
 	private ManufactorMapper manufactoryMapper;
 
-	public String addNew(String manufactorName) {
-		int i = manufactoryMapper.insert(manufactorName);
-		return i > 0 ? manufactorName + "添加成功" : manufactorName + "添加失败";
+	public String add(String name) throws LogicException {
+		Manufactor manufactor = new Manufactor();
+		manufactor.setName(name.trim());
+		int count = manufactoryMapper.countBySelective(manufactor);
+		if (count > 0) {
+			throw new LogicException(name + "已存在");
+		}
+		
+		int i = manufactoryMapper.insert(manufactor);
+		return i > 0 ? name + "添加成功" : name + "添加失败";
 	}
 
 	public List<Manufactor> selectSelective(Manufactor manufactor) {

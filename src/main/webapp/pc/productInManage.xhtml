@@ -223,10 +223,10 @@
 				<p:column headerText="序号" width="30">
 					<h:outputText value="#{index + 1}" />
 				</p:column>
-				<p:column headerText="产品编号" width="50">
+				<p:column headerText="产品编号" width="60">
 					<h:outputText value="#{v.productNo}" />
 				</p:column>
-				<p:column headerText="品牌" width="50">
+				<p:column headerText="品牌" width="80">
 					<h:outputText value="#{v.brandName}" />
 				</p:column>
 				<p:column headerText="产品名称">
@@ -238,7 +238,7 @@
 				<p:column headerText="厚度" width="30">
 					<h:outputText value="#{v.thicknessName}" />
 				</p:column>
-				<p:column headerText="标识">
+				<p:column headerText="标识" width="60">
 					<h:outputText
 						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
 				</p:column>
@@ -248,10 +248,10 @@
 				<p:column headerText="入库价格" width="50">
 					<h:outputText value="#{v.price}" />
 				</p:column>
-				<p:column headerText="厂家" width="50">
+				<p:column headerText="厂家">
 					<h:outputText value="#{v.manufactorName}" />
 				</p:column>
-				<p:column headerText="品质" width="50">
+				<p:column headerText="品质" width="30">
 					<h:outputText value="#{v.quantityName}" />
 				</p:column>
 				<p:column headerText="操作人" width="50">

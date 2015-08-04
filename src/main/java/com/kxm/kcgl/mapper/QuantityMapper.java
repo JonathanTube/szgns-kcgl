@@ -13,5 +13,7 @@ public interface QuantityMapper {
 
 	List<Quantity> selectSelective(Quantity bean);
 
-	int insert(String record);
+	int insert(Quantity record);
+
+	int countBySelective(Quantity quantity);
 }

@@ -100,7 +100,7 @@ public class ParameterView implements Serializable {
 		initIdentifyList();
 		initProductList();
 		initInTypeList();
-
+		initUserList();
 	}
 
 	public void initBrandList() {
@@ -128,7 +128,9 @@ public class ParameterView implements Serializable {
 	}
 
 	public void initUserList() {
-		userList = userService.selectSelective(new User());
+		User u = new User();
+		u.setStatus(0);
+		userList = userService.selectSelective(u);
 	}
 
 	public void initCustList() {
@@ -193,12 +195,8 @@ public class ParameterView implements Serializable {
 
 	public void addBrand() {
 		try {
-			int result = brandService.add(brandName);
-			if (result > 0) {
-				MsgTool.addInfoMsg(brandName + "添加成功");
-			} else {
-				MsgTool.addErrorMsg(brandName + "添加失败");
-			}
+			String msg = brandService.add(brandName);
+			MsgTool.addInfoMsg(msg);
 			initBrandList();
 		} catch (LogicException e) {
 			MsgTool.addErrorMsg(e.getMessage());
@@ -206,46 +204,61 @@ public class ParameterView implements Serializable {
 	}
 
 	public void addIdentify() {
-		String msg = identifyService.addNew(identifyName);
-		MsgTool.addInfoMsg(msg);
+		try {
+			String msg = identifyService.add(identifyName);
+			MsgTool.addInfoMsg(msg);
+			initIdentifyList();
+		} catch (LogicException e) {
+			MsgTool.addErrorMsg(e.getMessage());
+		}
 	}
 
 	public void addTech() {
 		try {
-			int result = techService.add(techName);
-			if (result > 0) {
-				MsgTool.addInfoMsg(techName + "添加成功");
-			} else {
-				MsgTool.addErrorMsg(techName + "添加失败");
-			}
+			String msg = techService.add(techName);
+			MsgTool.addInfoMsg(msg);
+			initTechList();
 		} catch (LogicException e) {
 			MsgTool.addErrorMsg(e.getMessage());
 		}
 	}
 
 	public void addInType() {
-		String msg = inTypeService.addNew(inTypeName);
-		MsgTool.addInfoMsg(msg);
+		try {
+			String msg = inTypeService.add(inTypeName);
+			MsgTool.addInfoMsg(msg);
+			initInTypeList();
+		} catch (LogicException e) {
+			MsgTool.addErrorMsg(e.getMessage());
+		}
 	}
 
 	public void addManufactor() {
-		String msg = manufactorService.addNew(manufactorName);
-		MsgTool.addInfoMsg(msg);
+		try {
+			String msg = manufactorService.add(manufactorName);
+			MsgTool.addInfoMsg(msg);
+			initManufactorList();
+		} catch (LogicException e) {
+			MsgTool.addErrorMsg(e.getMessage());
+		}
 	}
 
 	public void addQuantity() {
-		String msg = quantityService.addNew(quantityName);
-		MsgTool.addInfoMsg(msg);
+		try {
+			String msg = quantityService.add(quantityName);
+			MsgTool.addInfoMsg(msg);
+			initQuantityList();
+		} catch (LogicException e) {
+			MsgTool.addErrorMsg(e.getMessage());
+		}
+
 	}
 
 	public void addThickness() {
 		try {
-			int result = thicknessService.add(thicknessName);
-			if (result > 0) {
-				MsgTool.addInfoMsg(thicknessName + "添加成功");
-			} else {
-				MsgTool.addErrorMsg(thicknessName + "添加失败");
-			}
+			String msg = thicknessService.add(thicknessName);
+			MsgTool.addInfoMsg(msg);
+			initThicknessList();
 		} catch (LogicException e) {
 			MsgTool.addErrorMsg(e.getMessage());
 		}
@@ -257,8 +270,9 @@ public class ParameterView implements Serializable {
 			User user = (User) loginSession.getSesionObj();
 			msg = custService.addNew(custName, user.getId());
 			MsgTool.addInfoMsg(msg);
+			initCustList();
 		} catch (LogicException e) {
-			MsgTool.addInfoMsg(e.getMessage());
+			MsgTool.addErrorMsg(e.getMessage());
 		}
 	}
 

@@ -13,5 +13,7 @@ public interface IdentifyMapper {
 
 	List<Identify> selectSelective(Identify identify); 
 
-	int insert(String record);
+	int insert(Identify identify);
+
+	int countBySelective(Identify identify);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.Quantity;
 import com.kxm.kcgl.mapper.QuantityMapper;
 
@@ -19,9 +20,16 @@ public class QuantityService {
 	@Autowired
 	private QuantityMapper quantityMapper;
 
-	public String addNew(String quantityName) {
-		int i = quantityMapper.insert(quantityName);
-		return i > 0 ? quantityName + "添加成功" : quantityName + "添加失败";
+	public String add(String name) throws LogicException {
+		Quantity quantity = new Quantity();
+		quantity.setName(name.trim());
+		int count = quantityMapper.countBySelective(quantity);
+		if (count > 0) {
+			throw new LogicException(name + "已存在");
+		}
+
+		int i = quantityMapper.insert(quantity);
+		return i > 0 ? name + "添加成功" : name + "添加失败";
 	}
 
 	public List<Quantity> selectSelective(Quantity quantity) {

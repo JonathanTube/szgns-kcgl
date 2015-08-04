@@ -16,7 +16,7 @@ public class ThicknessService {
 	private ThicknessMapper thicknessMapper;
 
 	@Transactional
-	public int add(String name) throws LogicException {
+	public String add(String name) throws LogicException {
 		Thickness thickness = new Thickness();
 		thickness.setName(name.trim());
 		int count = thicknessMapper.countBySelective(thickness);
@@ -24,7 +24,12 @@ public class ThicknessService {
 			throw new LogicException(name + "已存在");
 		}
 
-		return thicknessMapper.insert(thickness);
+		int result = thicknessMapper.insert(thickness);
+		if (result > 0) {
+			return name + "添加成功";
+		} else {
+			return name + "添加失败";
+		}
 	}
 
 	public List<Thickness> selectSelective(Thickness thickness) {

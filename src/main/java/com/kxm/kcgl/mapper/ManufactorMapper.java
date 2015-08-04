@@ -13,5 +13,7 @@ public interface ManufactorMapper {
 
 	List<Manufactor> selectSelective(Manufactor bean);
 
-	int insert(String record);
+	int insert(Manufactor record);
+
+	int countBySelective(Manufactor manufactor);
 }

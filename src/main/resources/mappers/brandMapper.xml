@@ -25,15 +25,20 @@
 
 	<select id="selectSelective" resultMap="Brand">
 		SELECT * FROM T_BRAND
+		<include refid="condition" />
 	</select>
 
 	<select id="countBySelective" resultType="int">
 		SELECT count(*) FROM T_BRAND
-		<where>
+		<include refid="condition" />
+	</select>
+	
+	<sql id="condition">
+    	<where>
 		    <if test="name!=null">
 				name = #{name}
 		    </if>
 		</where>
-	</select>
+	</sql>
 </mapper>
 

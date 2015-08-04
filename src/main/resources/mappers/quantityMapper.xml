@@ -24,9 +24,19 @@
 
 	<select id="selectSelective" resultMap="Quantity">
 		SELECT * FROM T_QUANTITY
+		<include refid="condition" />
 	</select>
 
 	<select id="countBySelective" resultType="int">
 		SELECT count(*) FROM T_QUANTITY
+		<include refid="condition" />
 	</select>
+	
+	<sql id="condition">
+    	<where>
+		    <if test="name!=null">
+				name = #{name}
+		    </if>
+		</where>
+	</sql>
 </mapper>

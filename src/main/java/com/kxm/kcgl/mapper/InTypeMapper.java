@@ -13,5 +13,7 @@ public interface InTypeMapper {
 
 	List<InType> selectSelective(InType inType); 
 
-	int insert(String record);
+	int insert(InType record);
+
+	int countBySelective(InType inType);
 }

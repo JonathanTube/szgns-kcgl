@@ -16,7 +16,7 @@ public class BrandService {
 	private BrandMapper brandMapper;
 
 	@Transactional
-	public int add(String name) throws LogicException {
+	public String add(String name) throws LogicException {
 		Brand brand = new Brand();
 		brand.setName(name.trim());
 		int count = brandMapper.countBySelective(brand);
@@ -24,7 +24,12 @@ public class BrandService {
 			throw new LogicException(name + "已存在");
 		}
 
-		return brandMapper.insert(brand);
+		int result = brandMapper.insert(brand);
+		if (result > 0) {
+			return name + "添加成功";
+		} else {
+			return name + "添加失败";
+		}
 	}
 
 	public List<Brand> selectSelective(Brand brand) {

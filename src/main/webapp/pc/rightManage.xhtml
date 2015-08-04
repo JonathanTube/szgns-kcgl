@@ -21,7 +21,7 @@
 			<p:fieldset legend="用户">
 				<p:selectManyCheckbox id="selected_users" value="#{rightView.selectedUserId}" layout="grid" columns="8">
 					<p:ajax event="valueChange" listener="#{rightView.onUserChange}" />
-					<f:selectItems value="#{parameterView.users}" var="u" itemLabel="#{u.realname}" itemValue="#{u.id}" />
+					<f:selectItems value="#{parameterView.userList}" var="u" itemLabel="#{u.realname}" itemValue="#{u.id}" />
 				</p:selectManyCheckbox>
 			</p:fieldset>
 			<br />
