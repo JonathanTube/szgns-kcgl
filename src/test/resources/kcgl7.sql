@@ -11,11 +11,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- 导出 kcgl 的数据库结构
+DROP DATABASE IF EXISTS `kcgl`;
 CREATE DATABASE IF NOT EXISTS `kcgl` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `kcgl`;
 
 
 -- 导出  表 kcgl.jiage 结构
+DROP TABLE IF EXISTS `jiage`;
 CREATE TABLE IF NOT EXISTS `jiage` (
   `brand_name` varchar(200) DEFAULT NULL,
   `product_name` varchar(200) DEFAULT NULL,
@@ -1833,6 +1835,7 @@ INSERT INTO `jiage` (`brand_name`, `product_name`, `tech_name`, `thickness_name`
 
 
 -- 导出  表 kcgl.kucun 结构
+DROP TABLE IF EXISTS `kucun`;
 CREATE TABLE IF NOT EXISTS `kucun` (
   `brand_name` varchar(200) DEFAULT NULL,
   `product_name` varchar(200) DEFAULT NULL,
@@ -3481,6 +3484,7 @@ INSERT INTO `kucun` (`brand_name`, `product_name`, `tech_name`, `thickness_name`
 
 
 -- 导出  表 kcgl.price_1 结构
+DROP TABLE IF EXISTS `price_1`;
 CREATE TABLE IF NOT EXISTS `price_1` (
   `product_name` varchar(200) DEFAULT NULL,
   `brand_id` int(11) DEFAULT '0',
@@ -5298,6 +5302,7 @@ INSERT INTO `price_1` (`product_name`, `brand_id`, `tech_id`, `thickness_id`, `q
 
 
 -- 导出  表 kcgl.t_bill 结构
+DROP TABLE IF EXISTS `t_bill`;
 CREATE TABLE IF NOT EXISTS `t_bill` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `seq` varchar(30) NOT NULL,
@@ -5320,6 +5325,7 @@ INSERT INTO `t_bill` (`id`, `seq`, `cust_id`, `total_price`, `total_amount`, `to
 
 
 -- 导出  表 kcgl.t_brand 结构
+DROP TABLE IF EXISTS `t_brand`;
 CREATE TABLE IF NOT EXISTS `t_brand` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -5367,6 +5373,7 @@ INSERT INTO `t_brand` (`id`, `name`) VALUES
 
 
 -- 导出  表 kcgl.t_cust 结构
+DROP TABLE IF EXISTS `t_cust`;
 CREATE TABLE IF NOT EXISTS `t_cust` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -5385,6 +5392,7 @@ INSERT INTO `t_cust` (`id`, `name`, `user_id`) VALUES
 
 
 -- 导出  表 kcgl.t_func 结构
+DROP TABLE IF EXISTS `t_func`;
 CREATE TABLE IF NOT EXISTS `t_func` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
@@ -5413,6 +5421,7 @@ INSERT INTO `t_func` (`id`, `name`, `url`, `type`) VALUES
 
 
 -- 导出  表 kcgl.t_identify 结构
+DROP TABLE IF EXISTS `t_identify`;
 CREATE TABLE IF NOT EXISTS `t_identify` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL DEFAULT '0',
@@ -5428,6 +5437,7 @@ INSERT INTO `t_identify` (`id`, `name`) VALUES
 
 
 -- 导出  表 kcgl.t_in_type 结构
+DROP TABLE IF EXISTS `t_in_type`;
 CREATE TABLE IF NOT EXISTS `t_in_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
@@ -5445,6 +5455,7 @@ INSERT INTO `t_in_type` (`id`, `name`) VALUES
 
 
 -- 导出  表 kcgl.t_manufactor 结构
+DROP TABLE IF EXISTS `t_manufactor`;
 CREATE TABLE IF NOT EXISTS `t_manufactor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL,
@@ -5460,6 +5471,7 @@ INSERT INTO `t_manufactor` (`id`, `name`) VALUES
 
 
 -- 导出  表 kcgl.t_price 结构
+DROP TABLE IF EXISTS `t_price`;
 CREATE TABLE IF NOT EXISTS `t_price` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `quantity_id` int(11) NOT NULL,
@@ -5977,6 +5989,7 @@ INSERT INTO `t_price` (`id`, `quantity_id`, `product_id`, `price`) VALUES
 
 
 -- 导出  表 kcgl.t_price_adjust 结构
+DROP TABLE IF EXISTS `t_price_adjust`;
 CREATE TABLE IF NOT EXISTS `t_price_adjust` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -6001,6 +6014,7 @@ INSERT INTO `t_price_adjust` (`id`, `product_id`, `price`, `adjust_price`, `crea
 
 
 -- 导出  表 kcgl.t_product 结构
+DROP TABLE IF EXISTS `t_product`;
 CREATE TABLE IF NOT EXISTS `t_product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_no` varchar(100) NOT NULL,
@@ -7886,6 +7900,7 @@ INSERT INTO `t_product` (`id`, `product_no`, `product_name`, `brand_id`, `tech_i
 
 
 -- 导出  表 kcgl.t_product_in 结构
+DROP TABLE IF EXISTS `t_product_in`;
 CREATE TABLE IF NOT EXISTS `t_product_in` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -7924,6 +7939,7 @@ INSERT INTO `t_product_in` (`id`, `product_id`, `price`, `amount`, `in_type_id`,
 
 
 -- 导出  表 kcgl.t_product_out 结构
+DROP TABLE IF EXISTS `t_product_out`;
 CREATE TABLE IF NOT EXISTS `t_product_out` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bill_id` int(11) NOT NULL,
@@ -7948,6 +7964,7 @@ INSERT INTO `t_product_out` (`id`, `bill_id`, `product_id`, `amount`, `stock_pri
 
 
 -- 导出  表 kcgl.t_product_query_times 结构
+DROP TABLE IF EXISTS `t_product_query_times`;
 CREATE TABLE IF NOT EXISTS `t_product_query_times` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -7972,6 +7989,7 @@ INSERT INTO `t_product_query_times` (`id`, `product_id`, `create_user_id`, `crea
 
 
 -- 导出  表 kcgl.t_quantity 结构
+DROP TABLE IF EXISTS `t_quantity`;
 CREATE TABLE IF NOT EXISTS `t_quantity` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
@@ -7989,6 +8007,7 @@ INSERT INTO `t_quantity` (`id`, `name`) VALUES
 
 
 -- 导出  表 kcgl.t_right 结构
+DROP TABLE IF EXISTS `t_right`;
 CREATE TABLE IF NOT EXISTS `t_right` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT '0',
@@ -8008,6 +8027,7 @@ INSERT INTO `t_right` (`id`, `name`, `description`) VALUES
 
 
 -- 导出  表 kcgl.t_right_func 结构
+DROP TABLE IF EXISTS `t_right_func`;
 CREATE TABLE IF NOT EXISTS `t_right_func` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `right_id` int(11) NOT NULL,
@@ -8039,6 +8059,7 @@ INSERT INTO `t_right_func` (`id`, `right_id`, `func_id`) VALUES
 
 
 -- 导出  表 kcgl.t_stock 结构
+DROP TABLE IF EXISTS `t_stock`;
 CREATE TABLE IF NOT EXISTS `t_stock` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -8066,6 +8087,7 @@ INSERT INTO `t_stock` (`id`, `product_id`, `identify_type`, `identify_id`, `manu
 
 
 -- 导出  表 kcgl.t_tech 结构
+DROP TABLE IF EXISTS `t_tech`;
 CREATE TABLE IF NOT EXISTS `t_tech` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -8082,6 +8104,7 @@ INSERT INTO `t_tech` (`id`, `name`) VALUES
 
 
 -- 导出  表 kcgl.t_thickness 结构
+DROP TABLE IF EXISTS `t_thickness`;
 CREATE TABLE IF NOT EXISTS `t_thickness` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -8098,6 +8121,7 @@ INSERT INTO `t_thickness` (`id`, `name`) VALUES
 
 
 -- 导出  表 kcgl.t_user 结构
+DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE IF NOT EXISTS `t_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
@@ -8144,6 +8168,7 @@ INSERT INTO `t_user` (`id`, `username`, `password`, `realname`, `status`, `creat
 
 
 -- 导出  表 kcgl.t_user_right 结构
+DROP TABLE IF EXISTS `t_user_right`;
 CREATE TABLE IF NOT EXISTS `t_user_right` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -8184,6 +8209,7 @@ INSERT INTO `t_user_right` (`id`, `user_id`, `right_id`) VALUES
 
 
 -- 导出  表 kcgl.xinhao 结构
+DROP TABLE IF EXISTS `xinhao`;
 CREATE TABLE IF NOT EXISTS `xinhao` (
   `product_no` varchar(200) DEFAULT NULL,
   `brand_name` varchar(200) DEFAULT NULL,
