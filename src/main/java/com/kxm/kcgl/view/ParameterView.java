@@ -275,6 +275,33 @@ public class ParameterView implements Serializable {
 			MsgTool.addErrorMsg(e.getMessage());
 		}
 	}
+	
+	public String getManufactorNameById(Integer id){
+		for (Manufactor manufactor : manufactorList) {
+			if(manufactor.getId() == id){
+				return manufactor.getName();
+			}
+		}
+		return "";
+	}
+	
+	public String getInTypeNameById(Integer id){
+		for (InType inType : inTypeList) {
+			if(inType.getId() == id){
+				return inType.getName();
+			}
+		}
+		return "";
+	}
+	
+	public String getQuantityNameById(Integer id){
+		for (Quantity quantity : quantityList) {
+			if(quantity.getId() == id){
+				return quantity.getName();
+			}
+		}
+		return "";
+	}
 
 	public String getCustName() {
 		return custName;

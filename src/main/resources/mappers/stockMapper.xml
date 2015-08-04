@@ -16,6 +16,8 @@
 		<result property="thicknessName" column="thickness_name" jdbcType="VARCHAR" />
 		<result property="quantityId" column="quantity_id" jdbcType="DECIMAL" />
 		<result property="quantityName" column="quantity_name" jdbcType="VARCHAR" />
+		<result property="manufactorId" column="manufactor_id" jdbcType="DECIMAL" />
+		<result property="manufactorName" column="manufactor_name" jdbcType="VARCHAR" />
 		<result property="amount" column="amount" jdbcType="DECIMAL" />
 		<result property="price" column="price" jdbcType="DECIMAL" />
 		<result property="identifyType" column="identify_type" jdbcType="VARCHAR" />
@@ -32,6 +34,7 @@
 			thickness_name,stock.amount,price.price,stock.identify_type
 			,identify.id identify_id,identify.name identify_name,
 			quantity.id quantity_id,quantity.name quantity_name,
+			manufactor.id manufactor_id,manufactor.name manufactor_name,
 			(
 				SELECT COUNT(*) FROM t_product_query_times qt 
 				WHERE qt.product_id = stock.product_id
@@ -51,9 +54,10 @@
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
-		LEFT JOIN t_identify identify ON stock.identify_id = stock.identify_id
+		LEFT JOIN t_identify identify ON identify.id = stock.identify_id
 		LEFT JOIN t_quantity quantity ON quantity.id = stock.quantity_id
 		LEFT JOIN t_price price on price.product_id = stock.product_id
+		LEFT JOIN t_manufactor manufactor on manufactor.id = stock.manufactor_id
 		<where>
    			<if test=" productId != null">
 				AND stock.product_id = #{productId}
@@ -66,6 +70,9 @@
 			</if>
 			<if test=" manufactorId != null">
 				AND stock.manufactor_id = #{manufactorId}
+			</if>
+			<if test=" quantityId != null">
+				AND stock.quantity_id = #{quantityId}
 			</if>
 			<if test=" productNo != null">
 				AND product.product_no = #{productNo}
@@ -91,6 +98,9 @@
 			</if>
 			<if test=" manufactorId != null">
 				AND manufactor_id = #{manufactorId}
+			</if>
+			<if test=" quantityId != null">
+				AND quantity_id = #{quantityId}
 			</if>
 		</where>
 	</select>

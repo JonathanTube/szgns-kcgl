@@ -19,8 +19,8 @@
 	<update id="update" parameterType="com.kxm.kcgl.domain.Price">
 		update t_price set 
 			price = #{price}
-		where product_id = #{product_id}
-		and 	  quantity_id = #{quantityId}
+		where product_id = #{productId}
+		and   quantity_id = #{quantityId}
 	</update>
 	
 </mapper>
