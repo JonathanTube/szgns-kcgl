@@ -5421,7 +5421,7 @@ CREATE TABLE IF NOT EXISTS `t_identify` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- 正在导出表  kcgl.t_identify 的数据：~0 rows (大约)
+-- 正在导出表  kcgl.t_identify 的数据：~2 rows (大约)
 /*!40000 ALTER TABLE `t_identify` DISABLE KEYS */;
 INSERT INTO `t_identify` (`id`, `name`) VALUES
 	(1, '客户标1'),
@@ -5454,7 +5454,7 @@ CREATE TABLE IF NOT EXISTS `t_manufactor` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- 正在导出表  kcgl.t_manufactor 的数据：~0 rows (大约)
+-- 正在导出表  kcgl.t_manufactor 的数据：~2 rows (大约)
 /*!40000 ALTER TABLE `t_manufactor` DISABLE KEYS */;
 INSERT INTO `t_manufactor` (`id`, `name`) VALUES
 	(2, 'kongxm-厂家'),
@@ -5993,7 +5993,7 @@ CREATE TABLE IF NOT EXISTS `t_price_adjust` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- 正在导出表  kcgl.t_price_adjust 的数据：~8 rows (大约)
+-- 正在导出表  kcgl.t_price_adjust 的数据：~12 rows (大约)
 /*!40000 ALTER TABLE `t_price_adjust` DISABLE KEYS */;
 INSERT INTO `t_price_adjust` (`id`, `product_id`, `quantity_id`, `price`, `adjust_price`, `create_user_id`, `create_time`) VALUES
 	(1, 5, 0, 10, 200, 1, '2015-07-31 12:18:38'),
@@ -7985,7 +7985,7 @@ CREATE TABLE IF NOT EXISTS `t_product_query_times` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- 正在导出表  kcgl.t_product_query_times 的数据：~9 rows (大约)
+-- 正在导出表  kcgl.t_product_query_times 的数据：~10 rows (大约)
 /*!40000 ALTER TABLE `t_product_query_times` DISABLE KEYS */;
 INSERT INTO `t_product_query_times` (`id`, `product_id`, `create_user_id`, `create_time`) VALUES
 	(1, 4, 1, '2015-07-30 23:13:53'),
@@ -8081,7 +8081,7 @@ CREATE TABLE IF NOT EXISTS `t_stock` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
--- 正在导出表  kcgl.t_stock 的数据：~11 rows (大约)
+-- 正在导出表  kcgl.t_stock 的数据：~13 rows (大约)
 /*!40000 ALTER TABLE `t_stock` DISABLE KEYS */;
 INSERT INTO `t_stock` (`id`, `product_id`, `identify_type`, `identify_id`, `manufactor_id`, `quantity_id`, `amount`) VALUES
 	(3, 4, 1, 1, 0, 0, 38),
@@ -8141,7 +8141,7 @@ CREATE TABLE IF NOT EXISTS `t_user` (
   `realname` varchar(10) NOT NULL,
   `status` int(1) NOT NULL COMMENT '0-true,1-false',
   `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updateTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updateTime` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`username`),
   KEY `id` (`id`)
