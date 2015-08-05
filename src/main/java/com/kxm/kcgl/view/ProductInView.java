@@ -1,6 +1,7 @@
 package com.kxm.kcgl.view;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -83,8 +84,11 @@ public class ProductInView implements Serializable {
 
 	/**
 	 * 已有产品入库
+	 * 
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
 	 */
-	public void addExistTemp() {
+	public void addExistTemp() throws IllegalAccessException, InvocationTargetException {
 		if (productIn.getIdentifyType() == 0) {// 中性标
 			productIn.setIdentifyId(null);
 		} else if (productIn.getIdentifyId() == -1) {
@@ -94,7 +98,7 @@ public class ProductInView implements Serializable {
 		// 如果已经存在就移除，兼容更新操作
 		for (ProductIn p : productInList) {
 			if (productIn.getProductNo().equals(p.getProductNo())) {
-				productInList.remove(p);
+				productInList.remove(productIn);
 			}
 		}
 		productInList.add(productIn);
@@ -105,12 +109,12 @@ public class ProductInView implements Serializable {
 		this.productIn = productIn;
 		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').show()");
 	}
-	
+
 	public void delExistTemp(ProductIn productIn) {
 		productInList.remove(productId);
 	}
 
-	public void addExistProduct(ActionEvent event) {
+	public void showExistProductAddDialog(ActionEvent event) {
 		String id = event.getComponent().getId();
 		Product product = null;
 		if ("btn_productId".equals(id)) {
@@ -124,12 +128,12 @@ public class ProductInView implements Serializable {
 			return;
 		}
 
-		for (ProductIn pi : productInList) {
-			if (pi.getProductNo().equals(product.getProductNo())) {
-				MsgTool.addErrorMsg("请勿重复添加同一型号产品,直接修改数量即可");
-				return;
-			}
-		}
+		/*
+		 * for (ProductIn pi : productInList) { if
+		 * (pi.getProductNo().equals(product.getProductNo())) {
+		 * MsgTool.addErrorMsg("请勿重复添加同一型号产品,直接修改数量即可"); return; } }
+		 */
+
 		productIn = new ProductIn();
 		productIn.setBrandId(product.getBrandId());
 		productIn.setBrandName(product.getBrandName());
@@ -140,7 +144,6 @@ public class ProductInView implements Serializable {
 		productIn.setProductNo(product.getProductNo());
 		productIn.setThicknessId(product.getThicknessId());
 		productIn.setThicknessName(product.getThicknessName());
-		productIn.setPrice(product.getPrice());
 
 		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').show()");
 	}

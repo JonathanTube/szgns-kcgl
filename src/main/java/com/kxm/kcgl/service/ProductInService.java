@@ -109,12 +109,18 @@ public class ProductInService {
 			}
 
 			// 更新价格(入库时进行调价)
-			//TODO:入库调价是需要记录日志的，目前没有记
+			//入库调价是需要记录日志的，目前没有记在了入库日志表上
 			Price price = new Price();
 			price.setProductId(productIn.getProductId());
 			price.setQuantityId(productIn.getQuantityId());
 			price.setPrice(productIn.getPrice());
-			priceMapper.update(price);
+			//判断价格是否已经存在
+			int count = priceMapper.countBySelective(price);
+			if(count > 0){
+				priceMapper.update(price);
+			}else{
+				priceMapper.insert(price);
+			}
 
 			// 插入入库日志
 			productIn.setCreateUserId(userId);

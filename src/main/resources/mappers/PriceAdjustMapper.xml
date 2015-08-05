@@ -15,6 +15,8 @@
 		<result property="techName" column="tech_name" jdbcType="VARCHAR" />
 		<result property="thicknessId" column="thickness_id" jdbcType="DECIMAL" />
 		<result property="thicknessName" column="thickness_name" jdbcType="VARCHAR" />
+		<result property="quantityId" column="quantity_id" jdbcType="DECIMAL" />
+		<result property="quantityName" column="quantity_name" jdbcType="VARCHAR" />
 		<result property="price" column="price" jdbcType="DECIMAL" />
 		<result property="adjustPrice" column="adjust_price" jdbcType="DECIMAL" />
 		<result property="createUserId" column="user_id" jdbcType="DECIMAL" />
@@ -25,11 +27,13 @@
 	<insert id="insert" parameterType="com.kxm.kcgl.domain.PriceAdjust" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO t_price_adjust (
 			product_id,
+			quantity_id,
 			price,
 			adjust_price,
 			create_user_id
 		) VALUES (
 			#{productId},
+			#{quantityId},
 			#{price},
 			#{adjustPrice},
 			#{createUserId}
@@ -44,17 +48,20 @@
 
 	<select id="selectSelective" resultMap="PriceAdjust">
 		SELECT
-					pa.id,pa.product_id,brand.id brand_id,brand.name brand_name
-					,product.product_no,product.product_name,tech.id tech_id,tech.name tech_name,
-					thickness.id thickness_id,thickness.name	thickness_name,
-					pa.price,pa.adjust_price,pa.create_time,user.id user_id,user.username user_name
+				pa.id,pa.product_id,brand.id brand_id,brand.name brand_name
+				,product.product_no,product.product_name,tech.id tech_id,tech.name tech_name,
+				thickness.id thickness_id,thickness.name	thickness_name,
+				pa.price,pa.adjust_price,pa.create_time,user.id user_id,user.username user_name,
+				quantity.id quantity_id,quantity.name quantity_name
 		FROM t_price_adjust pa
 		LEFT JOIN t_product product ON product.id = pa.product_id
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
+		LEFT JOIN t_quantity quantity ON pa.quantity_id = quantity.id
 		LEFT JOIN t_user USER ON user.id = pa.create_user_id
 		<include refid="condition"/>
+		order by pa.create_time desc
 	</select>
 
 	<select id="countBySelective" resultType="int">

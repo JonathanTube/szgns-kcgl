@@ -72,6 +72,7 @@ public class ProductOutService {
 			productOut.setBillId(bill.getId());
 			double money = productOut.getAmount() * productOut.getPrice();
 			productOut.setMoney(money);
+			productOut.setCustId(custId);
 			productOutMapper.insert(productOut);
 
 			// 累加
@@ -97,6 +98,10 @@ public class ProductOutService {
 		List<Stock> stocks = stockMapper.selectSelective(stock);
 		if (stocks.size() > 0) {
 			Stock exist = stocks.get(0);
+			//出货量不能为0
+			if(productOut.getAmount() <= 0){
+				throw new LogicException(productName + ",出货量必须是大于0的整数");
+			}
 			// 库存量校验
 			if (productOut.getAmount() > exist.getAmount()) {
 				productOut.setStockAmount(exist.getAmount());

@@ -34,7 +34,7 @@
 				<p:column headerText="品牌">
 					<h:outputText value="#{v.brandName}" />
 				</p:column>
-				<p:column headerText="型号">
+				<p:column headerText="产品名称">
 					<h:outputText value="#{v.productName}" />
 				</p:column>
 				<p:column headerText="工艺">
@@ -43,12 +43,18 @@
 				<p:column headerText="厚度">
 					<h:outputText value="#{v.thicknessName}" />
 				</p:column>
-				<p:column headerText="库存数量">
-					<h:outputText value="#{v.amount}" />
-				</p:column>
 				<p:column headerText="标识">
 					<h:outputText
 						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
+				</p:column>
+				<p:column headerText="厂家">
+					<h:outputText value="#{v.manufactorName}" />
+				</p:column>
+				<p:column headerText="品质">
+					<h:outputText value="#{v.quantityName}" />
+				</p:column>
+				<p:column headerText="库存数量">
+					<h:outputText value="#{v.amount}" />
 				</p:column>
 			</p:dataTable>
 		</h:form>

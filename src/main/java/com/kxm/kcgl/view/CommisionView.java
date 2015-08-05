@@ -1,11 +1,13 @@
 package com.kxm.kcgl.view;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,8 @@ public class CommisionView implements Serializable {
 	private Commision condition = new Commision();
 
 	private List<CommisionDetail> detailList;
-	
-	private Commision selectedCommision;
+
+	private Commision selectedCommision = new Commision();
 
 	@Autowired
 	private CommisionService commisionService;
@@ -45,18 +47,15 @@ public class CommisionView implements Serializable {
 	public void initCommision() {
 		if (year != null && month != null) {
 			Date d = new Date();
-			DateUtils.setYears(d, year);
-			DateUtils.setMonths(d, month);
-
+			d = DateUtils.setYears(d, year);
+			d = DateUtils.setMonths(d, month - 1);
 			condition.setCreateTime(d);
 		}
-		commisionModel = new PaginationDataModel<Commision>(
-				"com.kxm.kcgl.mapper.CommisionMapper.selectSelective",
-				condition);
+		commisionModel = new PaginationDataModel<Commision>("com.kxm.kcgl.mapper.CommisionMapper.selectSelective", condition);
 	}
 
-	public void showDetail(Commision commision) {
-		this.selectedCommision = commision;
+	public void showDetail(Commision commision) throws IllegalAccessException, InvocationTargetException {
+		BeanUtils.copyProperties(selectedCommision, commision);
 		detailList = commisionService.queryCommisionDetail(commision);
 		RequestContext.getCurrentInstance().execute("PF('detail_dlg').show()");
 	}

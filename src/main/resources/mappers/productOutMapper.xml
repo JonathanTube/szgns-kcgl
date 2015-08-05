@@ -39,14 +39,24 @@
 		INSERT INTO T_PRODUCT_OUT (
 			bill_id,
 			product_id,
+			identify_type,
+			identify_id,
+			manufactor_id,
+			quantity_id,
+			cust_id,
 			price,
-			stock_price;
+			stock_price,
 			amount,
 			money,
 			create_user_id
 		) VALUES (
 			#{billId},
 			#{productId},
+			#{identifyType},
+			#{identifyId},
+			#{manufactorId},
+			#{quantityId},
+			#{custId},
 			#{price},
 			#{stockPrice},
 			#{amount},
@@ -68,40 +78,56 @@
 				tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
 				thickness_name,productOut.amount,productOut.stock_price,productOut.price,
 				user.id create_user_id,user.username create_username,productOut.create_time,
-				stock.identify_type,productOut.bill_id,identify.id identify_id,identify.name identify_name,
-				productOut.money,quantity.id quantity_id,quantity.name quantity_name
+				productOut.identify_type,productOut.bill_id,identify.id identify_id,identify.name identify_name,
+				productOut.money,quantity.id quantity_id,quantity.name quantity_name,
+				manufactor.id manufactor_id,manufactor.name manufactor_name,
+				cust.id cust_id,cust.name cust_name
 		FROM t_product_out productOut
 		LEFT JOIN t_product product ON productOut.product_id = product.id
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
 		LEFT JOIN t_user USER ON productOut.create_user_id = user.id
-		LEFT JOIN t_stock stock ON stock.product_id = productOut.product_id
-		LEFT JOIN t_identify identify ON identify.id = stock.identify_id
+		LEFT JOIN t_identify identify ON identify.id = productOut.identify_id
 		LEFT JOIN t_quantity quantity ON quantity.id = productOut.quantity_id
-		<include refid="condition" />
+		LEFT JOIN t_manufactor manufactor on manufactor.id = productOut.manufactor_id
+		LEFT JOIN t_cust cust on cust.id = productOut.cust_id
+		<where>
+   		    <if test="billId !=null">
+				productOut.bill_id = #{billId}		        
+		    </if>
+			<if test="brandId !=null and brandId !=0 ">
+			    and product.brand_id = #{brandId}
+			</if>		    
+			<if test="techId !=null and techId != 0 ">
+			    and product.tech_id = #{techId}
+			</if>
+			<if test="thicknessId !=null and thicknessId !=0 ">
+			    and product.thickness_id = #{thicknessId}
+			</if>
+			<if test="manufactorId !=null and manufactorId !=0 ">
+			    and productOut.manufactor_id = #{manufactorId}
+			</if>
+			<if test="productOutStartDate !=null">
+		    <![CDATA[
+				and productOut.create_time >= #{productOutStartDate}
+			]]>		
+			</if>
+			<if test="productOutEndDate !=null">
+		    <![CDATA[
+				and productOut.create_time <= #{productOutEndDate}
+			]]>		
+			</if>
+		</where>
+		order by productOut.create_time desc
 	</select>
 
 	<select id="countBySelective" resultType="int">
-		SELECT count(*)
-		FROM t_product_out productOut
-		LEFT JOIN t_product product ON productOut.product_id = product.id
-		LEFT JOIN t_brand brand ON product.brand_id = brand.id
-		LEFT JOIN t_tech tech ON product.tech_id = tech.id
-		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
-		LEFT JOIN t_user USER ON productOut.create_user_id = user.id
-		LEFT JOIN t_stock stock ON stock.product_id = productOut.product_id
-		LEFT JOIN t_identify identify ON identify.id = stock.identify_id
-		LEFT JOIN t_quantity quantity ON quantity.id = productOut.quantity_id
-		<include refid="condition" />
+		SELECT count(*) FROM t_product_out productOut
+		<if test="billId !=null">
+			productOut.bill_id = #{billId}		        
+	    </if>
 	</select>
-	
-	<sql id="condition">
-		<where>
-		    <if test="billId !=null">
-				productOut.bill_id = #{billId}		        
-		    </if>
-		</where>	    
-	</sql>
+
 </mapper>
 

@@ -56,7 +56,7 @@
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
 		LEFT JOIN t_identify identify ON identify.id = stock.identify_id
 		LEFT JOIN t_quantity quantity ON quantity.id = stock.quantity_id
-		LEFT JOIN t_price price on price.product_id = stock.product_id
+		LEFT JOIN t_price price on price.product_id = stock.product_id and price.quantity_id = stock.quantity_id
 		LEFT JOIN t_manufactor manufactor on manufactor.id = stock.manufactor_id
 		<where>
    			<if test=" productId != null">
@@ -73,6 +73,15 @@
 			</if>
 			<if test=" quantityId != null">
 				AND stock.quantity_id = #{quantityId}
+			</if>
+			<if test=" brandId != null and brandId != 0">
+				AND product.brand_id = #{brandId}
+			</if>
+			<if test=" techId != null and techId != 0">
+				AND product.tech_id = #{techId}
+			</if>
+			<if test=" thicknessId != null and thicknessId != 0">
+				AND product.thickness_id = #{thicknessId}
 			</if>
 			<if test=" productNo != null">
 				AND product.product_no = #{productNo}

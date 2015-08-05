@@ -1,6 +1,9 @@
 package com.kxm.kcgl.mapper;
 
+import java.util.List;
+
 import com.kxm.kcgl.domain.Price;
+import com.kxm.kcgl.domain.ProductIn;
 
 /**
  *
@@ -13,4 +16,7 @@ public interface PriceMapper {
 
 	void update(Price price);
 
+	List<Price> selectSelective(Price price);
+
+	int countBySelective(Price record);
 }

@@ -10,7 +10,7 @@
 
 	<ui:define name="content">
 		<h:form id="product_out_form" prependId="true">
-			<p:panel header="查询条件" style="padding:0">
+			<p:panel id="query_condition_panel" header="查询条件" style="padding:0">
 				<h:panelGrid columns="20">
 					<p:calendar
 						value="#{reportProductOutView.condition.productOutStartDate}"
@@ -34,13 +34,15 @@
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="厚度：" />
-					<p:selectOneMenu value="#{reportProductOutView.condition.thicknessId}">
+					<p:selectOneMenu
+						value="#{reportProductOutView.condition.thicknessId}">
 						<f:selectItem itemLabel="请选择厚度" itemValue="" />
 						<f:selectItems var="s" value="#{parameterView.thicknessList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="厂家：" />
-					<p:selectOneMenu value="#{reportProductOutView.condition.manufactorId}">
+					<p:selectOneMenu
+						value="#{reportProductOutView.condition.manufactorId}">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
 						<f:selectItems var="s" value="#{parameterView.manufactorList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
@@ -48,38 +50,64 @@
 
 					<p:commandButton id="btn_productId"
 						actionListener="#{reportProductOutView.initProductOutList}"
-						value="查询" partialSubmit="true" process="@parent"
+						value="查询" partialSubmit="true"
+						process="@form:query_condition_panel"
 						update="@form:product_out_log_tbl" />
 				</h:panelGrid>
 			</p:panel>
 
 			<p:dataTable var="v" emptyMessage="未查询到数据" id="product_out_log_tbl"
 				value="#{reportProductOutView.productOutDataModel}"
-				style="margin-top:2px;" paginator="true" rows="25"
+				style="margin-top:2px;" paginator="true" rows="20"
 				paginatorPosition="bottom"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="50,100,200" lazy="true">
 				<f:facet name="header">
 					<h:outputText value="出货日报表" />
 				</f:facet>
-				<p:column headerText="编号">
-						#{v.id}
-					</p:column>
-				<p:column headerText="品牌">
-						#{v.brandName}
-					</p:column>
+				<p:column headerText="序号" width="30">
+					<h:outputText value="#{index + 1}" />
+				</p:column>
+				<p:column headerText="产品编号">
+					<h:outputText value="#{v.productNo}" />
+				</p:column>
 				<p:column headerText="产品名称">
-						#{v.productName}
-					</p:column>
+					<h:outputText value="#{v.productName}" />
+				</p:column>
+				<p:column headerText="品牌">
+					<h:outputText value="#{v.brandName}" />
+				</p:column>
 				<p:column headerText="工艺">
-						#{v.techName}
-					</p:column>
+					<h:outputText value="#{v.techName}" />
+				</p:column>
 				<p:column headerText="厚度">
-						#{v.thicknessName}
-					</p:column>
-				<p:column headerText="库存数">
-						#{v.amount}
-					</p:column>
+					<h:outputText value="#{v.thicknessName}" />
+				</p:column>
+				<p:column headerText="标识">
+					<h:outputText
+						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
+				</p:column>
+				<p:column headerText="品质">
+					<h:outputText value="#{v.quantityName}" />
+				</p:column>
+				<p:column headerText="厂家">
+					<h:outputText value="#{v.manufactorName}" />
+				</p:column>
+				<p:column headerText="出货量">
+					<h:outputText value="#{v.amount}" />
+				</p:column>
+				<p:column headerText="出厂价">
+					<h:outputText value="#{v.price}" />
+				</p:column>
+				<p:column headerText="客户">
+					<h:outputText value="#{v.custName}" />
+				</p:column>
+				<p:column headerText="出货时间" width="120">
+					<h:outputLabel value="#{v.createTime}">
+						<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8"
+							pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
+					</h:outputLabel>
+				</p:column>
 			</p:dataTable>
 		</h:form>
 	</ui:define>

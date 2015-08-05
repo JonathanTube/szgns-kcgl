@@ -92,7 +92,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
-			<artifactId>glass-x</artifactId>
+			<artifactId>trontastic</artifactId>
 			<version>1.0.8</version>
 		</dependency>
 	</dependencies>

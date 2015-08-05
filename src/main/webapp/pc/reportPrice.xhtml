@@ -25,38 +25,37 @@
 					<p:columnToggler datasource="price_table" trigger="toggler" />
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable var="v" emptyMessage="未查询到数据" id="price_table" value="#{priceView.priceList}"
-				paginator="true" rows="25" paginatorPosition="bottom"
-				rowIndexVar="index"
+			<p:dataTable var="v" emptyMessage="未查询到数据" id="price_table"
+				value="#{priceView.priceModel}" paginator="true" rows="20"
+				paginatorPosition="bottom" rowIndexVar="index"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="25,50,100" lazy="true"
-				style="margin-top:2px;" rowIndexVar="index">
+				rowsPerPageTemplate="20,40,80" lazy="true" style="margin-top:2px;">
 				<f:facet name="header">
 					<h:outputText value="价格表" />
 				</f:facet>
-				<p:column headerText="编号" width="30" toggleable="false">
+				<p:column headerText="编号" width="30">
 					<h:outputText value="#{index + 1}" />
 				</p:column>
-				<p:column headerText="产品编号" toggleable="false">
+				<p:column headerText="产品编号" width="100">
 					<h:outputText value="#{v.productNo}" />
 				</p:column>
-				<p:column headerText="品牌" toggleable="false">
+				<p:column headerText="品牌" width="100">
 					<h:outputText value="#{v.brandName}" />
 				</p:column>
-				<p:column headerText="型号" toggleable="false">
+				<p:column headerText="产品名称">
 					<h:outputText value="#{v.productName}" />
 				</p:column>
-				<p:column headerText="工艺" toggleable="false">
+				<p:column headerText="工艺" width="100">
 					<h:outputText value="#{v.techName}" />
 				</p:column>
-				<p:column headerText="厚度" toggleable="false">
+				<p:column headerText="厚度" width="100">
 					<h:outputText value="#{v.thicknessName}" />
 				</p:column>
-				<p:column headerText="出厂价">
+				<p:column headerText="出厂价" width="60">
 					<h:outputText value="#{v.price}" />
 				</p:column>
-				<p:column headerText="平均售价">
-					<h:outputText value="0" />
+				<p:column headerText="平均售价" width="60">
+					<h:outputText value="#{v.avgSalePrice}" />
 				</p:column>
 			</p:dataTable>
 		</h:form>

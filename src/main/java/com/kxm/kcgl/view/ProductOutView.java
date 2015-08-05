@@ -1,12 +1,14 @@
 package com.kxm.kcgl.view;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -42,6 +44,7 @@ public class ProductOutView implements Serializable {
 	private List<ProductOut> productOutList = new ArrayList<ProductOut>();
 
 	private Bill billCondition = new Bill();
+	private ProductOut productOutCondition = new ProductOut();
 	@Autowired
 	private BillService billService;
 	private PaginationDataModel<Bill> billDataModel;
@@ -54,6 +57,8 @@ public class ProductOutView implements Serializable {
 	@Autowired
 	private LoginSession loginSession;
 
+	private PaginationDataModel<ProductOut> productOutDataModel;
+	
 	private String productNo;
 	private Integer productId;
 	private Integer custId;
@@ -61,11 +66,15 @@ public class ProductOutView implements Serializable {
 	@PostConstruct
 	public void init() {
 		initBillList();
+		initProductOutList();
 	}
 
 	public void initBillList() {
-		billDataModel = new PaginationDataModel<Bill>(
-				"com.kxm.kcgl.mapper.BillMapper.selectSelective", billCondition);
+		billDataModel = new PaginationDataModel<Bill>("com.kxm.kcgl.mapper.BillMapper.selectSelective", billCondition);
+	}
+	
+	public void initProductOutList(){
+		productOutDataModel = new PaginationDataModel<ProductOut>("com.kxm.kcgl.mapper.ProductOutMapper.selectSelective", productOutCondition);
 	}
 
 	public void showBillDetail(Bill bill) {
@@ -91,7 +100,7 @@ public class ProductOutView implements Serializable {
 
 	public void addProductOutByProductId() {
 		// 判断是否已经添加过
-		for (ProductOut productOut : productOutList) {
+		for (ProductOut productOut : tempProductOutList) {
 			if (productOut.getProductId().equals(productId)) {
 				MsgTool.addInfoMsg("请不要重复添加出货的产品");
 				return;
@@ -105,7 +114,7 @@ public class ProductOutView implements Serializable {
 
 	public void addProductOutByProductNo() {
 		// 判断是否已经添加过
-		for (ProductOut productOut : productOutList) {
+		for (ProductOut productOut : tempProductOutList) {
 			if (productOut.getProductNo().equals(productNo)) {
 				MsgTool.addInfoMsg("请不要重复添加出货的产品");
 				return;
@@ -138,6 +147,8 @@ public class ProductOutView implements Serializable {
 			productOut.setIdentifyType(stock.getIdentifyType());
 			productOut.setIdentifyId(stock.getIdentifyId());
 			productOut.setIdentifyName(stock.getIdentifyName());
+			productOut.setQuantityId(stock.getQuantityId());
+			productOut.setQuantityName(stock.getQuantityName());
 			productOut.setStockAmount(stock.getAmount());
 			productOut.setStockPrice(stock.getPrice());
 			User user = (User) loginSession.getSesionObj();
@@ -147,23 +158,23 @@ public class ProductOutView implements Serializable {
 		}
 	}
 
-	public void editExistTemp() {
+	public void editExistTemp() throws IllegalAccessException, InvocationTargetException {
 		for (ProductOut p : productOutList) {
 			if (productOut.getProductNo().equals(p.getProductNo())) {
-				productOutList.remove(p);
+				BeanUtils.copyProperties(p, productOut);
+				break;
 			}
 		}
-		productOutList.add(productOut);
 		RequestContext.getCurrentInstance().execute("PF('edit_dlg').hide()");
 	}
 
 	public void productOut() {
 		try {
 			User user = (User) loginSession.getSesionObj();
-			productOutService.productOut(tempProductOutList, user.getId(),
-					custId);
+			productOutService.productOut(tempProductOutList, user.getId(), custId);
 			tempProductOutList.clear();
 			MsgTool.addInfoMsg("出货成功");
+			RequestContext.getCurrentInstance().execute("PF('product_out_dlg').hide()");
 		} catch (LogicException e) {
 			MsgTool.addInfoMsg(e.getMessage());
 		}
@@ -239,5 +250,13 @@ public class ProductOutView implements Serializable {
 
 	public void setProductId(Integer productId) {
 		this.productId = productId;
+	}
+
+	public PaginationDataModel<ProductOut> getProductOutDataModel() {
+		return productOutDataModel;
+	}
+
+	public void setProductOutDataModel(PaginationDataModel<ProductOut> productOutDataModel) {
+		this.productOutDataModel = productOutDataModel;
 	}
 }

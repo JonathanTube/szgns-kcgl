@@ -24,9 +24,11 @@
 			IFNULL(SUM(o.amount * o.price),0) sale_price
 		FROM t_user u
 		LEFT JOIN t_product_out o ON u.id = o.create_user_id 
-		<if test="createTime != null">
-			AND date_format(o.create_time,'%Y-%m') = date_format(#{createTime},'%Y-%m')
-		</if>
+		<where>
+			<if test="createTime != null">
+				AND date_format(o.create_time,'%Y-%m') = date_format(#{createTime},'%Y-%m')
+			</if>
+		</where>
 		GROUP BY u.username
 	</select>
 </mapper>

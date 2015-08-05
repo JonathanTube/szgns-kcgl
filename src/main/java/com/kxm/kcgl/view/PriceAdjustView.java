@@ -14,11 +14,11 @@ import org.springframework.stereotype.Component;
 import com.hyjd.frame.psm.base.LoginSession;
 import com.hyjd.frame.psm.datamodel.PaginationDataModel;
 import com.hyjd.frame.psm.utils.MsgTool;
+import com.kxm.kcgl.domain.Price;
 import com.kxm.kcgl.domain.PriceAdjust;
-import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.service.PriceAdjustService;
-import com.kxm.kcgl.service.ProductService;
+import com.kxm.kcgl.service.PriceService;
 
 @Component
 @Scope("view")
@@ -36,7 +36,7 @@ public class PriceAdjustView implements Serializable {
 	private LoginSession loginSession;
 
 	@Autowired
-	private ProductService productService;
+	private PriceService priceService;
 
 	@Autowired
 	private PriceAdjustService priceAdjustService;
@@ -51,9 +51,7 @@ public class PriceAdjustView implements Serializable {
 	}
 
 	public void initPriceAdjust() {
-		priceAdjustModel = new PaginationDataModel<PriceAdjust>(
-				"com.kxm.kcgl.mapper.PriceAdjustMapper.selectSelective",
-				condition);
+		priceAdjustModel = new PaginationDataModel<PriceAdjust>("com.kxm.kcgl.mapper.PriceAdjustMapper.selectSelective", condition);
 	}
 
 	public void addByProductId() {
@@ -64,8 +62,8 @@ public class PriceAdjustView implements Serializable {
 				return;
 			}
 		}
-		Product product = productService.queryByProductId(productId);
-		addTemp(product);
+		List<Price> priceList = priceService.queryByProductId(productId);
+		addTemp(priceList);
 	}
 
 	public void addByProductNo() {
@@ -76,39 +74,44 @@ public class PriceAdjustView implements Serializable {
 				return;
 			}
 		}
-		Product product = productService.queryByProductNo(productNo);
-		addTemp(product);
+		List<Price> priceList = priceService.queryByProductNo(productNo);
+		addTemp(priceList);
 	}
 
-	private void addTemp(Product product) {
-		if (product == null) {
-			MsgTool.addInfoMsg("未查询到该产品");
+	private void addTemp(List<Price> priceList) {
+		if (priceList == null || priceList.size() == 0) {
+			MsgTool.addInfoMsg("未查询到该产品，或该产品没有定价");
 			return;
 		}
-		PriceAdjust priceAdjust = new PriceAdjust();
-		priceAdjust.setBrandId(product.getBrandId());
-		priceAdjust.setBrandName(product.getBrandName());
-		priceAdjust.setProductId(product.getId());
-		priceAdjust.setProductName(product.getProductName());
-		priceAdjust.setTechId(product.getTechId());
-		priceAdjust.setTechName(product.getTechName());
-		priceAdjust.setProductNo(product.getProductNo());
-		priceAdjust.setThicknessId(product.getThicknessId());
-		priceAdjust.setThicknessName(product.getThicknessName());
-		priceAdjust.setPrice(product.getPrice());
-		priceAdjust.setAdjustPrice(product.getPrice());
-		User user = (User) loginSession.getSesionObj();
-		priceAdjust.setCreateUserId(user.getId());
-		priceAdjust.setCreateUserName(user.getRealname());
-		tempList.add(priceAdjust);
+
+		for (Price price : priceList) {
+			PriceAdjust priceAdjust = new PriceAdjust();
+			priceAdjust.setBrandId(price.getBrandId());
+			priceAdjust.setBrandName(price.getBrandName());
+			priceAdjust.setProductId(price.getId());
+			priceAdjust.setProductName(price.getProductName());
+			priceAdjust.setTechId(price.getTechId());
+			priceAdjust.setTechName(price.getTechName());
+			priceAdjust.setProductNo(price.getProductNo());
+			priceAdjust.setThicknessId(price.getThicknessId());
+			priceAdjust.setThicknessName(price.getThicknessName());
+			priceAdjust.setQuantityId(price.getQuantityId());
+			priceAdjust.setQuantityName(price.getQuantityName());
+			priceAdjust.setPrice(price.getPrice());
+			priceAdjust.setAdjustPrice(price.getPrice());
+			User user = (User) loginSession.getSesionObj();
+			priceAdjust.setCreateUserId(user.getId());
+			priceAdjust.setCreateUserName(user.getRealname());
+			tempList.add(priceAdjust);
+		}
 	}
 
 	public void priceAdjust() {
 		User user = (User) loginSession.getSesionObj();
-		priceAdjustService.insert(tempList, user.getId());
+		priceAdjustService.priceAdjust(tempList, user.getId());
 		tempList.clear();
 		MsgTool.addInfoMsg("调价完毕");
-		
+
 		RequestContext.getCurrentInstance().execute("PF('price_adjust_dlg').hide()");
 	}
 
@@ -120,8 +123,7 @@ public class PriceAdjustView implements Serializable {
 		return priceAdjustModel;
 	}
 
-	public void setPriceAdjustModel(
-			PaginationDataModel<PriceAdjust> priceAdjustModel) {
+	public void setPriceAdjustModel(PaginationDataModel<PriceAdjust> priceAdjustModel) {
 		this.priceAdjustModel = priceAdjustModel;
 	}
 

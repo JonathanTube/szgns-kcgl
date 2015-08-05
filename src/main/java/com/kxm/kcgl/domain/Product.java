@@ -12,7 +12,6 @@ public class Product {
 	private String techName;
 	private Integer thicknessId;
 	private String thicknessName;
-	private Double price;
 	private Integer queryTimes;
 	private Integer createUserId;
 	private String createUsername;
@@ -70,12 +69,6 @@ public class Product {
 	}
 	public void setThicknessName(String thicknessName) {
 		this.thicknessName = thicknessName;
-	}
-	public Double getPrice() {
-		return price;
-	}
-	public void setPrice(Double price) {
-		this.price = price;
 	}
 	public Integer getQueryTimes() {
 		return queryTimes;

@@ -30,19 +30,19 @@
 						<p:inputText value="#{productInView.productNo}" required="true"
 							requiredMessage="产品编号不能为空" />
 						<p:commandButton id="btn_productNo"
-							actionListener="#{productInView.addExistProduct}"
+							actionListener="#{productInView.showExistProductAddDialog}"
 							icon="ui-icon-plus" value="确定" partialSubmit="true"
 							process="@this @previous" update="@form:add_exist_dlg" />
 
-						<h:outputText value="产品型号:" />
+						<h:outputText value="产品产品名称:" />
 						<p:selectOneMenu value="#{productInView.productId}">
-							<f:selectItem itemLabel="请选择产品型号" itemValue="" />
+							<f:selectItem itemLabel="请选择产品产品名称" itemValue="" />
 							<f:selectItems var="s" value="#{parameterView.productList}"
 								itemLabel="#{s.productName}" itemValue="#{s.id}" />
 						</p:selectOneMenu>
 
 						<p:commandButton id="btn_productId"
-							actionListener="#{productInView.addExistProduct}"
+							actionListener="#{productInView.showExistProductAddDialog}"
 							icon="ui-icon-plus" value="确定" partialSubmit="true"
 							process="@this @previous" update="@form:add_exist_dlg" />
 
@@ -61,35 +61,35 @@
 					<p:column headerText="产品编号" width="60">
 						<h:outputText value="#{v.productNo}" />
 					</p:column>
-					<p:column headerText="品牌" width="40">
+					<p:column headerText="品牌">
 						<h:outputText value="#{v.brandName}" />
 					</p:column>
 					<p:column headerText="产品名称" id="productName">
 						<h:outputText value="#{v.productName}" />
 					</p:column>
-					<p:column headerText="工艺" width="30">
+					<p:column headerText="工艺">
 						<h:outputText value="#{v.techName}" />
 					</p:column>
-					<p:column headerText="厚度" width="30">
+					<p:column headerText="厚度">
 						<h:outputText value="#{v.thicknessName}" />
 					</p:column>
-					<p:column headerText="出厂价" width="40">
+					<p:column headerText="出厂价">
 						<h:outputText value="￥#{v.price}" />
 					</p:column>
-					<p:column headerText="入库数量" width="60">
+					<p:column headerText="入库数量">
 						<h:outputText value="#{v.amount}" />
 					</p:column>
-					<p:column headerText="标识" width="40">
+					<p:column headerText="标识">
 						<h:outputText
 							value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
 					</p:column>
 					<p:column headerText="厂家">
 						<h:outputText value="#{parameterView.getManufactorNameById(v.manufactorId)}" />
 					</p:column>
-					<p:column headerText="入库类型" width="50">
+					<p:column headerText="入库类型">
 						<h:outputText value="#{parameterView.getInTypeNameById(v.inTypeId)}" />
 					</p:column>
-					<p:column headerText="品质" width="30">
+					<p:column headerText="品质">
 						<h:outputText value="#{parameterView.getQuantityNameById(v.quantityId)}" />
 					</p:column>
 					<p:column headerText="操作" width="120" style="text-align:center;">
@@ -116,7 +116,7 @@
 						value="#{productInView.productIn.brandName}" />
 					<p:spacer />
 
-					<p:outputLabel value="型号：" />
+					<p:outputLabel value="产品名称：" />
 					<p:inputText disabled="true"
 						value="#{productInView.productIn.productName}" />
 					<p:spacer />
@@ -213,52 +213,54 @@
 
 			<p:dataTable var="v" emptyMessage="未查询到数据" id="product_in_log_tbl"
 				value="#{productInView.productInModel}" style="margin-top:2px;"
-				paginator="true" rows="25" paginatorPosition="bottom"
+				paginator="true" rows="20" paginatorPosition="bottom"
 				rowIndexVar="index"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="25,50,100" lazy="true">
+				rowsPerPageTemplate="20,40,80" lazy="true">
 				<f:facet name="header">
 					<h:outputText value="入库日志" />
 				</f:facet>
 				<p:column headerText="序号" width="30">
 					<h:outputText value="#{index + 1}" />
 				</p:column>
-				<p:column headerText="产品编号" width="60">
+				<p:column headerText="产品编号">
 					<h:outputText value="#{v.productNo}" />
 				</p:column>
-				<p:column headerText="品牌" width="80">
+				<p:column headerText="品牌">
 					<h:outputText value="#{v.brandName}" />
 				</p:column>
 				<p:column headerText="产品名称">
 					<h:outputText value="#{v.productName}" />
 				</p:column>
-				<p:column headerText="工艺" width="50">
+				<p:column headerText="工艺">
 					<h:outputText value="#{v.techName}" />
 				</p:column>
-				<p:column headerText="厚度" width="30">
+				<p:column headerText="厚度">
 					<h:outputText value="#{v.thicknessName}" />
 				</p:column>
-				<p:column headerText="标识" width="60">
+				<p:column headerText="标识">
 					<h:outputText
 						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
 				</p:column>
-				<p:column headerText="入库数" width="40">
+				<p:column headerText="入库数">
 					<h:outputText value="#{v.amount}" />
 				</p:column>
-				<p:column headerText="入库价格" width="50">
+				<p:column headerText="入库价格">
 					<h:outputText value="#{v.price}" />
 				</p:column>
 				<p:column headerText="厂家">
 					<h:outputText value="#{v.manufactorName}" />
 				</p:column>
-				<p:column headerText="品质" width="30">
+				<p:column headerText="品质">
 					<h:outputText value="#{v.quantityName}" />
 				</p:column>
-				<p:column headerText="操作人" width="50">
+				<p:column headerText="入库类型">
+					<h:outputText value="#{v.inTypeName}" />
+				</p:column>
+				<p:column headerText="操作人">
 					<h:outputText value="#{v.createUsername}" />
 				</p:column>
-				<p:column headerText="
-						入库时间" width="150">
+				<p:column headerText=" 入库时间" width="150">
 					<h:outputLabel value="#{v.createTime}">
 						<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8"
 							pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />

@@ -40,10 +40,10 @@
 			</p:panel>
 			<p:dataTable var="v" emptyMessage="未查询到数据" id="commision_table"
 				value="#{commisionView.commisionModel}" style="margin-top:2px;"
-				paginator="true" rows="25" paginatorPosition="bottom"
+				paginator="true" rows="20" paginatorPosition="bottom"
 				rowIndexVar="index"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="25,50,100" lazy="true">
+				rowsPerPageTemplate="20,40,80" lazy="true">
 				<f:facet name="header">
 					<h:outputText value="佣金月报表" />
 				</f:facet>
@@ -107,7 +107,7 @@
 					<p:column headerText="品牌">
 						<h:outputText value="#{v.brandName}" />
 					</p:column>
-					<p:column headerText="型号">
+					<p:column headerText="产品名称">
 						<h:outputText value="#{v.productName}" />
 					</p:column>
 					<p:column headerText="工艺">
@@ -134,11 +134,11 @@
 					<p:columnGroup type="footer">
 						<p:row>
 							<p:column colspan="6" footerText="小计" />
-							<p:column headerText="#{commisionView.selectedCommision.saleAmount}" />
-							<p:column headerText="#{commisionView.selectedCommision.totalCost}" />
-							<p:column headerText="#{commisionView.selectedCommision.salePrice}" />
-							<p:column headerText="15%" />
-							<p:column headerText="#{(commisionView.selectedCommision.salePrice - commisionView.selectedCommision.totalCost) * 0.15}" />
+							<p:column footerText="#{commisionView.selectedCommision.saleAmount}" />
+							<p:column footerText="#{commisionView.selectedCommision.totalCost}" />
+							<p:column footerText="#{commisionView.selectedCommision.salePrice}" />
+							<p:column footerText="15%" />
+							<p:column footerText="#{(commisionView.selectedCommision.salePrice - commisionView.selectedCommision.totalCost) * 0.15}" />
 						</p:row>
 					</p:columnGroup>
 				</p:dataTable>

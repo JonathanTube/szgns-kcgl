@@ -56,6 +56,7 @@
 			LEFT JOIN t_cust cust ON cust.id = bill.cust_id
 			LEFT JOIN t_user USER ON user.id = bill.create_user_id
 		<include refid="condition" />
+		order by bill.create_time desc
 	</select>
 
 	<select id="countBySelective" resultType="int">

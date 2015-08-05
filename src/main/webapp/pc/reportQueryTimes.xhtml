@@ -6,13 +6,13 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	template="baseTemplate.xhtml">
 
-	<ui:define name="title">型号查询次数统计表</ui:define>
+	<ui:define name="title">产品名称查询次数统计表</ui:define>
 
 	<ui:define name="content">
 		<h:form id="query_times_form" prependId="true">
-			<p:panel header="查询条件" collapsed="false" toggleable="true"
-				toggleTitle="点击展开查询条件">
-				<h:panelGrid columns="20">
+			<p:panel id="query_condition_dlg" header="查询条件" collapsed="false"
+				toggleable="true" toggleTitle="点击展开查询条件">
+				<h:panelGrid columns="20" id="query_pg">
 					<p:calendar value="#{queryTimesView.condition.queryTimesStartDate}"
 						pattern="MM/dd/yyyy HH:mm:ss" />
 					<p:watermark value="开始时间" for="@previous" />
@@ -34,11 +34,12 @@
 					<p:outputLabel value="厚度：" />
 					<p:selectOneMenu value="#{queryTimesView.condition.thicknessId}">
 						<f:selectItem itemLabel="请选择厚度" itemValue="" />
-						<f:selectItems var="s" value="#{parameter.thicknessList}"
+						<f:selectItems var="s" value="#{parameterView.thicknessList}"
 							itemLabel="#{s.name}" itemValue="#{s.id}" />
 					</p:selectOneMenu>
 					<p:commandButton value="查询" icon="ui-icon-search"
-						actionListener="#{queryTimesView.initQuery}" partialSubmit="true" process="@parent"
+						actionListener="#{queryTimesView.initQuery}" partialSubmit="true"
+						process="@form:query_condition_dlg"
 						update="@form:query_times_table" />
 				</h:panelGrid>
 			</p:panel>
@@ -55,42 +56,46 @@
 			</p:toolbar>
 			<p:dataTable id="query_times_table"
 				value="#{queryTimesView.stockDataModel}" style="margin-top:2px;"
-				paginator="true" rows="25" paginatorPosition="bottom"
+				paginator="true" rows="20" paginatorPosition="bottom"
 				rowIndexVar="index" var="v"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="25,50,100" lazy="true">
+				rowsPerPageTemplate="20,40,80" lazy="true">
 				<f:facet name="header">
-					<h:outputText value="型号查询次数统计表" />
+					<h:outputText value="产品名称查询次数统计表" />
 				</f:facet>
 				<p:column headerText="序号" width="30">
-						#{v.id}
-					</p:column>
+					<h:outputText value="#{index + 1}" />
+				</p:column>
 				<p:column headerText="产品编号">
-						#{v.productNo}
-					</p:column>
-				<p:column headerText="品牌">
-						#{v.brandName}
-					</p:column>
-				<p:column headerText="型号">
-						#{v.productName}
-					</p:column>
-				<p:column headerText="工艺">
-						#{v.techName}
+					<h:outputText value="#{v.productNo}" />
 				</p:column>
-				<p:column headerText="厚度">
-						#{v.thicknessName}
+				<p:column headerText="品牌" width="60">
+					<h:outputText value="#{v.brandName}" />
 				</p:column>
-				<p:column headerText="库存数量">
-						#{v.amount}
-					</p:column>
-				<p:column headerText="出厂价">
-						#{v.price}
-					</p:column>
+				<p:column headerText="产品名称">
+					<h:outputText value="#{v.productName}" />
+				</p:column>
+				<p:column headerText="工艺" width="60">
+					<h:outputText value="#{v.techName}" />
+				</p:column>
+				<p:column headerText="厚度" width="60">
+					<h:outputText value="#{v.thicknessName}" />
+				</p:column>
+				<p:column headerText="库存数量" width="60">
+					<h:outputText value="#{v.amount}" />
+				</p:column>
+				<p:column headerText="出厂价" width="60">
+					<h:outputText value="#{v.price}" />
+				</p:column>
 				<p:column headerText="标识">
-						#{v.identifyType == 0 ? '中性标' : v.identifyName}
-					</p:column>
-				<p:column headerText="累计查询次数">
-						#{v.queryTimes}
+					<h:outputText
+						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
+				</p:column>
+				<p:column headerText="品质" width="60">
+					<h:outputText value="#{v.quantityName}" />
+				</p:column>
+				<p:column headerText="累计查询次数" width="80">
+					<h:outputText value="#{v.queryTimes}" />
 				</p:column>
 			</p:dataTable>
 		</h:form>

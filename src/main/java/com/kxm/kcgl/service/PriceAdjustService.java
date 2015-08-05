@@ -17,7 +17,7 @@ public class PriceAdjustService {
 	@Autowired
 	private PriceMapper priceMapper;
 
-	public void insert(List<PriceAdjust> tempList, Integer createUserId) {
+	public void priceAdjust(List<PriceAdjust> tempList, Integer createUserId) {
 		for (PriceAdjust priceAdjust : tempList) {
 			priceAdjust.setCreateUserId(createUserId);
 			// 记录调价日志
@@ -27,7 +27,12 @@ public class PriceAdjustService {
 			price.setProductId(priceAdjust.getProductId());
 			price.setQuantityId(priceAdjust.getQuantityId());
 			price.setPrice(priceAdjust.getAdjustPrice());
-			priceMapper.update(price);
+			int size = priceMapper.countBySelective(price);
+			if (size > 0) {
+				priceMapper.update(price);
+			} else {
+				priceMapper.insert(price);
+			}
 		}
 	}
 

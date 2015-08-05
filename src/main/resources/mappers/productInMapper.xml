@@ -81,6 +81,30 @@
 		LEFT JOIN t_in_type inType on inType.id = productIn.in_type_id
 		LEFT JOIN t_quantity quantity on quantity.id = productIn.quantity_id
 		LEFT JOIN t_price price on price.product_id = productIn.product_id
+		<where>
+			<if test="brandId !=null and brandId !=0 ">
+			    and product.brand_id = #{brandId}
+			</if>		    
+			<if test="techId !=null and techId != 0 ">
+			    and product.tech_id = #{techId}
+			</if>
+			<if test="thicknessId !=null and thicknessId !=0 ">
+			    and product.thickness_id = #{thicknessId}
+			</if>
+			<if test="manufactorId !=null and manufactorId !=0 ">
+			    and productIn.manufactor_id = #{manufactorId}
+			</if>
+			<if test="productInStartDate !=null">
+		    <![CDATA[
+				and productIn.create_time >= #{productInStartDate}
+			]]>		
+			</if>
+			<if test="productInEndDate !=null">
+		    <![CDATA[
+				and productIn.create_time <= #{productInEndDate}
+			]]>		
+			</if>
+		</where>
 		order by productIn.create_time desc
 	</select>
 
