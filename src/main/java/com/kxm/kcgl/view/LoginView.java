@@ -44,6 +44,7 @@ public class LoginView implements Serializable {
 			MsgTool.addWarningMsg("密码不能为空");
 			return null;
 		}
+		user.setStatus(0);
 		List<User> users = userService.queryUser(user);
 		if (users == null || users.size() == 0) {
 			MsgTool.addWarningMsg("用户名或密码不正确");

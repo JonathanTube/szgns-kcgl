@@ -11,6 +11,8 @@ public class User implements java.io.Serializable {
 	private String password;
 	private Integer status;
 	private String realname;
+	private Integer manufactorId;
+	private String manufactorName;
 	private Date createTime;
 	private Date updateTime;
 
@@ -78,5 +80,21 @@ public class User implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getManufactorId() {
+		return manufactorId;
+	}
+
+	public void setManufactorId(Integer manufactorId) {
+		this.manufactorId = manufactorId;
+	}
+
+	public String getManufactorName() {
+		return manufactorName;
+	}
+
+	public void setManufactorName(String manufactorName) {
+		this.manufactorName = manufactorName;
 	}
 }

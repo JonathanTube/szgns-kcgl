@@ -10,6 +10,7 @@
 		<result property="password" column="password" jdbcType="VARCHAR" />
 		<result property="realname" column="realname" jdbcType="VARCHAR" />
 		<result property="status" column="status" jdbcType="INTEGER" />
+		<result property="manufactorId" column="manufactor_id" jdbcType="INTEGER" />
 		<result property="createTime" column="createTime" jdbcType="TIMESTAMP" />
 		<result property="updateTime" column="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
@@ -27,13 +28,15 @@
 		username,
 		password,
 		realname,
-		status
+		status,
+		manufactor_id
 		) VALUES (
 		#{id},
 		#{username},
 		#{password},
 		#{realname},
-		#{status}
+		#{status},
+		#{manufactorId}
 		)
 	</insert>
 
@@ -46,7 +49,10 @@
 		        password = #{password} ,
         	</if>
         	<if test="status != null">
-		        status = #{stauts} ,
+		        status = #{status} ,
+        	</if>
+    	  	<if test="manufactorId != null">
+		        manufactor_id = #{manufactorId} ,
         	</if>
 	        updateTime = now()
         WHERE 
@@ -60,15 +66,16 @@
 	</delete>
 
 	<select id="selectSelective" resultMap="User">
-		SELECT
-		<include refid="columns" />
-		FROM T_USER
+		SELECT 
+			u.ID,u.USERNAME,u.PASSWORD,u.REALNAME,u.STATUS,m.id manufactorId, m.name manufactorName,u.CREATETIME,u.UPDATETIME
+		FROM T_USER u
+		left join t_manufactor m on u.manufactor_id = m.id
 		<include refid="where_condition" />
 		order by updateTime desc , createTime desc
 	</select>
 
 	<select id="countBySelective" resultType="int">
-		SELECT count(*) FROM T_USER
+		SELECT count(*) FROM T_USER u
 		<include refid="where_condition" />
 	</select>
 
@@ -84,21 +91,23 @@
 	<sql id="where_condition">
 		<where>
 	    	<if test=" id != null" >
-     			AND ID = #{id}
+     			AND u.ID = #{id}
     		</if>
     		<if test=" username != null and username !='' " >
-     			AND username = #{username}
+     			AND u.username = #{username}
     		</if>
     		<if test=" password != null and password != '' " >
-     			AND password = #{password}  
+     			AND u.password = #{password}  
     		</if>
     		<if test=" status != null" >
-     			AND status = #{status}
+     			AND u.status = #{status}
+    		</if>
+    		<if test=" manufactorId != null" >
+     			AND u.manufactor_id = #{manufactorId}
     		</if>
     		<if test=" realname != null and realname != '' " >
-     			AND realname like CONCAT('%',#{realname},'%')  
+     			AND u.realname like CONCAT('%',#{realname},'%')  
     		</if>
-    		
 		</where>
 	</sql>
 </mapper>

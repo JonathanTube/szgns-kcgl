@@ -1,0 +1,27 @@
+INSERT INTO tmp_kucun_20150809(brand_name,product_name,thickness_name,tech_name,quantity_name,stock_amount,price,identify_name,manufactor_name)
+SELECT brand_name,product_name,thickness_name,tech_name,quantity_name,stock_amount,price,identify_name,manufactor_name
+FROM tmp_kucun_20150809_1;
+
+
+insert into t_product(product_no,product_name,brand_id,tech_id,thickness_id,create_user_id)
+SELECT tmp.product_no,tmp.product_name,brand.id brand_id,
+tech.id tech_id,thickness.id thickness_id,1
+FROM tmp_kucun_20150809 tmp
+LEFT JOIN t_brand brand ON brand.name = tmp.brand_name
+LEFT JOIN t_tech tech ON tech.name = tmp.tech_name
+LEFT JOIN t_thickness thickness ON thickness.name = tmp.thickness_name
+
+
+INSERT INTO t_price(quantity_id,product_id,price)
+SELECT quantity.id quantity_id,product.id product_id,tmp.price
+FROM tmp_kucun_20150809 tmp
+LEFT JOIN t_quantity quantity ON quantity.name = tmp.quantity_name
+LEFT JOIN t_product product ON product.product_no = tmp.product_no;
+
+
+INSERT INTO t_stock
+(product_id,identify_type,manufactor_id,quantity_id,amount)
+SELECT product.id,0,manufactor.id,2,IFNULL(tmp.stock_amount,0)
+FROM tmp_kucun_20150809 tmp
+LEFT JOIN t_product product ON product.product_no = tmp.product_no
+LEFT JOIN t_manufactor manufactor ON manufactor.name = tmp.manufactor_name
