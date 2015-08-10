@@ -82,31 +82,31 @@
 						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
 				</p:column>
 				<p:column headerText="操作" style="width:60px;text-align:center;">
-					<p:commandButton type="button" value="预出货"
-						onclick="PF('pre_product_out').show()" />
+					<p:commandButton value="预出货" actionListener="#{mainView.showPreProductOut(v.id)}" partialSubmit="true" process="@this"
+						oncomplete="PF('pre_product_out').show()" />
 				</p:column>
 			</p:dataTable>
 
 			<p:dialog widgetVar="pre_product_out" header="预出货">
 				<h:panelGrid columns="3">
-					<h:outputText value="出货数量:" />
-					<pe:inputNumber value="#{requestScope.price}" symbol="     片"
+					<h:outputText value="出货数量 " styleClass="fixed_label_width"/> 
+					<pe:inputNumber value="#{mainView.preProductOut.preAmount}" symbol=" 片"
 						symbolPosition="after" validatorMessage="价格必须是大于0的数字"
 						decimalPlaces="0">
 						<f:validateDoubleRange minimum="0.1" />
 					</pe:inputNumber>
 					<p:spacer />
 
-					<h:outputText value="销售价格:" />
-					<pe:inputNumber value="#{requestScope.price}" symbol="     元/片"
+					<h:outputText value="销售价格 " />
+					<pe:inputNumber value="#{mainView.preProductOut.prePrice}" symbol=" 元/片"
 						symbolPosition="after" validatorMessage="价格必须是大于0.1的数字">
 						<f:validateDoubleRange minimum="0.1" />
 					</pe:inputNumber>
 					<p:spacer />
 
-					<h:outputText value="客户名称" />
+					<h:outputText value="客户名称 " />
 					<p:selectOneMenu id="cust_sel" required="true"
-						requiredMessage="请选择客户" value="#{requestScope.custId}"
+						requiredMessage="请选择客户" value="#{mainView.preProductOut.custId}"
 						style="width:150px;">
 						<f:selectItem itemLabel="请选择客户" itemValue="" />
 						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.ownerCustList}"
@@ -115,17 +115,14 @@
 					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户"
 						onclick="PF('cust_add_dlg').show();" />
 
-					<h:outputText value="业务员" />
-					<p:inputText readonly="true" value="xxx" />
-					<p:spacer />
 				</h:panelGrid>
-				<p:commandButton value="确定" style="float:right" onclick="alert('功能开发中...')"/>
+				<p:commandButton value="确定" style="float:right" actionListener="#{mainView.preProductOut}" partialSubmit="true" process="@parent"/>
 			</p:dialog>
 
 			<p:dialog widgetVar="cust_add_dlg" header="添加客户名称" resizable="false"
 				closeOnEscape="true">
 				<h:panelGrid columns="3" id="cust_pg">
-					<h:outputLabel value="客户名称：" />
+					<h:outputLabel value="客户名称" />
 					<h:inputText maxlength="20" required="true"
 						value="#{parameterView.custName}" />
 					<p:commandButton value="新增" icon="ui-icon-disk"

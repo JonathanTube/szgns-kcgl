@@ -642,3 +642,9 @@ img{
 .ui-button .ui-button-text{
 	line-height: 1.0 !important;
 }
+
+
+.fixed_label_width{
+	display:block;
+	width:80px;
+}
