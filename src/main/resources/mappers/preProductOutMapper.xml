@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.kxm.kcgl.mapper.PreProductOutMapper">
+
+	<resultMap id="PreProductOut" type="com.kxm.kcgl.domain.PreProductOut">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="productNo" column="product_no" jdbcType="VARCHAR" />
+		<result property="brandId" column="brand_id" jdbcType="DECIMAL" />
+		<result property="brandName" column="brand_name" jdbcType="VARCHAR" />
+		<result property="productId" column="product_id" jdbcType="DECIMAL" />
+		<result property="productName" column="product_name" jdbcType="VARCHAR" />
+		<result property="techId" column="tech_id" jdbcType="DECIMAL" />
+		<result property="techName" column="tech_name" jdbcType="VARCHAR" />
+		<result property="thicknessId" column="thickness_id" jdbcType="DECIMAL" />
+		<result property="thicknessName" column="thickness_name" jdbcType="VARCHAR" />
+		<result property="quantityId" column="quantity_id" jdbcType="DECIMAL" />
+		<result property="quantityName" column="quantity_name" jdbcType="VARCHAR" />
+		<result property="manufactorId" column="manufactor_id" jdbcType="DECIMAL" />
+		<result property="manufactorName" column="manufactor_name" jdbcType="VARCHAR" />
+		<result property="amount" column="amount" jdbcType="DECIMAL" />
+		<result property="price" column="price" jdbcType="DECIMAL" />
+		<result property="identifyType" column="identify_type" jdbcType="VARCHAR" />
+		<result property="identifyId" column="identify_id" jdbcType="DECIMAL" />
+		<result property="identifyName" column="identify_name" jdbcType="VARCHAR" />
+		
+		<result property="preAmount" column="pre_amount" jdbcType="DECIMAL" />
+		<result property="prePrice" column="pre_price" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.kxm.kcgl.domain.PreProductOut">
+		INSERT INTO T_PRE_PRODUCT_OUT (
+			stock_id,
+			pre_amount,
+			pre_price,
+			cust_id,
+			create_user_id
+		) VALUES (
+			#{stockId},
+			#{preAmount},
+			#{prePrice},
+			#{custId},
+			#{createUserId}
+		)
+	</insert>
+
+	<select id="selectSelective" resultMap="PreProductOut">
+		SELECT
+			stock.id,product.brand_id,brand.name brand_name,product.id
+			product_id,product.product_no,product.product_name,tech.id
+			tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
+			thickness_name,stock.amount,price.price,stock.identify_type
+			,identify.id identify_id,identify.name identify_name,
+			quantity.id quantity_id,quantity.name quantity_name,
+			manufactor.id manufactor_id,manufactor.name manufactor_name,
+			preProductOut.pre_amount preAmount,preProductOut.pre_price prePrice,
+			preProductOut.cust_id custId
+		FROM t_pre_product_out preProductOut
+		LEFT JOIN t_stock stock ON stock.id =  preProductOut.stock_id
+		LEFT JOIN t_product product ON stock.product_id = product.id
+		LEFT JOIN t_brand brand ON product.brand_id = brand.id
+		LEFT JOIN t_tech tech ON product.tech_id = tech.id
+		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
+		LEFT JOIN t_identify identify ON identify.id = stock.identify_id
+		LEFT JOIN t_quantity quantity ON quantity.id = stock.quantity_id
+		LEFT JOIN t_price price on price.product_id = stock.product_id and price.quantity_id = stock.quantity_id
+		LEFT JOIN t_manufactor manufactor on manufactor.id = stock.manufactor_id
+	</select>
+</mapper>
+

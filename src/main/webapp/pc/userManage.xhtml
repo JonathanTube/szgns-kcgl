@@ -9,14 +9,14 @@
 
 			<p:panel id="query_condition" header="查询条件" collapsed="false" toggleable="true" toggleTitle="点击展开查询条件">
 				<h:panelGrid columns="7" >
-					<p:outputLabel value="用户名：" />
+					<p:outputLabel value="用户名：" styleClass="fixed_label_width"/>
 					<p:inputText value="#{userView.condition.username}" />
-					<p:outputLabel value="所在工厂：" />
+					<p:outputLabel value="所在工厂：" styleClass="fixed_label_width"/>
 					<p:selectOneMenu value="#{userView.condition.manufactorId}">
 						<f:selectItem itemLabel="请选择厂家" itemValue="" />
 						<f:selectItems var="v" value="#{parameterView.manufactorList}" itemLabel="#{v.name}" itemValue="#{v.id}" />
 					</p:selectOneMenu>						
-					<p:outputLabel value="状态：" />
+					<p:outputLabel value="状态：" styleClass="fixed_label_width"/>
 					<p:selectOneMenu value="#{userView.condition.status}">
 						<f:selectItem itemLabel="请选择" itemValue="" />
 						<f:selectItem itemLabel="在职" itemValue="0" />
