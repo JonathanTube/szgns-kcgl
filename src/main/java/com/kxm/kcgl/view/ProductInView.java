@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +47,7 @@ public class ProductInView implements Serializable {
 
 	private List<ProductIn> productInList = new LinkedList<ProductIn>();
 
-	private int productId;
-	private String productNo;
+	private Product selectedProduct = new Product();
 
 	@PostConstruct
 	public void init() {
@@ -77,6 +75,10 @@ public class ProductInView implements Serializable {
 	 */
 	public void addExist() {
 		User user = (User) loginSession.getSesionObj();
+		if(productInList.size() ==0){
+			MsgTool.addWarningMsg("请选择需要入库的产品");
+			return;
+		}
 		productInService.addExist(productInList, user.getId());
 		productInList.clear();
 		MsgTool.addInfoMsg("入库成功");
@@ -111,43 +113,34 @@ public class ProductInView implements Serializable {
 	}
 
 	public void delExistTemp(ProductIn productIn) {
-		productInList.remove(productId);
+		productInList.remove(productIn);
 	}
 
-	public void showExistProductAddDialog(ActionEvent event) {
-		String id = event.getComponent().getId();
-		Product product = null;
-		if ("btn_productId".equals(id)) {
-			product = productService.queryByProductId(productId);
-		} else {
-			product = productService.queryByProductNo(productNo);
-		}
-
-		if (product == null) {
+	public void showExistProductAddDialog() {
+		if (selectedProduct == null) {
 			MsgTool.addErrorMsg("未找到该型号的产品");
 			return;
 		}
 
-		/*
-		 * for (ProductIn pi : productInList) { if
-		 * (pi.getProductNo().equals(product.getProductNo())) {
-		 * MsgTool.addErrorMsg("请勿重复添加同一型号产品,直接修改数量即可"); return; } }
-		 */
-
 		productIn = new ProductIn();
-		productIn.setBrandId(product.getBrandId());
-		productIn.setBrandName(product.getBrandName());
-		productIn.setProductId(product.getId());
-		productIn.setProductName(product.getProductName());
-		productIn.setTechId(product.getTechId());
-		productIn.setTechName(product.getTechName());
-		productIn.setProductNo(product.getProductNo());
-		productIn.setThicknessId(product.getThicknessId());
-		productIn.setThicknessName(product.getThicknessName());
+		productIn.setBrandId(selectedProduct.getBrandId());
+		productIn.setBrandName(selectedProduct.getBrandName());
+		productIn.setProductId(selectedProduct.getId());
+		productIn.setProductName(selectedProduct.getProductName());
+		productIn.setTechId(selectedProduct.getTechId());
+		productIn.setTechName(selectedProduct.getTechName());
+		productIn.setProductNo(selectedProduct.getProductNo());
+		productIn.setThicknessId(selectedProduct.getThicknessId());
+		productIn.setThicknessName(selectedProduct.getThicknessName());
 
 		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').show()");
 	}
 
+	public List<Product> completeProduct(String keywords) {
+		List<Product> list  = productService.search(keywords);
+		return list;
+	}
+	
 	public PaginationDataModel<ProductIn> getProductInModel() {
 		return productInModel;
 	}
@@ -180,19 +173,11 @@ public class ProductInView implements Serializable {
 		this.productInList = productInList;
 	}
 
-	public int getProductId() {
-		return productId;
+	public Product getSelectedProduct() {
+		return selectedProduct;
 	}
 
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public String getProductNo() {
-		return productNo;
-	}
-
-	public void setProductNo(String productNo) {
-		this.productNo = productNo;
+	public void setSelectedProduct(Product selectedProduct) {
+		this.selectedProduct = selectedProduct;
 	}
 }

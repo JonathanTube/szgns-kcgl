@@ -25,29 +25,29 @@
 				header="已有产品入库" width="1200" dynamic="true" minHeight="600"
 				resizable="false">
 				<p:fieldset legend="筛选">
-					<h:panelGrid columns="7">
-						<h:outputText value="产品编号:" />
-						<p:inputText value="#{productInView.productNo}" required="true"
-							requiredMessage="产品编号不能为空" />
-						<p:commandButton id="btn_productNo"
-							actionListener="#{productInView.showExistProductAddDialog}"
-							icon="ui-icon-plus" value="确定" partialSubmit="true"
-							process="@this @previous" update="@form:add_exist_dlg" />
-
-						<h:outputText value="产品产品名称:" />
-						<p:selectOneMenu value="#{productInView.productId}">
-							<f:selectItem itemLabel="请选择产品产品名称" itemValue="" />
-							<f:selectItems var="s" value="#{parameterView.productList}"
-								itemLabel="#{s.productName}" itemValue="#{s.id}" />
-						</p:selectOneMenu>
-
-						<p:commandButton id="btn_productId"
-							actionListener="#{productInView.showExistProductAddDialog}"
-							icon="ui-icon-plus" value="确定" partialSubmit="true"
-							process="@this @previous" update="@form:add_exist_dlg" />
-
-
-						<p:commandButton value="执行入库" icon="ui-icon-disk"
+					<h:panelGrid columns="3">
+						<p:autoComplete value="#{productInView.selectedProduct}" size="60" dropdown="true" completeMethod="#{productInView.completeProduct}" minQueryLength="1" 
+							var="p" itemLabel="#{p.productName}" itemValue="#{p}"
+							converter="productConverter" forceSelection="true">
+							<p:ajax event="itemSelect" listener="#{productInView.showExistProductAddDialog}" update="@form:add_exist_dlg"  />
+							<p:column headerText="产品编号">
+								<h:outputText value="#{p.productNo}" />
+							</p:column>
+							<p:column headerText="品牌">
+								<h:outputText value="#{p.brandName}" />
+							</p:column>
+							<p:column headerText="工艺">
+								<h:outputText value="#{p.techName}" />
+							</p:column>
+							<p:column headerText="厚度">
+								<h:outputText value="#{p.thicknessName}" />
+							</p:column>
+							<p:column headerText="产品名称">
+								<h:outputText value="#{p.productName}" />
+							</p:column>
+						</p:autoComplete>
+						<p:watermark value="输入产品编号或产品名称" for="@previous" />
+						<p:commandButton value="执行入库" icon="ui-icon-disk" style="margin-left:30px;"
 							actionListener="#{productInView.addExist}" partialSubmit="true"
 							process="@this" update="product_in_log_tbl product_in_exist_tbl" />
 					</h:panelGrid>

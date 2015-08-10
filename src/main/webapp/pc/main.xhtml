@@ -18,7 +18,7 @@
 					dropdown="true" completeMethod="#{mainView.completeProduct}" minQueryLength="1" 
 					var="p" itemLabel="#{p.productName}" itemValue="#{p}"
 					converter="productConverter" forceSelection="true">
-					<p:ajax event="itemSelect" listener="#{mainView.onItemSelect}"
+					<p:ajax event="itemSelect" listener="#{mainView.onItemSelect(p)}"
 						update="stock_table" />
 					<p:column headerText="产品编号">
 						<h:outputText value="#{p.productNo}" />

@@ -19,6 +19,7 @@ import com.hyjd.frame.psm.datamodel.PaginationDataModel;
 import com.hyjd.frame.psm.utils.MsgTool;
 import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.Bill;
+import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductOut;
 import com.kxm.kcgl.domain.Stock;
 import com.kxm.kcgl.domain.User;
@@ -59,8 +60,8 @@ public class ProductOutView implements Serializable {
 
 	private PaginationDataModel<ProductOut> productOutDataModel;
 	
-	private String productNo;
-	private Integer productId;
+	private Product selectedProduct = new Product();
+	
 	private Integer custId;
 
 	@PostConstruct
@@ -98,30 +99,16 @@ public class ProductOutView implements Serializable {
 		tempProductOutList.remove(productOut);
 	}
 
-	public void addProductOutByProductId() {
+	public void addProductOutTmp() {
 		// 判断是否已经添加过
 		for (ProductOut productOut : tempProductOutList) {
-			if (productOut.getProductId().equals(productId)) {
+			if (productOut.getProductId().equals(selectedProduct.getId())) {
 				MsgTool.addInfoMsg("请不要重复添加出货的产品");
 				return;
 			}
 		}
 		Stock condition = new Stock();
-		condition.setProductId(productId);
-		List<Stock> stockList = stockService.selectSelective(condition);
-		addProductOut(stockList);
-	}
-
-	public void addProductOutByProductNo() {
-		// 判断是否已经添加过
-		for (ProductOut productOut : tempProductOutList) {
-			if (productOut.getProductNo().equals(productNo)) {
-				MsgTool.addInfoMsg("请不要重复添加出货的产品");
-				return;
-			}
-		}
-		Stock condition = new Stock();
-		condition.setProductNo(productNo);
+		condition.setProductId(selectedProduct.getId());
 		List<Stock> stockList = stockService.selectSelective(condition);
 		addProductOut(stockList);
 	}
@@ -180,6 +167,11 @@ public class ProductOutView implements Serializable {
 		}
 	}
 
+	public List<Product> completeProduct(String keywords) {
+		List<Product> list  = productService.search(keywords);
+		return list;
+	}
+	
 	public List<ProductOut> getProductOutList() {
 		return productOutList;
 	}
@@ -236,27 +228,19 @@ public class ProductOutView implements Serializable {
 		this.custId = custId;
 	}
 
-	public String getProductNo() {
-		return productNo;
-	}
-
-	public void setProductNo(String productNo) {
-		this.productNo = productNo;
-	}
-
-	public Integer getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
-
 	public PaginationDataModel<ProductOut> getProductOutDataModel() {
 		return productOutDataModel;
 	}
 
 	public void setProductOutDataModel(PaginationDataModel<ProductOut> productOutDataModel) {
 		this.productOutDataModel = productOutDataModel;
+	}
+
+	public Product getSelectedProduct() {
+		return selectedProduct;
+	}
+
+	public void setSelectedProduct(Product selectedProduct) {
+		this.selectedProduct = selectedProduct;
 	}
 }
