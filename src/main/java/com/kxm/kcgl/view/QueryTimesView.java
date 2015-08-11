@@ -8,15 +8,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.hyjd.frame.psm.datamodel.PaginationDataModel;
-import com.kxm.kcgl.domain.Stock;
+import com.kxm.kcgl.domain.Product;
 
 @Component
 @Scope("view")
 public class QueryTimesView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Stock condition = new Stock();
-	private PaginationDataModel<Stock> stockDataModel;
+	private Product condition = new Product();
+	private PaginationDataModel<Product> stockDataModel;
 
 	@PostConstruct
 	public void init() {
@@ -24,24 +24,32 @@ public class QueryTimesView implements Serializable {
 	}
 
 	public void initQuery() {
-		stockDataModel = new PaginationDataModel<Stock>(
-				"com.kxm.kcgl.mapper.StockMapper.selectSelective", condition);
+		stockDataModel = new PaginationDataModel<Product>(
+				"com.kxm.kcgl.mapper.ProductMapper.selectSelective", condition);
 	}
 
-	public PaginationDataModel<Stock> getStockDataModel() {
+	public PaginationDataModel<Product> getProductDataModel() {
 		return stockDataModel;
 	}
 
-	public void setStockDataModel(PaginationDataModel<Stock> stockDataModel) {
+	public void setProductDataModel(PaginationDataModel<Product> stockDataModel) {
 		this.stockDataModel = stockDataModel;
 	}
 
-	public Stock getCondition() {
+	public Product getCondition() {
 		return condition;
 	}
 
-	public void setCondition(Stock condition) {
+	public void setCondition(Product condition) {
 		this.condition = condition;
+	}
+
+	public PaginationDataModel<Product> getStockDataModel() {
+		return stockDataModel;
+	}
+
+	public void setStockDataModel(PaginationDataModel<Product> stockDataModel) {
+		this.stockDataModel = stockDataModel;
 	}
 
 }

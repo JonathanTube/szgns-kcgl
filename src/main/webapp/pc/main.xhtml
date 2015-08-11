@@ -23,6 +23,9 @@
 					<p:column headerText="产品编号">
 						<h:outputText value="#{p.productNo}" />
 					</p:column>
+					<p:column headerText="产品名称">
+						<h:outputText value="#{p.productName}" />
+					</p:column>
 					<p:column headerText="品牌">
 						<h:outputText value="#{p.brandName}" />
 					</p:column>
@@ -32,8 +35,17 @@
 					<p:column headerText="厚度">
 						<h:outputText value="#{p.thicknessName}" />
 					</p:column>
-					<p:column headerText="产品名称">
-						<h:outputText value="#{p.productName}" />
+					<p:column headerText="厂家">
+						<h:outputText value="#{p.manufactorName}" />
+					</p:column>
+					<p:column headerText="标识">
+						<h:outputText value="#{p.identifyName}" />
+					</p:column>
+					<p:column headerText="品质">
+						<h:outputText value="#{p.quantityName}" />
+					</p:column>
+					<p:column headerText="价格">
+						<h:outputText value="#{p.price}" />
 					</p:column>
 				</p:autoComplete>
 				<p:watermark value="输入产品编号或产品名称" for="@previous" />
@@ -78,8 +90,7 @@
 					<h:outputText value="#{v.queryTimes}" />
 				</p:column>
 				<p:column headerText="标识">
-					<h:outputText
-						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
+					<h:outputText value="#{v.identifyName}" />
 				</p:column>
 				<p:column headerText="操作" style="width:60px;text-align:center;">
 					<p:commandButton value="预出货" actionListener="#{mainView.showPreProductOut(v.id)}" partialSubmit="true" process="@this"

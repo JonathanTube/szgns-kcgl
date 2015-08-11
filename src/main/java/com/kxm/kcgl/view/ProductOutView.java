@@ -21,12 +21,11 @@ import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.Bill;
 import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductOut;
-import com.kxm.kcgl.domain.Stock;
 import com.kxm.kcgl.domain.User;
+import com.kxm.kcgl.mapper.ProductMapper;
 import com.kxm.kcgl.service.BillService;
 import com.kxm.kcgl.service.ProductOutService;
 import com.kxm.kcgl.service.ProductService;
-import com.kxm.kcgl.service.StockService;
 
 @Component
 @Scope("view")
@@ -38,9 +37,6 @@ public class ProductOutView implements Serializable {
 	private ProductOutService productOutService;
 	@Autowired
 	private ProductService productService;
-
-	@Autowired
-	private StockService stockService;
 
 	private List<ProductOut> productOutList = new ArrayList<ProductOut>();
 
@@ -58,6 +54,9 @@ public class ProductOutView implements Serializable {
 	@Autowired
 	private LoginSession loginSession;
 
+	@Autowired
+	private ProductMapper productMapper;
+	
 	private PaginationDataModel<ProductOut> productOutDataModel;
 	
 	private Product selectedProduct = new Product();
@@ -107,22 +106,22 @@ public class ProductOutView implements Serializable {
 				return;
 			}
 		}
-		Stock condition = new Stock();
-		condition.setProductId(selectedProduct.getId());
-		List<Stock> stockList = stockService.selectSelective(condition);
+		Product condition = new Product();
+		condition.setId(selectedProduct.getId());
+		List<Product> stockList = productService.selectSelective(condition);
 		addProductOut(stockList);
 	}
 
-	private void addProductOut(List<Stock> stockList) {
+	private void addProductOut(List<Product> stockList) {
 		if (stockList == null || stockList.size() == 0) {
 			MsgTool.addInfoMsg("未查询到产品库存");
 			return;
 		}
-		for (Stock stock : stockList) {
+		for (Product stock : stockList) {
 			ProductOut productOut = new ProductOut();
 			productOut.setBrandId(stock.getBrandId());
 			productOut.setBrandName(stock.getBrandName());
-			productOut.setProductId(stock.getProductId());
+			productOut.setProductId(stock.getId());
 			productOut.setProductName(stock.getProductName());
 			productOut.setTechId(stock.getTechId());
 			productOut.setTechName(stock.getTechName());
@@ -131,7 +130,6 @@ public class ProductOutView implements Serializable {
 			productOut.setThicknessName(stock.getThicknessName());
 			productOut.setManufactorId(stock.getManufactorId());
 			productOut.setManufactorName(stock.getManufactorName());
-			productOut.setIdentifyType(stock.getIdentifyType());
 			productOut.setIdentifyId(stock.getIdentifyId());
 			productOut.setIdentifyName(stock.getIdentifyName());
 			productOut.setQuantityId(stock.getQuantityId());

@@ -7,14 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kxm.kcgl.LogicException;
-import com.kxm.kcgl.domain.Price;
 import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductIn;
-import com.kxm.kcgl.domain.Stock;
-import com.kxm.kcgl.mapper.PriceMapper;
 import com.kxm.kcgl.mapper.ProductInMapper;
 import com.kxm.kcgl.mapper.ProductMapper;
-import com.kxm.kcgl.mapper.StockMapper;
 
 /**
  *
@@ -29,12 +25,6 @@ public class ProductInService {
 
 	@Autowired
 	private ProductMapper productMapper;
-
-	@Autowired
-	private StockMapper stockMapper;
-	
-	@Autowired
-	private PriceMapper priceMapper;
 
 	@Transactional(rollbackFor = Exception.class)
 	public void addNotExist(ProductIn record) throws LogicException {
@@ -66,62 +56,35 @@ public class ProductInService {
 		product.setBrandId(record.getBrandId());
 		product.setTechId(record.getTechId());
 		product.setThicknessId(record.getThicknessId());
+		product.setManufactorId(record.getManufactorId());
+		product.setIdentifyId(record.getIdentifyId());
+		product.setQuantityId(record.getQuantityId());
+		product.setPrice(record.getPrice());
 		product.setCreateUserId(record.getCreateUserId());
+		product.setAmount(record.getAmount());
+		product.setPrice(record.getPrice());
 		productMapper.insert(product);
-		//插入价格
-		Price price = new Price();
-		price.setProductId(product.getId());
-		price.setQuantityId(record.getQuantityId());
-		price.setPrice(record.getPrice());
-		priceMapper.insert(price);
 		// 插入库存
-		Stock stock = new Stock();
-		stock.setProductId(product.getId());
-		stock.setIdentifyType(record.getIdentifyType());
-		stock.setIdentifyId(record.getIdentifyId());
-		stock.setManufactorId(record.getManufactorId());
-		stock.setQuantityId(record.getQuantityId());
-		stock.setAmount(record.getAmount());
-		stockMapper.insert(stock);
 		record.setProductId(product.getId());
 		productInMapper.insert(record);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void addExist(List<ProductIn> productInList, int userId) {
+	public void addExist(List<ProductIn> productInList, int userId) throws LogicException {
 		for (ProductIn productIn : productInList) {
 			// init param
-			Stock stock = new Stock();
-			stock.setProductId(productIn.getProductId());
-			stock.setIdentifyType(productIn.getIdentifyType());
-			stock.setIdentifyId(productIn.getIdentifyId());
-			stock.setManufactorId(productIn.getManufactorId());
-			stock.setQuantityId(productIn.getQuantityId());
-			stock.setAmount(productIn.getAmount());
+			Product product = new Product();
+			product.setId(productIn.getProductId());
+			product.setAmount(productIn.getAmount());
+			product.setPrice(productIn.getPrice());
 			// 判断库存是否存在
-			int size = stockMapper.countBySelective(stock);
+			int size = productMapper.countBySelective(product);
 			if (size > 0) {
 				// 更新产品库存数
-				stockMapper.update(stock);
+				productMapper.update(product);
 			} else {
-				// insert
-				stockMapper.insert(stock);
+				throw new LogicException("该产品不存在");
 			}
-
-			// 更新价格(入库时进行调价)
-			//入库调价是需要记录日志的，目前没有记在了入库日志表上
-			Price price = new Price();
-			price.setProductId(productIn.getProductId());
-			price.setQuantityId(productIn.getQuantityId());
-			price.setPrice(productIn.getPrice());
-			//判断价格是否已经存在
-			int count = priceMapper.countBySelective(price);
-			if(count > 0){
-				priceMapper.update(price);
-			}else{
-				priceMapper.insert(price);
-			}
-
 			// 插入入库日志
 			productIn.setCreateUserId(userId);
 			productInMapper.insert(productIn);

@@ -19,12 +19,10 @@ import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.PreProductOut;
 import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductQueryTimes;
-import com.kxm.kcgl.domain.Stock;
 import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.service.PreProductOutService;
 import com.kxm.kcgl.service.ProductQueryTimesService;
 import com.kxm.kcgl.service.ProductService;
-import com.kxm.kcgl.service.StockService;
 
 @Component
 @Scope("view")
@@ -41,18 +39,15 @@ public class MainView implements Serializable {
 	private ProductQueryTimesService productQueryTimesService;
 
 	@Autowired
-	private StockService stockService;
-
-	@Autowired
 	private PreProductOutService preProductOutService;
 
 	private PreProductOut preProductOut = new PreProductOut();
 
-	private Stock selectedStock = new Stock();
+	private Product selectedStock = new Product();
 
 	private Product selectedProduct = new Product();
 
-	private PaginationDataModel<Stock> stockModel;
+	private PaginationDataModel<Product> stockModel;
 
 	@PostConstruct
 	public void init() {
@@ -80,15 +75,15 @@ public class MainView implements Serializable {
 	}
 
 	private void initStockList() {
-		Stock condition = new Stock();
-		condition.setProductId(selectedProduct.getId());
-		stockModel = new PaginationDataModel<Stock>("com.kxm.kcgl.mapper.StockMapper.selectSelective", condition);
+		Product condition = new Product();
+		condition.setId(selectedProduct.getId());
+		stockModel = new PaginationDataModel<Product>("com.kxm.kcgl.mapper.ProductMapper.selectSelective", condition);
 	}
 
 	public void showPreProductOut(Integer stockId) {
-		Stock condition = new Stock();
+		Product condition = new Product();
 		condition.setId(stockId);
-		List<Stock> stocks = stockService.selectSelective(condition);
+		List<Product> stocks = productService.selectSelective(condition);
 		if (stocks.size() <= 0) {
 			MsgTool.addWarningMsg("库存不足");
 			return;
@@ -122,11 +117,11 @@ public class MainView implements Serializable {
 		this.selectedProduct = selectedProduct;
 	}
 
-	public PaginationDataModel<Stock> getStockModel() {
+	public PaginationDataModel<Product> getStockModel() {
 		return stockModel;
 	}
 
-	public void setStockModel(PaginationDataModel<Stock> stockModel) {
+	public void setStockModel(PaginationDataModel<Product> stockModel) {
 		this.stockModel = stockModel;
 	}
 
@@ -138,11 +133,11 @@ public class MainView implements Serializable {
 		this.preProductOut = preProductOut;
 	}
 
-	public Stock getSelectedStock() {
+	public Product getSelectedStock() {
 		return selectedStock;
 	}
 
-	public void setSelectedStock(Stock selectedStock) {
+	public void setSelectedStock(Product selectedStock) {
 		this.selectedStock = selectedStock;
 	}
 }

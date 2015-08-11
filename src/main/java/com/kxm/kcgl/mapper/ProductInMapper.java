@@ -12,7 +12,5 @@ import com.kxm.kcgl.domain.ProductIn;
 public interface ProductInMapper {
 	List<ProductIn> selectSelective(ProductIn record);
 
-	int countBySelective(ProductIn record);
-
 	int insert(ProductIn record);
 }

@@ -14,6 +14,15 @@
 		<result property="techName" column="tech_name" jdbcType="VARCHAR" />
 		<result property="thicknessId" column="thickness_id" jdbcType="DECIMAL" />
 		<result property="thicknessName" column="thickness_name" jdbcType="VARCHAR" />
+		<result property="quantityId" column="quantity_id" jdbcType="DECIMAL" />
+		<result property="quantityName" column="quantity_name" jdbcType="VARCHAR" />
+		<result property="manufactorId" column="manufactor_id" jdbcType="DECIMAL" />
+		<result property="manufactorName" column="manufactor_name" jdbcType="VARCHAR" />
+		<result property="identifyId" column="identify_id" jdbcType="DECIMAL" />
+		<result property="identifyName" column="identify_name" jdbcType="VARCHAR" />
+		<result property="price" column="price" jdbcType="DECIMAL" />
+		<result property="amount" column="amount" jdbcType="DECIMAL" />
+		<result property="queryTimes" column="query_times" jdbcType="DECIMAL" />
 		<result property="createUserId" column="user_id" jdbcType="DECIMAL" />
 		<result property="createUsername" column="user_name" jdbcType="VARCHAR" />
 		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
@@ -26,6 +35,11 @@
 			brand_id,
 			tech_id,
 			thickness_id,
+			identify_id,
+			manufactor_id,
+			quantity_id,
+			amount,
+			price,
 			create_user_id
 		) VALUES (
 			#{productNo},
@@ -33,6 +47,11 @@
 			#{brandId},
 			#{techId},
 			#{thicknessId},
+			#{identifyId},
+			#{manufactorId},
+			#{quantityId},
+			#{amount},
+			#{price},
 			#{createUserId}
 		)
 	</insert>
@@ -48,11 +67,32 @@
 			product.id,product.brand_id,brand.name brand_name ,
 			product.product_no,product.product_name,tech.id tech_id,tech.name tech_name,
 			thickness.id thickness_id,thickness.name thickness_name,
+			manufactor.id manufactor_id,manufactor.name manufactor_name,
+			identify.id identify_id,identify.name identify_name,
+			quantity.id quantity_id,quantity.name quantity_name,
+			product.amount,product.price,
+			(
+				SELECT COUNT(*) FROM t_product_query_times qt 
+				WHERE qt.product_id = product.id
+				<if test="queryTimesStartDate != null">
+					<![CDATA[
+						AND qt.create_time >= #{queryTimesStartDate}
+					]]> 
+				</if>
+				<if test="queryTimesEndDate != null">
+					<![CDATA[
+						AND qt.create_time <= #{queryTimesEndDate}
+					]]>				    
+				</if>
+			) query_times,
 			product.create_time,user.id user_id,user.username user_name
 		FROM t_product product
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
+		LEFT JOIN t_manufactor manufactor ON manufactor.id = product.manufactor_id
+		LEFT JOIN t_identify identify ON identify.id = product.identify_id
+		LEFT JOIN t_quantity quantity ON quantity.id = product.quantity_id
 		LEFT JOIN t_user user on user.id = product.create_user_id
 		<include refid="condition"/>
 	</select>
@@ -63,6 +103,9 @@
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
+		LEFT JOIN t_manufactor manufactor ON manufactor.id = product.manufactor_id
+		LEFT JOIN t_identify identify ON identify.id = product.identify_id
+		LEFT JOIN t_quantity quantity ON quantity.id = product.quantity_id
 		LEFT JOIN t_user user on user.id = product.create_user_id
 		<include refid="condition"/>
 	</select>
@@ -89,17 +132,34 @@
 			</if>
 		</where>
 	</sql>
+
+	<update id="update" parameterType="com.kxm.kcgl.domain.Product">
+		update t_product set 
+		<if test="amount != null">
+		    amount = amount + #{amount},
+		</if>
+		<if test="price != null">
+			price = {price}		    
+		</if>
+		where id = #{id}  
+	</update>
 	
 	<select id="search" resultMap="Product" parameterType="string">
 		select 
-			product.id,product.brand_id,brand.name brand_name
-			,product.product_no,product.product_name,tech.id tech_id,tech.name tech_name,
+			product.id,product.brand_id,brand.name brand_name ,
+			product.product_no,product.product_name,tech.id tech_id,tech.name tech_name,
 			thickness.id thickness_id,thickness.name thickness_name,
+			manufactor.id manufactor_id,manufactor.name manufactor_name,
+			identify.id identify_id,identify.name identify_name,
+			quantity.id quantity_id,quantity.name quantity_name,
 			product.create_time,user.id user_id,user.username user_name
 		FROM t_product product
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
+		LEFT JOIN t_manufactor manufactor ON manufactor.id = product.manufactor_id
+		LEFT JOIN t_identify identify ON identify.id = product.identify_id
+		LEFT JOIN t_quantity quantity ON quantity.id = product.quantity_id
 		LEFT JOIN t_user user on user.id = product.create_user_id
 		where 
 			product.product_no like CONCAT('%',#{s},'%')

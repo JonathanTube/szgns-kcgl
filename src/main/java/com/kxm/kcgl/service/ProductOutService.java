@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.Bill;
+import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductOut;
-import com.kxm.kcgl.domain.Stock;
 import com.kxm.kcgl.mapper.BillMapper;
+import com.kxm.kcgl.mapper.ProductMapper;
 import com.kxm.kcgl.mapper.ProductOutMapper;
-import com.kxm.kcgl.mapper.StockMapper;
 
 /**
  *
@@ -28,10 +28,10 @@ public class ProductOutService {
 	private ProductOutMapper productOutMapper;
 
 	@Autowired
-	private StockMapper stockMapper;
-
-	@Autowired
 	private BillMapper billMapper;
+	
+	@Autowired
+	private ProductMapper productMapper;
 
 	public void insert(ProductOut productOut) {
 		productOutMapper.insert(productOut);
@@ -56,18 +56,15 @@ public class ProductOutService {
 		double totalPrice = 0D;
 		double totalMoney = 0D;
 		for (ProductOut productOut : productOutList) {
-			Stock stock = new Stock();
-			stock.setProductId(productOut.getProductId());
-			stock.setIdentifyType(productOut.getIdentifyType());
-			stock.setIdentifyId(productOut.getIdentifyId());
-			stock.setManufactorId(productOut.getManufactorId());
+			Product product = new Product();
+			product.setId(productOut.getProductId());
 			// 校验库存数量
-			checkStockAndPrice(productOut, stock);
+			checkStockAndPrice(productOut, product);
 			// 校验数量
 			checkParam(productOut);
 			// 减去库存数量
-			stock.setAmount(productOut.getAmount() * -1);
-			stockMapper.update(stock);
+			product.setAmount(productOut.getAmount() * -1);
+			productMapper.update(product);
 			// 记录出货日志
 			productOut.setBillId(bill.getId());
 			double money = productOut.getAmount() * productOut.getPrice();
@@ -91,13 +88,13 @@ public class ProductOutService {
 		return productOutMapper.selectSelective(po);
 	}
 
-	private void checkStockAndPrice(ProductOut productOut, Stock stock)
+	private void checkStockAndPrice(ProductOut productOut, Product stock)
 			throws LogicException {
 		// 需要查找一下,防止库存不足,和价格调价
 		String productName = productOut.getProductName();
-		List<Stock> stocks = stockMapper.selectSelective(stock);
-		if (stocks.size() > 0) {
-			Stock exist = stocks.get(0);
+		List<Product> products = productMapper.selectSelective(stock);
+		if (products.size() > 0) {
+			Product exist = products.get(0);
 			//出货量不能为0
 			if(productOut.getAmount() <= 0){
 				throw new LogicException(productName + ",出货量必须是大于0的整数");

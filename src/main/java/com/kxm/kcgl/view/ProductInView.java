@@ -79,7 +79,12 @@ public class ProductInView implements Serializable {
 			MsgTool.addWarningMsg("请选择需要入库的产品");
 			return;
 		}
-		productInService.addExist(productInList, user.getId());
+		try {
+			productInService.addExist(productInList, user.getId());
+		} catch (LogicException e) {
+			MsgTool.addInfoMsg(e.getMessage());
+			return;
+		}
 		productInList.clear();
 		MsgTool.addInfoMsg("入库成功");
 	}

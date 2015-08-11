@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.PreProductOut;
-import com.kxm.kcgl.domain.Stock;
+import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.mapper.PreProductOutMapper;
 
 /**
@@ -19,7 +19,7 @@ public class PreProductOutService {
 	@Autowired
 	private PreProductOutMapper preProductOutMapper;
 
-	public boolean insert(Stock stock,PreProductOut preProductOut) throws LogicException {
+	public boolean insert(Product stock,PreProductOut preProductOut) throws LogicException {
 		if (stock.getAmount() < preProductOut.getPreAmount()) {
 			throw new LogicException("库存不足");
 		}
