@@ -144,7 +144,7 @@
 		where id = #{id}  
 	</update>
 	
-	<select id="search" resultMap="Product" parameterType="string">
+	<select id="search" resultMap="Product" parameterType="com.kxm.kcgl.domain.Product">
 		select 
 			product.id,product.brand_id,brand.name brand_name ,
 			product.product_no,product.product_name,tech.id tech_id,tech.name tech_name,
@@ -161,10 +161,13 @@
 		LEFT JOIN t_identify identify ON identify.id = product.identify_id
 		LEFT JOIN t_quantity quantity ON quantity.id = product.quantity_id
 		LEFT JOIN t_user user on user.id = product.create_user_id
-		where 
-			product.product_no like CONCAT('%',#{s},'%')
-		or 
-			product.product_name like CONCAT('%',#{s},'%')
+		<where>
+		    <if test="_parameter != null and _parameter != ''">
+				product.product_no like CONCAT('%',#{s},'%')
+					or 
+				product.product_name like CONCAT('%',#{s},'%')
+			</if>
+		</where>
 	</select>
 </mapper>
 

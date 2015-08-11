@@ -1,12 +1,10 @@
 package com.kxm.kcgl.view;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -45,39 +43,30 @@ public class MainView implements Serializable {
 
 	private Product selectedStock = new Product();
 
-	private Product selectedProduct = new Product();
-
 	private PaginationDataModel<Product> stockModel;
+	
+	private String keywords;
 
 	@PostConstruct
 	public void init() {
 		initStockList();
 	}
 
-	public List<Product> completeProduct(String keywords) {
-		List<Product> list = new ArrayList<Product>();
-		if (StringUtils.isEmpty(keywords)) {
-			initStockList();
+	public void search() {
+		List<Product> products = productService.search(keywords);
+		for (Product product : products) {
+			// 插入查询次数表
+			ProductQueryTimes pqt = new ProductQueryTimes();
+			pqt.setProductId(product.getId());
+			User user = (User) loginSession.getSesionObj();
+			pqt.setCreateUserId(user.getId());
+			productQueryTimesService.insert(pqt);
 		}
-		list = productService.search(keywords);
-		return list;
+		stockModel = new PaginationDataModel<Product>("com.kxm.kcgl.mapper.ProductMapper.search", keywords);
 	}
 
-	public void onItemSelect() {
-		// 插入查询次数表
-		ProductQueryTimes pqt = new ProductQueryTimes();
-		pqt.setProductId(selectedProduct.getId());
-		User user = (User) loginSession.getSesionObj();
-		pqt.setCreateUserId(user.getId());
-		productQueryTimesService.insert(pqt);
-
-		initStockList();
-	}
-
-	private void initStockList() {
-		Product condition = new Product();
-		condition.setId(selectedProduct.getId());
-		stockModel = new PaginationDataModel<Product>("com.kxm.kcgl.mapper.ProductMapper.selectSelective", condition);
+	public void initStockList() {
+		stockModel = new PaginationDataModel<Product>("com.kxm.kcgl.mapper.ProductMapper.selectSelective");
 	}
 
 	public void showPreProductOut(Integer stockId) {
@@ -109,14 +98,6 @@ public class MainView implements Serializable {
 		}
 	}
 
-	public Product getSelectedProduct() {
-		return selectedProduct;
-	}
-
-	public void setSelectedProduct(Product selectedProduct) {
-		this.selectedProduct = selectedProduct;
-	}
-
 	public PaginationDataModel<Product> getStockModel() {
 		return stockModel;
 	}
@@ -139,5 +120,13 @@ public class MainView implements Serializable {
 
 	public void setSelectedStock(Product selectedStock) {
 		this.selectedStock = selectedStock;
+	}
+
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
 	}
 }

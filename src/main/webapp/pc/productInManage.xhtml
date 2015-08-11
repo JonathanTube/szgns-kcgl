@@ -24,51 +24,15 @@
 			<p:dialog widgetVar="product_in_exist_dlg" closeOnEscape="true"
 				header="已有产品入库" width="1200" dynamic="true" minHeight="600"
 				resizable="false">
-				<p:fieldset legend="筛选">
-					<h:panelGrid columns="3">
-						<p:autoComplete value="#{productInView.selectedProduct}"
-							dropdown="true" completeMethod="#{productInView.completeProduct}"
-							minQueryLength="1" var="p" itemLabel="#{p.productName}"
-							itemValue="#{p}" converter="productConverter"
-							forceSelection="true">
-							<p:ajax event="itemSelect"
-								listener="#{productInView.showExistProductAddDialog}"
-								update="@form:add_exist_dlg" />
-							<p:column headerText="产品编号">
-								<h:outputText value="#{p.productNo}" />
-							</p:column>
-							<p:column headerText="产品名称">
-								<h:outputText value="#{p.productName}" />
-							</p:column>
-							<p:column headerText="品牌">
-								<h:outputText value="#{p.brandName}" />
-							</p:column>
-							<p:column headerText="工艺">
-								<h:outputText value="#{p.techName}" />
-							</p:column>
-							<p:column headerText="厚度">
-								<h:outputText value="#{p.thicknessName}" />
-							</p:column>
-							<p:column headerText="厂家">
-								<h:outputText value="#{p.manufactorName}" />
-							</p:column>
-							<p:column headerText="标识">
-								<h:outputText value="#{p.identifyName}" />
-							</p:column>
-							<p:column headerText="品质">
-								<h:outputText value="#{p.quantityName}" />
-							</p:column>
-							<p:column headerText="价格">
-								<h:outputText value="#{p.price}" />
-							</p:column>
-						</p:autoComplete>
-						<p:watermark value="输入产品编号或产品名称" for="@previous" />
-						<p:commandButton value="执行入库" icon="ui-icon-disk"
-							style="margin-left:30px;"
-							actionListener="#{productInView.addExist}" partialSubmit="true"
-							process="@this" update="product_in_log_tbl product_in_exist_tbl" />
-					</h:panelGrid>
-				</p:fieldset>
+				<h:panelGrid columns="4">
+					<h:outputLabel value="产品编号或产品名称：" />
+					<p:inputText id="keywords" value="#{productInView.keywords}"  size="60" />
+					<p:commandButton value="确定" actionListener="#{productInView.showExistProductAddDialog}"  partialSubmit="true" process="@this @form:keywords"  update="@form:add_exist_dlg" />
+					<p:commandButton value="执行入库" icon="ui-icon-disk"
+						style="margin-left:30px;"
+						actionListener="#{productInView.addExist}" partialSubmit="true"
+						process="@this" update="product_in_log_tbl product_in_exist_tbl" />
+				</h:panelGrid>
 
 				<p:dataTable id="product_in_exist_tbl" var="v" emptyMessage="未查询到数据"
 					rowIndexVar="index" value="#{productInView.productInList}">

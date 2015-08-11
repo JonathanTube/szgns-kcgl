@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -47,8 +48,8 @@ public class ProductInView implements Serializable {
 
 	private List<ProductIn> productInList = new LinkedList<ProductIn>();
 
-	private Product selectedProduct = new Product();
-
+	private String keywords;
+	
 	@PostConstruct
 	public void init() {
 		query();
@@ -116,11 +117,16 @@ public class ProductInView implements Serializable {
 	}
 
 	public void showExistProductAddDialog() {
-		if (selectedProduct == null) {
+		if(StringUtils.isEmpty(keywords)){
+			MsgTool.addErrorMsg("请填写产品编号或产品名称");
+			return;
+		}
+		List<Product> products = productService.search(keywords);
+		if (products.size() == 0) {
 			MsgTool.addErrorMsg("未找到该型号的产品");
 			return;
 		}
-
+		Product selectedProduct = products.get(0);
 		productIn = new ProductIn();
 		productIn.setBrandId(selectedProduct.getBrandId());
 		productIn.setBrandName(selectedProduct.getBrandName());
@@ -142,11 +148,6 @@ public class ProductInView implements Serializable {
 		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').show()");
 	}
 
-	public List<Product> completeProduct(String keywords) {
-		List<Product> list  = productService.search(keywords);
-		return list;
-	}
-	
 	public PaginationDataModel<ProductIn> getProductInModel() {
 		return productInModel;
 	}
@@ -179,11 +180,11 @@ public class ProductInView implements Serializable {
 		this.productInList = productInList;
 	}
 
-	public Product getSelectedProduct() {
-		return selectedProduct;
+	public String getKeywords() {
+		return keywords;
 	}
 
-	public void setSelectedProduct(Product selectedProduct) {
-		this.selectedProduct = selectedProduct;
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
 	}
 }
