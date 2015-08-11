@@ -17,7 +17,6 @@ public class ProductIn {
 	private double price;
 	private Integer manufactorId;
 	private String manufactorName;
-	private Integer identifyType;
 	private Integer identifyId;
 	private String identifyName;
 	private Integer inTypeId;
@@ -181,14 +180,6 @@ public class ProductIn {
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
-	}
-
-	public Integer getIdentifyType() {
-		return identifyType;
-	}
-
-	public void setIdentifyType(Integer identifyType) {
-		this.identifyType = identifyType;
 	}
 
 	public Integer getInTypeId() {

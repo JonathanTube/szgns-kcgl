@@ -28,13 +28,6 @@ public class ProductInService {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void addNotExist(ProductIn record) throws LogicException {
-		// 插入库日志
-		if (record.getIdentifyType() == 0) {// 中性标
-			record.setIdentifyId(null);
-		} else if (record.getIdentifyId() == -1) {
-			throw new LogicException("请选择客户标名称");
-		}
-
 		// 判断是否未添加过,产品编号不能重复
 		Product p1 = new Product();
 		p1.setProductNo(record.getProductNo());

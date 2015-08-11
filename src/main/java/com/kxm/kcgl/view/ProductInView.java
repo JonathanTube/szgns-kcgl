@@ -96,12 +96,6 @@ public class ProductInView implements Serializable {
 	 * @throws IllegalAccessException
 	 */
 	public void addExistTemp() throws IllegalAccessException, InvocationTargetException {
-		if (productIn.getIdentifyType() == 0) {// 中性标
-			productIn.setIdentifyId(null);
-		} else if (productIn.getIdentifyId() == -1) {
-			MsgTool.addWarningMsg("请选择客户标名称");
-			return;
-		}
 		// 如果已经存在就移除，兼容更新操作
 		for (ProductIn p : productInList) {
 			if (productIn.getProductNo().equals(p.getProductNo())) {
@@ -137,6 +131,13 @@ public class ProductInView implements Serializable {
 		productIn.setProductNo(selectedProduct.getProductNo());
 		productIn.setThicknessId(selectedProduct.getThicknessId());
 		productIn.setThicknessName(selectedProduct.getThicknessName());
+		productIn.setManufactorId(selectedProduct.getManufactorId());
+		productIn.setManufactorName(selectedProduct.getManufactorName());
+		productIn.setQuantityId(selectedProduct.getQuantityId());
+		productIn.setQuantityName(selectedProduct.getQuantityName());
+		productIn.setIdentifyId(selectedProduct.getIdentifyId());
+		productIn.setIdentifyName(selectedProduct.getIdentifyName());
+		productIn.setPrice(selectedProduct.getPrice());
 
 		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').show()");
 	}
