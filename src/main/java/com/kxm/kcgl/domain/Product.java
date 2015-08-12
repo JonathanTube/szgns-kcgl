@@ -25,6 +25,8 @@ public class Product {
 	private String createUsername;
 	private Date createTime;
 	
+	private Double avgSalePrice;
+	
 	private Date queryTimesStartDate;
 	private Date queryTimesEndDate;
 	
@@ -211,5 +213,13 @@ public class Product {
 
 	public void setQueryTimesEndDate(Date queryTimesEndDate) {
 		this.queryTimesEndDate = queryTimesEndDate;
+	}
+
+	public Double getAvgSalePrice() {
+		return avgSalePrice;
+	}
+
+	public void setAvgSalePrice(Double avgSalePrice) {
+		this.avgSalePrice = avgSalePrice;
 	}
 }

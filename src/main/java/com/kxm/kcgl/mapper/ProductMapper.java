@@ -16,7 +16,7 @@ public interface ProductMapper {
 
 	int insert(Product record);
 
-	List<Product> search(String keywords);
+	List<Product> search(Product product);
 
 	int update(Product record);
 }

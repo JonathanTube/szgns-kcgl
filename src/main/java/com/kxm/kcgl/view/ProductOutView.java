@@ -166,7 +166,9 @@ public class ProductOutView implements Serializable {
 	}
 
 	public List<Product> completeProduct(String keywords) {
-		List<Product> list  = productService.search(keywords);
+		Product condition = new Product();
+		condition.setProductName(keywords);
+		List<Product> list  = productService.search(condition);
 		return list;
 	}
 	

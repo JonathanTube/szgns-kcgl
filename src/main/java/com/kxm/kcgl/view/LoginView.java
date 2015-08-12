@@ -45,6 +45,8 @@ public class LoginView implements Serializable {
 			return null;
 		}
 		user.setStatus(0);
+		user.setUsername(user.getUsername().trim());
+		user.setPassword(user.getPassword().trim());
 		List<User> users = userService.queryUser(user);
 		if (users == null || users.size() == 0) {
 			MsgTool.addWarningMsg("用户名或密码不正确");

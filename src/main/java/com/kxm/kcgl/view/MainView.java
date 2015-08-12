@@ -45,15 +45,17 @@ public class MainView implements Serializable {
 
 	private PaginationDataModel<Product> stockModel;
 	
-	private String keywords;
+	private Product condition = new Product();
 
 	@PostConstruct
 	public void init() {
+		User user = (User) loginSession.getSesionObj();
+		condition.setManufactorId(user.getManufactorId());
 		initStockList();
 	}
 
 	public void search() {
-		List<Product> products = productService.search(keywords);
+		List<Product> products = productService.search(condition);
 		for (Product product : products) {
 			// 插入查询次数表
 			ProductQueryTimes pqt = new ProductQueryTimes();
@@ -62,11 +64,11 @@ public class MainView implements Serializable {
 			pqt.setCreateUserId(user.getId());
 			productQueryTimesService.insert(pqt);
 		}
-		stockModel = new PaginationDataModel<Product>("com.kxm.kcgl.mapper.ProductMapper.search", keywords);
+		stockModel = new PaginationDataModel<Product>("com.kxm.kcgl.mapper.ProductMapper.search", condition);
 	}
 
 	public void initStockList() {
-		stockModel = new PaginationDataModel<Product>("com.kxm.kcgl.mapper.ProductMapper.selectSelective");
+		stockModel = new PaginationDataModel<Product>("com.kxm.kcgl.mapper.ProductMapper.selectSelective",condition);
 	}
 
 	public void showPreProductOut(Integer stockId) {
@@ -122,11 +124,11 @@ public class MainView implements Serializable {
 		this.selectedStock = selectedStock;
 	}
 
-	public String getKeywords() {
-		return keywords;
+	public Product getCondition() {
+		return condition;
 	}
 
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
+	public void setCondition(Product condition) {
+		this.condition = condition;
 	}
 }

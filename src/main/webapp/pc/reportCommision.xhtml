@@ -25,19 +25,17 @@
 					<p:columnToggler datasource="commision_table" trigger="toggler" />
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel header="查询条件">
-				<h:panelGrid columns="9" id="condition_pg">
-					<h:outputLabel value="年度：" />
-					<h:outputText id="year_output" value="#{commisionView.year}" />
-					<h:inputHidden id="year" value="#{commisionView.year}" />
-					<p:slider for="year" display="year_output"  style="width:200px;" minValue="1990" maxValue="2030" />
-					<h:outputLabel value="月份：" />
-					<h:outputText id="month_output" value="#{commisionView.month}" />
-					<h:inputHidden id="month" value="#{commisionView.month}" />
-					<p:slider for="month" display="month_output" style="width:200px" maxValue="12" minValue="1" />
-					<p:commandButton value="确定" actionListener="#{commisionView.initCommision}"  partialSubmit="true" process="@form:condition_pg" update="commision_table" />
-				</h:panelGrid>
-			</p:panel>
+			<h:panelGrid columns="9" id="condition_pg">
+				<h:outputLabel value="年度：" />
+				<h:outputText id="year_output" value="#{commisionView.year}" />
+				<h:inputHidden id="year" value="#{commisionView.year}" />
+				<p:slider for="year" display="year_output"  style="width:200px;" minValue="1990" maxValue="2030" />
+				<h:outputLabel value="月份：" />
+				<h:outputText id="month_output" value="#{commisionView.month}" />
+				<h:inputHidden id="month" value="#{commisionView.month}" />
+				<p:slider for="month" display="month_output" style="width:200px" maxValue="12" minValue="1" />
+				<p:commandButton value="确定" actionListener="#{commisionView.initCommision}"  partialSubmit="true" process="@form:condition_pg" update="commision_table" />
+			</h:panelGrid>
 			<p:dataTable var="v" emptyMessage="未查询到数据" id="commision_table"
 				value="#{commisionView.commisionModel}" style="margin-top:2px;"
 				paginator="true" rows="20" paginatorPosition="bottom"

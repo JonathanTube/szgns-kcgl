@@ -121,7 +121,9 @@ public class ProductInView implements Serializable {
 			MsgTool.addErrorMsg("请填写产品编号或产品名称");
 			return;
 		}
-		List<Product> products = productService.search(keywords);
+		Product condition = new Product();
+		condition.setProductName(keywords);
+		List<Product> products = productService.search(condition);
 		if (products.size() == 0) {
 			MsgTool.addErrorMsg("未找到该型号的产品");
 			return;

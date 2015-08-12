@@ -20,7 +20,7 @@
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable var="v" emptyMessage="未查询到数据" id="stock_table" value="#{stockView.stockList}"
+			<p:dataTable var="v" emptyMessage="未查询到数据" id="stock_table" value="#{stockView.productList}"
 				style="margin-top:2px;" rowIndexVar="index">
 				<f:facet name="header">
 					<h:outputText value="总库存日报表" />
@@ -45,7 +45,7 @@
 				</p:column>
 				<p:column headerText="标识">
 					<h:outputText
-						value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
+						value="#{v.identifyName}" />
 				</p:column>
 				<p:column headerText="厂家">
 					<h:outputText value="#{v.manufactorName}" />

@@ -49,8 +49,8 @@ public class ProductService {
 		return null;
 	}
 
-	public List<Product> search(String keywords) {
-		return productMapper.search(keywords);
+	public List<Product> search(Product product) {
+		return productMapper.search(product);
 	}
 
 	public List<Product> selectSelective(Product product) {

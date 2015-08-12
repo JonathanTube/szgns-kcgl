@@ -13,7 +13,7 @@
 	<ui:define name="content">
 		<h:form prependId="true">
 			<h:panelGrid id="condition" columns="4" style="margin-top:10px;">
-				<p:inputText value="#{mainView.keywords}"  size="60"/>
+				<p:inputText value="#{mainView.condition.productName}"  size="60"/>
 				<p:watermark value="输入产品编号或产品名称" for="@previous" />
 				<p:commandButton value="确定" actionListener="#{mainView.search}"  partialSubmit="true" process="@form:condition"  update="@form:stock_table" />
 				<p:commandButton value="查找全部" actionListener="#{mainView.initStockList}"  partialSubmit="true" process="@this" update="@form:stock_table" />
