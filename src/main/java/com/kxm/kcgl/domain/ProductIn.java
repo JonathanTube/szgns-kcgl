@@ -229,4 +229,17 @@ public class ProductIn {
 	public void setQuantityName(String quantityName) {
 		this.quantityName = quantityName;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj != null) {
+			if (obj instanceof ProductIn) {
+				ProductIn p = (ProductIn) obj;
+				if (p.getProductNo().equals(this.getProductNo())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

@@ -146,7 +146,7 @@
 		    amount = amount + #{amount},
 		</if>
 		<if test="price != null">
-			price = {price}		    
+			price = #{price}		    
 		</if>
 		where id = #{id}  
 	</update>

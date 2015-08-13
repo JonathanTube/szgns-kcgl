@@ -10,7 +10,7 @@
 			<h:panelGrid columns="7"  id="query_condition">
 				<p:outputLabel value="用户名：" styleClass="fixed_label_width"/>
 				<p:inputText value="#{userView.condition.username}" />
-				<p:outputLabel value="所在工厂：" styleClass="fixed_label_width"/>
+				<p:outputLabel value="厂家：" styleClass="fixed_label_width"/>
 				<p:selectOneMenu value="#{userView.condition.manufactorId}">
 					<f:selectItem itemLabel="请选择厂家" itemValue="" />
 					<f:selectItems var="v" value="#{parameterView.manufactorList}" itemLabel="#{v.name}" itemValue="#{v.id}" />
@@ -69,7 +69,7 @@
 
 			<p:dialog id="user_add_dlg" widgetVar="user_add_dlg" header="添加"  closeOnEscape="true" resizable="false"  dynamic="true" >
 				<h:panelGrid columns="2" style="width:100%;">
-						<p:outputLabel value="用户名：" />
+						<p:outputLabel value="用户名：" style="width:80px;display:block;"/>
 						<p:inputText value="#{userView.user.username}"  required="true" maxlength="20" requiredMessage="用户名不能为空"/>
 						<p:outputLabel value="密码：" />
 						<p:inputText value="#{userView.user.password}" required="true" maxlength="20" requiredMessage="密码不能为空"/>
@@ -79,7 +79,7 @@
 							<f:selectItem itemLabel="在职" itemValue="0" />
 							<f:selectItem itemLabel="离职" itemValue="1" />						
 						</p:selectOneMenu>
-						<p:outputLabel value="所在工厂：" />
+						<p:outputLabel value="所在厂家：" />
 						<p:selectOneMenu value="#{userView.user.manufactorId}">
 							<f:selectItem itemLabel="请选择厂家" itemValue="" />
 							<f:selectItems var="v" value="#{parameterView.manufactorList}" itemLabel="#{v.name}" itemValue="#{v.id}" />

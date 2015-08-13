@@ -27,7 +27,7 @@
 				<h:panelGrid columns="4">
 					<h:outputLabel value="产品编号或产品名称：" />
 					<p:inputText id="keywords" value="#{productInView.keywords}"  size="60" />
-					<p:commandButton value="确定" actionListener="#{productInView.showExistProductAddDialog}"  partialSubmit="true" process="@this @form:keywords"  update="@form:add_exist_dlg" />
+					<p:commandButton value="确定" actionListener="#{productInView.addExistProducts}"  partialSubmit="true" process="@this @form:keywords"  update="@form:product_in_exist_tbl" />
 					<p:commandButton value="执行入库" icon="ui-icon-disk"
 						style="margin-left:30px;"
 						actionListener="#{productInView.addExist}" partialSubmit="true"
@@ -57,9 +57,6 @@
 					<p:column headerText="出厂价">
 						<h:outputText value="￥#{v.price}" />
 					</p:column>
-					<p:column headerText="入库数量">
-						<h:outputText value="#{v.amount}" />
-					</p:column>
 					<p:column headerText="标识">
 						<h:outputText value="#{v.identifyName}" />
 					</p:column>
@@ -67,18 +64,21 @@
 						<h:outputText
 							value="#{parameterView.getManufactorNameById(v.manufactorId)}" />
 					</p:column>
-					<p:column headerText="入库类型">
-						<h:outputText
-							value="#{parameterView.getInTypeNameById(v.inTypeId)}" />
-					</p:column>
 					<p:column headerText="品质">
 						<h:outputText
 							value="#{parameterView.getQuantityNameById(v.quantityId)}" />
 					</p:column>
+					<p:column headerText="入库类型">
+						<h:outputText
+							value="#{parameterView.getInTypeNameById(v.inTypeId)}" />
+					</p:column>
+					<p:column headerText="入库数量">
+						<h:outputText value="#{v.amount}" />
+					</p:column>
 					<p:column headerText="操作" width="120" style="text-align:center;">
 						<p:commandButton value="编辑" icon="ui-icon-pencil"
 							actionListener="#{productInView.editExistTemp(v)}"
-							process="@this" update="@form:add_exist_dlg" />
+							process="@this" update="@form:edit_exist_dlg" />
 						<p:commandButton value="删除" icon="ui-icon-close"
 							actionListener="#{productInView.delExistTemp(v)}" process="@this"
 							update="@form:product_in_exist_tbl" />
@@ -86,8 +86,7 @@
 				</p:dataTable>
 			</p:dialog>
 
-			<p:dialog id="add_exist_dlg" widgetVar="add_exist_dlg"
-				header="添加已有产品">
+			<p:dialog id="edit_exist_dlg" widgetVar="edit_exist_dlg" header="添加已有产品">
 				<h:panelGrid columns="2">
 					<p:outputLabel value="产品编号：" style="width:80px;display:block;"/>
 					<p:inputText disabled="true" value="#{productInView.productIn.productNo}" />
@@ -130,7 +129,7 @@
 						<p:selectOneMenu id="inType_sel2"
 							value="#{productInView.productIn.inTypeId}" style="width:165px;"
 							required="true" requiredMessage="请选择入库类型">
-							<f:selectItem itemLabel="请选择入库类型" itemValue="-1" />
+							<f:selectItem itemLabel="请选择入库类型" itemValue="" />
 							<f:selectItems var="v" emptyMessage="未查询到数据"
 								value="#{parameterView.inTypeList}" itemLabel="#{v.name}"
 								itemValue="#{v.id}" />
@@ -143,7 +142,7 @@
 				<div style="float: right;">
 					<p:commandButton value="保存" icon="ui-icon-disk"
 						actionListener="#{productInView.addExistTemp}"
-						partialSubmit="true" process="add_exist_dlg"
+						partialSubmit="true" process="@form:edit_exist_dlg"
 						update="@form:product_in_exist_tbl" />
 				</div>
 			</p:dialog>

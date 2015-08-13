@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyjd.frame.psm.utils.MsgTool;
 import com.kxm.kcgl.LogicException;
 import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductIn;
@@ -65,11 +66,13 @@ public class ProductInService {
 	@Transactional(rollbackFor = Exception.class)
 	public void addExist(List<ProductIn> productInList, int userId) throws LogicException {
 		for (ProductIn productIn : productInList) {
+			//参数检查
+			checkParam(productIn);
 			// init param
 			Product product = new Product();
 			product.setId(productIn.getProductId());
 			product.setAmount(productIn.getAmount());
-			product.setPrice(productIn.getPrice());
+			product.setPrice(productIn.getPrice());//入库可以调价
 			// 判断库存是否存在
 			int size = productMapper.countBySelective(product);
 			if (size > 0) {
@@ -81,6 +84,19 @@ public class ProductInService {
 			// 插入入库日志
 			productIn.setCreateUserId(userId);
 			productInMapper.insert(productIn);
+		}
+	}
+	
+	public void checkParam(ProductIn productIn) throws LogicException{
+		if(productIn.getPrice() <= 0){
+			throw new LogicException("产品" + productIn.getProductNo() + "-价格请填写大0的数字");
+		}
+		//参数检查
+		if(productIn.getAmount() == null || productIn.getAmount() <= 0){
+			throw new LogicException("产品" + productIn.getProductNo() + "-数量请输入大于0的整数");
+		}
+		if(productIn.getInTypeId() == null){
+			throw new LogicException("产品" + productIn.getProductNo() + "-请填写入库类型");
 		}
 	}
 }

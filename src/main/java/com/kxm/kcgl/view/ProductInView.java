@@ -49,7 +49,7 @@ public class ProductInView implements Serializable {
 	private List<ProductIn> productInList = new LinkedList<ProductIn>();
 
 	private String keywords;
-	
+
 	@PostConstruct
 	public void init() {
 		query();
@@ -76,7 +76,7 @@ public class ProductInView implements Serializable {
 	 */
 	public void addExist() {
 		User user = (User) loginSession.getSesionObj();
-		if(productInList.size() ==0){
+		if (productInList.size() == 0) {
 			MsgTool.addWarningMsg("请选择需要入库的产品");
 			return;
 		}
@@ -97,6 +97,14 @@ public class ProductInView implements Serializable {
 	 * @throws IllegalAccessException
 	 */
 	public void addExistTemp() throws IllegalAccessException, InvocationTargetException {
+		//参数检查
+		try {
+			productInService.checkParam(productIn);
+		} catch (LogicException e) {
+			MsgTool.addWarningMsg(e.getMessage());
+			return;
+		}
+		
 		// 如果已经存在就移除，兼容更新操作
 		for (ProductIn p : productInList) {
 			if (productIn.getProductNo().equals(p.getProductNo())) {
@@ -104,20 +112,20 @@ public class ProductInView implements Serializable {
 			}
 		}
 		productInList.add(productIn);
-		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').hide()");
+		RequestContext.getCurrentInstance().execute("PF('edit_exist_dlg').hide()");
 	}
 
 	public void editExistTemp(ProductIn productIn) {
 		this.productIn = productIn;
-		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').show()");
+		RequestContext.getCurrentInstance().execute("PF('edit_exist_dlg').show()");
 	}
 
 	public void delExistTemp(ProductIn productIn) {
 		productInList.remove(productIn);
 	}
 
-	public void showExistProductAddDialog() {
-		if(StringUtils.isEmpty(keywords)){
+	public void addExistProducts() {
+		if (StringUtils.isEmpty(keywords)) {
 			MsgTool.addErrorMsg("请填写产品编号或产品名称");
 			return;
 		}
@@ -128,26 +136,31 @@ public class ProductInView implements Serializable {
 			MsgTool.addErrorMsg("未找到该型号的产品");
 			return;
 		}
-		Product selectedProduct = products.get(0);
-		productIn = new ProductIn();
-		productIn.setBrandId(selectedProduct.getBrandId());
-		productIn.setBrandName(selectedProduct.getBrandName());
-		productIn.setProductId(selectedProduct.getId());
-		productIn.setProductName(selectedProduct.getProductName());
-		productIn.setTechId(selectedProduct.getTechId());
-		productIn.setTechName(selectedProduct.getTechName());
-		productIn.setProductNo(selectedProduct.getProductNo());
-		productIn.setThicknessId(selectedProduct.getThicknessId());
-		productIn.setThicknessName(selectedProduct.getThicknessName());
-		productIn.setManufactorId(selectedProduct.getManufactorId());
-		productIn.setManufactorName(selectedProduct.getManufactorName());
-		productIn.setQuantityId(selectedProduct.getQuantityId());
-		productIn.setQuantityName(selectedProduct.getQuantityName());
-		productIn.setIdentifyId(selectedProduct.getIdentifyId());
-		productIn.setIdentifyName(selectedProduct.getIdentifyName());
-		productIn.setPrice(selectedProduct.getPrice());
-
-		RequestContext.getCurrentInstance().execute("PF('add_exist_dlg').show()");
+		for (Product selectedProduct : products) {
+			productIn = new ProductIn();
+			productIn.setBrandId(selectedProduct.getBrandId());
+			productIn.setBrandName(selectedProduct.getBrandName());
+			productIn.setProductId(selectedProduct.getId());
+			productIn.setProductName(selectedProduct.getProductName());
+			productIn.setTechId(selectedProduct.getTechId());
+			productIn.setTechName(selectedProduct.getTechName());
+			productIn.setProductNo(selectedProduct.getProductNo());
+			productIn.setThicknessId(selectedProduct.getThicknessId());
+			productIn.setThicknessName(selectedProduct.getThicknessName());
+			productIn.setManufactorId(selectedProduct.getManufactorId());
+			productIn.setManufactorName(selectedProduct.getManufactorName());
+			productIn.setQuantityId(selectedProduct.getQuantityId());
+			productIn.setQuantityName(selectedProduct.getQuantityName());
+			productIn.setIdentifyId(selectedProduct.getIdentifyId());
+			productIn.setIdentifyName(selectedProduct.getIdentifyName());
+			productIn.setPrice(selectedProduct.getPrice());
+			// 没有才添加进去
+			if(!productInList.contains(productIn)){
+				productInList.add(productIn);
+			}else{
+				MsgTool.addWarningMsg(productIn.getProductName() + "已存在,请勿重复添加");
+			}
+		}
 	}
 
 	public PaginationDataModel<ProductIn> getProductInModel() {
