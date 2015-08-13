@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -56,12 +57,12 @@ public class ProductOutView implements Serializable {
 
 	@Autowired
 	private ProductMapper productMapper;
-	
+
 	private PaginationDataModel<ProductOut> productOutDataModel;
-	
-	private Product selectedProduct = new Product();
-	
+
 	private Integer custId;
+
+	private String keywords;
 
 	@PostConstruct
 	public void init() {
@@ -72,8 +73,8 @@ public class ProductOutView implements Serializable {
 	public void initBillList() {
 		billDataModel = new PaginationDataModel<Bill>("com.kxm.kcgl.mapper.BillMapper.selectSelective", billCondition);
 	}
-	
-	public void initProductOutList(){
+
+	public void initProductOutList() {
 		productOutDataModel = new PaginationDataModel<ProductOut>("com.kxm.kcgl.mapper.ProductOutMapper.selectSelective", productOutCondition);
 	}
 
@@ -99,47 +100,19 @@ public class ProductOutView implements Serializable {
 	}
 
 	public void addProductOutTmp() {
-		// 判断是否已经添加过
-		for (ProductOut productOut : tempProductOutList) {
-			if (productOut.getProductId().equals(selectedProduct.getId())) {
-				MsgTool.addInfoMsg("请不要重复添加出货的产品");
-				return;
-			}
-		}
-		Product condition = new Product();
-		condition.setId(selectedProduct.getId());
-		List<Product> stockList = productService.selectSelective(condition);
-		addProductOut(stockList);
-	}
-
-	private void addProductOut(List<Product> stockList) {
-		if (stockList == null || stockList.size() == 0) {
-			MsgTool.addInfoMsg("未查询到产品库存");
+		if (StringUtils.isEmpty(keywords)) {
+			MsgTool.addErrorMsg("请填写产品编号或产品名称");
 			return;
 		}
-		for (Product stock : stockList) {
-			ProductOut productOut = new ProductOut();
-			productOut.setBrandId(stock.getBrandId());
-			productOut.setBrandName(stock.getBrandName());
-			productOut.setProductId(stock.getId());
-			productOut.setProductName(stock.getProductName());
-			productOut.setTechId(stock.getTechId());
-			productOut.setTechName(stock.getTechName());
-			productOut.setProductNo(stock.getProductNo());
-			productOut.setThicknessId(stock.getThicknessId());
-			productOut.setThicknessName(stock.getThicknessName());
-			productOut.setManufactorId(stock.getManufactorId());
-			productOut.setManufactorName(stock.getManufactorName());
-			productOut.setIdentifyId(stock.getIdentifyId());
-			productOut.setIdentifyName(stock.getIdentifyName());
-			productOut.setQuantityId(stock.getQuantityId());
-			productOut.setQuantityName(stock.getQuantityName());
-			productOut.setStockAmount(stock.getAmount());
-			productOut.setStockPrice(stock.getPrice());
-			User user = (User) loginSession.getSesionObj();
-			productOut.setCreateUserId(user.getId());
-			productOut.setCreateUserName(user.getRealname());
-			tempProductOutList.add(productOut);
+		Product condition = new Product();
+		condition.setProductName(keywords);
+		List<Product> products = productService.search(condition);
+		
+		User user = (User) loginSession.getSesionObj();
+		try {
+			productOutService.addProductOut(products, tempProductOutList, user);
+		} catch (LogicException e) {
+			MsgTool.addWarningMsg(e.getMessage());
 		}
 	}
 
@@ -165,13 +138,6 @@ public class ProductOutView implements Serializable {
 		}
 	}
 
-	public List<Product> completeProduct(String keywords) {
-		Product condition = new Product();
-		condition.setProductName(keywords);
-		List<Product> list  = productService.search(condition);
-		return list;
-	}
-	
 	public List<ProductOut> getProductOutList() {
 		return productOutList;
 	}
@@ -236,11 +202,11 @@ public class ProductOutView implements Serializable {
 		this.productOutDataModel = productOutDataModel;
 	}
 
-	public Product getSelectedProduct() {
-		return selectedProduct;
+	public String getKeywords() {
+		return keywords;
 	}
 
-	public void setSelectedProduct(Product selectedProduct) {
-		this.selectedProduct = selectedProduct;
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
 	}
 }
