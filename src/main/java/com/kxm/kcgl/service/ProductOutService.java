@@ -97,17 +97,17 @@ public class ProductOutService {
 			Product exist = products.get(0);
 			// 出货量不能为0
 			if (productOut.getAmount() <= 0) {
-				throw new LogicException(productName + ",出货量必须是大于0的整数");
+				throw new LogicException("产品:" + productName + ",出货量必须是大于0的整数");
 			}
 			// 库存量校验
 			if (productOut.getAmount() > exist.getAmount()) {
 				productOut.setStockAmount(exist.getAmount());
-				throw new LogicException(productName + ",库存已变化，出货量不能大于库存量");
+				throw new LogicException("产品:" + productName + ",库存已变化，出货量不能大于库存量");
 			}
 			// 价格校验
 			if (productOut.getPrice() < exist.getPrice()) {
 				productOut.setStockPrice(exist.getPrice());
-				throw new LogicException(productName + ",产品被调价,销售价格不能低于出厂价格");
+				throw new LogicException("产品:" + productName + ",产品被调价,销售价格不能低于出厂价格");
 			}
 		}
 	}
@@ -116,13 +116,13 @@ public class ProductOutService {
 		// 参数校验
 		String productName = productOut.getProductName();
 		if (productOut.getStockAmount() == 0) {
-			throw new LogicException(productName + ",库存不足,不能出货");
+			throw new LogicException("产品:" + productName + ",库存不足,不能出货");
 		}
 		if (productOut.getAmount() > productOut.getStockAmount()) {
-			throw new LogicException(productName + ",出货量不能大于库存量");
+			throw new LogicException("产品:" + productName + ",出货量不能大于库存量");
 		}
 		if (productOut.getPrice() < productOut.getStockPrice()) {
-			throw new LogicException(productName + ",销售价格不能小于出厂价");
+			throw new LogicException("产品:" + productName + ",销售价格不能小于出厂价");
 		}
 	}
 

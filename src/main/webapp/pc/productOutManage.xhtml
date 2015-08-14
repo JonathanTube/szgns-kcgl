@@ -20,14 +20,25 @@
 			</p:toolbar>
 
 			<p:dialog widgetVar="product_out_dlg" closeOnEscape="true" header="产品出货" width="1200" dynamic="true" minHeight="600">
-				<h:panelGrid columns="4">
-					<h:outputLabel value="产品编号或产品名称：" />
+				<h:panelGrid columns="7" id="condition">
+					<h:outputLabel value="产品编号或名称：" />
 					<p:inputText id="keywords" value="#{productOutView.keywords}"  size="60" />
 					<p:commandButton value="确定" actionListener="#{productOutView.addProductOutTmp}"  partialSubmit="true" process="@this @form:keywords"  update="@form:product_out_tbl" />
 					
+					<p:outputLabel value="客户名称："  style="margin-left:30px;"/>
+					<p:selectOneMenu id="cust_sel" required="true"
+						requiredMessage="请选择客户" value="#{productOutView.custId}"
+						style="width:165px;">
+						<f:selectItem itemLabel="请选择客户" itemValue="" />
+						<f:selectItems var="v" emptyMessage="未查询到数据" value="#{parameterView.ownerCustList}"
+							itemLabel="#{v.name}" itemValue="#{v.id}" />
+					</p:selectOneMenu>
+					<p:commandButton type="button" icon="ui-icon-plus" title="新增客户"
+						onclick="PF('cust_add_dlg').show();" />
+						
 					<p:commandButton value="执行出货" icon="ui-icon-disk"
 						actionListener="#{productOutView.productOut}"
-						partialSubmit="true" process="@this"
+						partialSubmit="true" process="@form:condition"
 						update="bill_tbl product_out_tbl product_out_log" />
 				</h:panelGrid>
 
@@ -83,7 +94,7 @@
 					<p:column headerText="业务员">
 						<h:outputText value="#{v.createUserName}" />
 					</p:column>
-					<p:column headerText="操作" width="120" style="text-align:center;">
+					<p:column headerText="操作" width="150" style="text-align:center;">
 						<p:commandButton value="编辑" icon="ui-icon-pencil"
 							actionListener="#{productOutView.editExistTemp(v)}"
 							process="@this" update="@form:edit_dlg" />
@@ -98,43 +109,35 @@
 			<p:dialog id="edit_dlg" widgetVar="edit_dlg" header="编辑出库信息">
 				<h:panelGrid columns="3">
 					<p:outputLabel value="产品编号：" />
-					<p:inputText disabled="true"
-						value="#{productOutView.productOut.productNo}" />
+					<p:inputText disabled="true" value="#{productOutView.productOut.productNo}" />
 					<p:spacer />
 
 					<p:outputLabel value="品牌：" />
-					<p:inputText disabled="true"
-						value="#{productOutView.productOut.brandName}" />
+					<p:inputText disabled="true" value="#{productOutView.productOut.brandName}" />
 					<p:spacer />
 
 					<p:outputLabel value="产品名称：" />
-					<p:inputText disabled="true"
-						value="#{productOutView.productOut.productName}" />
+					<p:inputText disabled="true" value="#{productOutView.productOut.productName}" />
 					<p:spacer />
 
 					<p:outputLabel value="工艺：" />
-					<p:inputText disabled="true"
-						value="#{productOutView.productOut.techName}" />
+					<p:inputText disabled="true" value="#{productOutView.productOut.techName}" />
 					<p:spacer />
 
 					<p:outputLabel value="厚度：" />
-					<p:inputText disabled="true"
-						value="#{productOutView.productOut.thicknessName}" />
+					<p:inputText disabled="true" value="#{productOutView.productOut.thicknessName}" />
 					<p:spacer />
 
 					<p:outputLabel value="库存数量：" />
-					<p:inputText disabled="true"
-						value="#{productOutView.productOut.stockAmount}" />
+					<p:inputText disabled="true" value="#{productOutView.productOut.stockAmount}" />
 					<p:spacer />
 
 					<p:outputLabel value="出厂价：" />
-					<p:inputText disabled="true"
-						value="#{productOutView.productOut.stockPrice}" />
+					<p:inputText disabled="true" value="#{productOutView.productOut.stockPrice}" />
 					<p:spacer />
 
 					<p:outputLabel value="标识：" />
-					<p:inputText disabled="true"
-						value="#{productOutView.productOut.identifyType == 0 ? '中性标' : '客户标'}" />
+					<p:inputText disabled="true" value="#{productOutView.productOut.identifyName}" />
 					<p:spacer />
 					
 					<p:outputLabel value="出货数量：" />
@@ -351,6 +354,19 @@
 					<p:commandButton value="关闭" type="button" icon="ui-icon-close"
 						onclick="PF('bill_dlg').hide()" />
 				</div>
+			</p:dialog>
+			
+			<p:dialog widgetVar="cust_add_dlg" header="添加客户名称" resizable="false"
+				closeOnEscape="true">
+				<h:panelGrid columns="3" id="cust_pg">
+					<h:outputLabel value="客户名称：" />
+					<h:inputText maxlength="20" required="true"
+						value="#{parameterView.custName}" />
+					<p:commandButton value="新增" icon="ui-icon-disk"
+						actionListener="#{parameterView.addCust}"
+						partialSubmit="true" process="cust_pg" update="cust_sel"
+						onsuccess="PF('cust_add_dlg').hide()" />
+				</h:panelGrid>
 			</p:dialog>
 		</h:form>
 	</ui:define>

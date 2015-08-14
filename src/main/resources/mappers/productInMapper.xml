@@ -19,7 +19,6 @@
 		<result property="price" column="price" jdbcType="DECIMAL" />
 		<result property="manufactorId" column="manufactor_id" jdbcType="DECIMAL" />
 		<result property="manufactorName" column="manufactor_name" jdbcType="VARCHAR" />
-		<result property="identifyType" column="identify_type" jdbcType="DECIMAL" />
 		<result property="identifyId" column="identify_id" jdbcType="DECIMAL" />
 		<result property="identifyName" column="identify_name" jdbcType="VARCHAR" />
 		<result property="inTypeId" column="in_type_id" jdbcType="DECIMAL" />

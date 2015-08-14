@@ -22,7 +22,6 @@
 		<result property="money" column="money" jdbcType="DECIMAL" />
 		<result property="manufactorId" column="manufactor_id" jdbcType="DECIMAL" />
 		<result property="manufactorName" column="manufactor_name" jdbcType="VARCHAR" />
-		<result property="identifyType" column="identify_type" jdbcType="VARCHAR" />
 		<result property="identifyId" column="identify_id" jdbcType="DECIMAL" />
 		<result property="identifyName" column="identify_name" jdbcType="VARCHAR" />
 		<result property="billId" column="billId" jdbcType="DECIMAL" />
@@ -39,7 +38,6 @@
 		INSERT INTO T_PRODUCT_OUT (
 			bill_id,
 			product_id,
-			identify_type,
 			identify_id,
 			manufactor_id,
 			quantity_id,
@@ -52,7 +50,6 @@
 		) VALUES (
 			#{billId},
 			#{productId},
-			#{identifyType},
 			#{identifyId},
 			#{manufactorId},
 			#{quantityId},
@@ -78,7 +75,7 @@
 				tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
 				thickness_name,productOut.amount,productOut.stock_price,productOut.price,
 				user.id create_user_id,user.username create_username,productOut.create_time,
-				productOut.identify_type,productOut.bill_id,identify.id identify_id,identify.name identify_name,
+				productOut.bill_id,identify.id identify_id,identify.name identify_name,
 				productOut.money,quantity.id quantity_id,quantity.name quantity_name,
 				manufactor.id manufactor_id,manufactor.name manufactor_name,
 				cust.id cust_id,cust.name cust_name
