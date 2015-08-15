@@ -141,13 +141,15 @@
 	</sql>
 
 	<update id="update" parameterType="com.kxm.kcgl.domain.Product">
-		update t_product set 
-		<if test="amount != null">
-		    amount = amount + #{amount}
-		</if>
-		<if test="price != null">
-			,price = #{price}		    
-		</if>
+		update t_product 
+		<set>
+			<if test="amount != null">
+			    amount = amount + #{amount},
+			</if>
+			<if test="price != null">
+				price = #{price}		    
+			</if>
+		</set>
 		where id = #{id}  
 	</update>
 	

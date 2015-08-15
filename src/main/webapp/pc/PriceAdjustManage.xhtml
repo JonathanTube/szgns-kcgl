@@ -28,23 +28,10 @@
 				resizable="false" header="价格调整" width="1000" dynamic="true"
 				minHeight="600">
 				<h:panelGrid columns="10">
-					<h:outputText value="产品编号:" />
-					<p:inputText value="#{priceAdjustView.productNo}" required="true"
-						requiredMessage="请输入产品编号" />
-					<p:commandButton id="btn_productNo"
-						actionListener="#{priceAdjustView.addByProductNo}" value="确定"
-						partialSubmit="true" process="@this @previous"
-						update="@form:temp_tbl" />
-
-					<h:outputText value="产品名称:" />
-					<p:selectOneMenu value="#{priceAdjustView.productId}"
-						required="true" requiredMessage="请选择产品名称">
-						<f:selectItem itemLabel="请选择产品产品名称" itemValue="" />
-						<f:selectItems var="s" value="#{parameterView.productList}"
-							itemLabel="#{s.productName}" itemValue="#{s.id}" />
-					</p:selectOneMenu>
+					<h:outputText value="产品编码或名称:" />
+					<p:inputText value="#{priceAdjustView.keywords}" required="true" requiredMessage="请输入产品名称"/>
 					<p:commandButton id="btn_productId"
-						actionListener="#{priceAdjustView.addByProductId}" value="确定"
+						actionListener="#{priceAdjustView.addByProductNoOrName}" value="确定"
 						partialSubmit="true" process="@this @previous"
 						update="@form:temp_tbl" />
 
@@ -83,7 +70,7 @@
 					<p:column headerText="调整价">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{v.adjustPrice}"  style="color:red;"/>
+								<h:outputText value="#{v.adjustPrice}(点击修改)"  style="color:red;"/>
 							</f:facet>
 							<f:facet name="input">
 								<pe:inputNumber value="#{v.adjustPrice}" required="true"

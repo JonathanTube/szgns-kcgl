@@ -42,10 +42,7 @@ public class PriceAdjustView implements Serializable {
 	@Autowired
 	private ProductMapper productMapper;
 
-	private int productId;
-
-	private String productNo;
-
+	private String keywords;
 	@PostConstruct
 	public void init() {
 		initPriceAdjust();
@@ -55,31 +52,10 @@ public class PriceAdjustView implements Serializable {
 		priceAdjustModel = new PaginationDataModel<PriceAdjust>("com.kxm.kcgl.mapper.PriceAdjustMapper.selectSelective", condition);
 	}
 
-	public void addByProductId() {
-		// 判断是否已经添加过
-		for (PriceAdjust pa : tempList) {
-			if (pa.getProductId().equals(productId)) {
-				MsgTool.addInfoMsg("请不要重复添加调价的产品");
-				return;
-			}
-		}
+	public void addByProductNoOrName() {
 		Product condition = new Product();
-		condition.setId(productId);
-		List<Product> productList = productMapper.selectSelective(condition);
-		addTemp(productList);
-	}
-
-	public void addByProductNo() {
-		// 判断是否已经添加过
-		for (PriceAdjust pa : tempList) {
-			if (pa.getProductNo().equals(productNo)) {
-				MsgTool.addInfoMsg("请不要重复添加调价的产品");
-				return;
-			}
-		}
-		Product condition = new Product();
-		condition.setProductNo(productNo);
-		List<Product> productList = productMapper.selectSelective(condition);
+		condition.setProductName(keywords);
+		List<Product> productList = productMapper.search(condition);
 		addTemp(productList);
 	}
 
@@ -107,7 +83,9 @@ public class PriceAdjustView implements Serializable {
 			User user = (User) loginSession.getSesionObj();
 			priceAdjust.setCreateUserId(user.getId());
 			priceAdjust.setCreateUserName(user.getRealname());
-			tempList.add(priceAdjust);
+			if(!tempList.contains(priceAdjust)){
+				tempList.add(priceAdjust);
+			}
 		}
 	}
 
@@ -137,22 +115,6 @@ public class PriceAdjustView implements Serializable {
 		this.priceAdjustModel = priceAdjustModel;
 	}
 
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public String getProductNo() {
-		return productNo;
-	}
-
-	public void setProductNo(String productNo) {
-		this.productNo = productNo;
-	}
-
 	public List<PriceAdjust> getTempList() {
 		return tempList;
 	}
@@ -161,4 +123,11 @@ public class PriceAdjustView implements Serializable {
 		this.tempList = tempList;
 	}
 
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
 }
