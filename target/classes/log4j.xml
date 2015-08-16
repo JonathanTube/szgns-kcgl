@@ -57,7 +57,7 @@
 	</logger>
 
 	<root>
-		<priority value="DEBUG" />
+		<priority value="INFO" /><!-- 这里变成debug就会打SQL日志了 -->
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="ERROR" />
 		<appender-ref ref="DEBUG" />

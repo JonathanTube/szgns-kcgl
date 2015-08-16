@@ -2,6 +2,7 @@ package com.kxm.kcgl.domain;
 
 import java.util.Date;
 
+
 /**
  * @author kongxm
  * @date 2015 2015年7月27日 下午4:28:23
@@ -27,14 +28,15 @@ public class PreProductOut {
 	private Integer manufactorId;
 	private String manufactorName;
 
-	private Integer stockId;
 	private Integer preAmount;
 	private Double prePrice;
 	private Integer custId;
 
 	private Integer createUserId;
 	private String createUserName;
-	private String createTime;
+	private Date createTime;
+	
+	private Integer status;
 	public Integer getId() {
 		return id;
 	}
@@ -107,7 +109,7 @@ public class PreProductOut {
 	public String getCreateUserName() {
 		return createUserName;
 	}
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 	public void setId(Integer id) {
@@ -182,13 +184,13 @@ public class PreProductOut {
 	public void setCreateUserName(String createUserName) {
 		this.createUserName = createUserName;
 	}
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	public Integer getStockId() {
-		return stockId;
+	public Integer getStatus() {
+		return status;
 	}
-	public void setStockId(Integer stockId) {
-		this.stockId = stockId;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }

@@ -19,6 +19,7 @@ public class Product {
 	private Integer manufactorId;
 	private String manufactorName;
 	private Integer amount;
+	private Integer preOutAmount;
 	private Double price;
 	private Integer queryTimes;
 	private Integer createUserId;
@@ -221,5 +222,13 @@ public class Product {
 
 	public void setAvgSalePrice(Double avgSalePrice) {
 		this.avgSalePrice = avgSalePrice;
+	}
+
+	public Integer getPreOutAmount() {
+		return preOutAmount;
+	}
+
+	public void setPreOutAmount(Integer preOutAmount) {
+		this.preOutAmount = preOutAmount;
 	}
 }

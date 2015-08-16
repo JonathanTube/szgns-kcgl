@@ -19,14 +19,14 @@ public class PreProductOutService {
 	@Autowired
 	private PreProductOutMapper preProductOutMapper;
 
-	public boolean insert(Product stock,PreProductOut preProductOut) throws LogicException {
-		if (stock.getAmount() < preProductOut.getPreAmount()) {
+	public boolean insert(Product product,PreProductOut preProductOut) throws LogicException {
+		if (product.getAmount() < preProductOut.getPreAmount()) {
 			throw new LogicException("库存不足");
 		}
-		if (stock.getPrice() < preProductOut.getPrePrice()) {
+		if (product.getPrice() < preProductOut.getPrePrice()) {
 			throw new LogicException("销售价格不能高于出厂价");
 		}
-		preProductOut.setStockId(stock.getId());
+		preProductOut.setProductId(product.getId());
 		int size = preProductOutMapper.insert(preProductOut);
 		if (size > 0) {
 			return true;

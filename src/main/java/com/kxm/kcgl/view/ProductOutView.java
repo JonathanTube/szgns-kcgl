@@ -90,8 +90,9 @@ public class ProductOutView implements Serializable {
 		productOutList = productOutService.selectSelective(condition);
 	}
 
-	public void editExistTemp(ProductOut productOut) {
-		this.productOut = productOut;
+	public void editExistTemp(Integer productId) {
+		User user = (User) loginSession.getSesionObj();
+		this.productOut = productOutService.getProductOut(productId, user);
 		RequestContext.getCurrentInstance().execute("PF('edit_dlg').show()");
 	}
 
@@ -106,9 +107,10 @@ public class ProductOutView implements Serializable {
 		}
 		Product condition = new Product();
 		condition.setProductName(keywords);
+		User user = (User) loginSession.getSesionObj();
+		condition.setManufactorId(user.getManufactorId());
 		List<Product> products = productService.search(condition);
 		
-		User user = (User) loginSession.getSesionObj();
 		try {
 			productOutService.addProductOut(products, tempProductOutList, user);
 		} catch (LogicException e) {
@@ -116,8 +118,8 @@ public class ProductOutView implements Serializable {
 		}
 	}
 
-	public void editExistTemp() throws IllegalAccessException, InvocationTargetException {
-		for (ProductOut p : productOutList) {
+	public void saveEditTemp() throws IllegalAccessException, InvocationTargetException {
+		for (ProductOut p : tempProductOutList) {
 			if (productOut.getProductNo().equals(p.getProductNo())) {
 				BeanUtils.copyProperties(p, productOut);
 				break;

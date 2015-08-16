@@ -131,6 +131,8 @@ public class ProductInView implements Serializable {
 		}
 		Product condition = new Product();
 		condition.setProductName(keywords);
+		User user = (User) loginSession.getSesionObj();
+		condition.setManufactorId(user.getManufactorId());
 		List<Product> products = productService.search(condition);
 		if (products.size() == 0) {
 			MsgTool.addErrorMsg("未找到该型号的产品");

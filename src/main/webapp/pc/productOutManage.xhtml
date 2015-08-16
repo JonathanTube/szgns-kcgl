@@ -96,7 +96,7 @@
 					</p:column>
 					<p:column headerText="操作" width="150" style="text-align:center;">
 						<p:commandButton value="编辑" icon="ui-icon-pencil"
-							actionListener="#{productOutView.editExistTemp(v)}"
+							actionListener="#{productOutView.editExistTemp(v.productId)}"
 							process="@this" update="@form:edit_dlg" />
 						<p:commandButton value="删除" icon="ui-icon-close"
 							actionListener="#{productOutView.delExistTemp(v)}"
@@ -160,7 +160,7 @@
 
 				<div style="float: right;">
 					<p:commandButton value="保存" icon="ui-icon-disk"
-						actionListener="#{productOutView.editExistTemp}"
+						actionListener="#{productOutView.saveEditTemp}"
 						partialSubmit="true" process="@form:edit_dlg"
 						update="@form:product_out_tbl" />
 				</div>
