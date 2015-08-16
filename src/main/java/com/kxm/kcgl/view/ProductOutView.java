@@ -139,6 +139,14 @@ public class ProductOutView implements Serializable {
 			MsgTool.addInfoMsg(e.getMessage());
 		}
 	}
+	
+	/**
+	 * 删除出货单
+	 */
+	public void rollbackBill(Bill bill){
+		productOutService.rollbackBill(bill.getId());
+		MsgTool.addInfoMsg("删除成功");
+	}
 
 	public List<ProductOut> getProductOutList() {
 		return productOutList;

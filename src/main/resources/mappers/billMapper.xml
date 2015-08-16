@@ -39,9 +39,9 @@
 		UPDATE T_BILL SET total_amount = #{totalAmount},total_price = #{totalPrice},total_money = #{totalMoney} WHERE id = #{id}	    
 	</update>
 	
-	<delete id="deleteByPk" parameterType="string">
+	<delete id="deleteByPk" parameterType="int">
 	    <![CDATA[
-	        DELETE FROM T_BILL WHERE ID = #{id} 
+	        update T_BILL set status = 1 WHERE ID = #{id} 
 	    ]]>
 	</delete>
 
@@ -60,14 +60,17 @@
 	</select>
 
 	<select id="countBySelective" resultType="int">
-		SELECT count(*) FROM T_BILL
+		SELECT count(*) FROM T_BILL bill
 		<include refid="condition" />
 	</select>
 	
 	<sql id="condition">
-		<if test="seq != null">
-			seq = #{seq}		    
-		</if>
+	    <where>
+	         bill.status = 0
+			<if test="seq != null">
+				and seq = #{seq}		    
+			</if>
+		</where>
 	</sql>
 </mapper>
 

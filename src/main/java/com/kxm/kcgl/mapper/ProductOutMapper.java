@@ -15,4 +15,6 @@ public interface ProductOutMapper {
 	int countBySelective(ProductOut record);
 
 	int insert(ProductOut record);
+	
+	int deleteByPk(Integer id);
 }

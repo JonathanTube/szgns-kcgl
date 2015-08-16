@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kxm.kcgl.domain.Product;
-import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.mapper.ProductMapper;
 
 /**

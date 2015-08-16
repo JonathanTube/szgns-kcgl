@@ -204,11 +204,15 @@
 							pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
 					</h:outputLabel>
 				</p:column>
-				<p:column headerText="操作" width="60" style="text-align:center;">
+				<p:column headerText="操作" width="120" style="text-align:center;">
 					<p:commandButton
 						actionListener="#{productOutView.showBillDetail(v)}" value="查看"
 						partialSubmit="true" process="@this" icon="ui-icon-search"
 						update="@form:bill_dlg" />
+					<p:commandButton
+						actionListener="#{productOutView.rollbackBill(v)}" value="删除"
+						partialSubmit="true" process="@this" icon="ui-icon-plus"
+						update="@form:bill_tbl @form:product_out_log" />
 				</p:column>
 			</p:dataTable>
 
@@ -266,8 +270,7 @@
 			</p:dataTable>
 
 			<!-- ***********************************出货明细*********************************** -->
-			<p:dialog header="出货单" widgetVar="bill_dlg" id="bill_dlg"
-				width="1000">
+			<p:dialog header="出货单" widgetVar="bill_dlg" id="bill_dlg" width="1000" maximizable="true" dynamic="true">
 				<p:panelGrid id="bill_pg">
 					<h:panelGrid columns="1" style="width:100%;text-align:center;">
 						<h:outputText value="东莞市晟煜光电科技有限公司" />

@@ -36,16 +36,17 @@ public class ProductOutService {
 
 	@Autowired
 	private ProductMapper productMapper;
-	
+
 	@Autowired
 	private PreProductOutMapper preProductOutMapper;
-	
+
 	public void insert(ProductOut productOut) {
 		productOutMapper.insert(productOut);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void productOut(List<ProductOut> productOutList, Integer createUserId, Integer custId) throws LogicException {
+	public void productOut(List<ProductOut> productOutList,
+			Integer createUserId, Integer custId) throws LogicException {
 		if (productOutList.size() == 0) {
 			throw new LogicException("请填写出货单");
 		}
@@ -64,7 +65,7 @@ public class ProductOutService {
 		for (ProductOut productOut : productOutList) {
 			Product product = new Product();
 			product.setId(productOut.getProductId());
-			product.setCreateUserId(createUserId);//这里将登陆用户的id借用产品的create_user_id传递到后台，用来查询产品的时候，剔除掉自己的与出货部分
+			product.setCreateUserId(createUserId);// 这里将登陆用户的id借用产品的create_user_id传递到后台，用来查询产品的时候，剔除掉自己的与出货部分
 			// 校验库存数量
 			checkStockAndPrice(productOut, product);
 			// 校验数量
@@ -78,15 +79,14 @@ public class ProductOutService {
 			productOut.setMoney(money);
 			productOut.setCustId(custId);
 			productOutMapper.insert(productOut);
-			
-			
-			//将自己预出货记录失效掉(简单处理)
+
+			// 将自己预出货记录失效掉(简单处理)
 			PreProductOut condition = new PreProductOut();
 			condition.setProductId(productOut.getProductId());
 			condition.setCreateUserId(createUserId);
 			condition.setStatus(1);
 			preProductOutMapper.update(condition);
-			
+
 			// 累加
 			totalAmount += productOut.getAmount();
 			totalPrice += productOut.getPrice();
@@ -103,7 +103,8 @@ public class ProductOutService {
 		return productOutMapper.selectSelective(po);
 	}
 
-	private void checkStockAndPrice(ProductOut productOut, Product product) throws LogicException {
+	private void checkStockAndPrice(ProductOut productOut, Product product)
+			throws LogicException {
 		// 需要查找一下,防止库存不足,和价格调价
 		String productName = productOut.getProductName();
 		Product exist = productMapper.selectCanOutProduct(product);
@@ -119,7 +120,8 @@ public class ProductOutService {
 		// 价格校验
 		if (productOut.getPrice() < exist.getPrice()) {
 			productOut.setStockPrice(exist.getPrice());
-			throw new LogicException("产品:" + productName + ",产品被调价,销售价格不能低于出厂价格");
+			throw new LogicException("产品:" + productName
+					+ ",产品被调价,销售价格不能低于出厂价格");
 		}
 	}
 
@@ -137,7 +139,8 @@ public class ProductOutService {
 		}
 	}
 
-	public void addProductOut(List<Product> productList, List<ProductOut> productOutList, User user) throws LogicException {
+	public void addProductOut(List<Product> productList,
+			List<ProductOut> productOutList, User user) throws LogicException {
 		if (productList == null || productList.size() == 0) {
 			MsgTool.addInfoMsg("未查询到产品库存");
 			return;
@@ -154,14 +157,14 @@ public class ProductOutService {
 		}
 	}
 
-	public ProductOut getProductOut(Integer productId ,User user){
+	public ProductOut getProductOut(Integer productId, User user) {
 		Product condition = new Product();
 		condition.setId(productId);
 		Product product = productMapper.selectCanOutProduct(condition);
-		return assembProductOut(product,user);
+		return assembProductOut(product, user);
 	}
 
-	private ProductOut assembProductOut(Product product,User user) {
+	private ProductOut assembProductOut(Product product, User user) {
 		ProductOut productOut = new ProductOut();
 		productOut.setBrandId(product.getBrandId());
 		productOut.setBrandName(product.getBrandName());
@@ -182,13 +185,36 @@ public class ProductOutService {
 		productOut.setStockPrice(product.getPrice());
 		productOut.setCreateUserId(user.getId());
 		productOut.setCreateUserName(user.getRealname());
-		productOut.setPrice(product.getPrice());//默认显示出货价格==产品价格
+		productOut.setPrice(product.getPrice());// 默认显示出货价格==产品价格
 		return productOut;
 	}
-	
+
 	public static String getSeq() {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMddHHmmssSSS");
 		return sdf.format(date) + RandomStringUtils.randomNumeric(3);
+	}
+
+	@Transactional(rollbackFor=Exception.class)
+	public void rollbackBill(Integer billId) {
+		// 删除出货单
+		billMapper.deleteByPk(billId);
+		// 回滚库存数量
+		ProductOut condition = new ProductOut();
+		condition.setBillId(billId);
+		List<ProductOut> list = productOutMapper.selectSelective(condition);
+		for (ProductOut productOut : list) {
+			// 回滚价格
+			Product product = new Product();
+			product.setId(productOut.getProductId());
+			product.setAmount(productOut.getAmount());
+			productMapper.update(product);
+			// 删除出货单明细
+			productOutMapper.deleteByPk(productOut.getId());
+		}
+	}
+
+	public void deleteByPk(Integer id) {
+
 	}
 }
