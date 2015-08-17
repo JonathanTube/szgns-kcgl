@@ -106,11 +106,10 @@ public class ProductInView implements Serializable {
 		}
 		
 		// 如果已经存在就移除，兼容更新操作
-		for (ProductIn p : productInList) {
-			if (productIn.getProductNo().equals(p.getProductNo())) {
-				productInList.remove(productIn);
-			}
+		if(productInList.contains(productIn)){
+			productInList.remove(productIn);
 		}
+
 		productInList.add(productIn);
 		RequestContext.getCurrentInstance().execute("PF('edit_exist_dlg').hide()");
 	}
