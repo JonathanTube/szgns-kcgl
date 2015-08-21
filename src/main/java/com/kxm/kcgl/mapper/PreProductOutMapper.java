@@ -13,4 +13,6 @@ public interface PreProductOutMapper {
 	List<PreProductOut> selectSelective(PreProductOut record);
 
 	int insert(PreProductOut record);
+	
+	int update(PreProductOut record);
 }

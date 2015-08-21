@@ -22,6 +22,7 @@
 		<result property="identifyName" column="identify_name" jdbcType="VARCHAR" />
 		<result property="price" column="price" jdbcType="DECIMAL" />
 		<result property="amount" column="amount" jdbcType="DECIMAL" />
+		<result property="preOutAmount" column="preOutAmount" jdbcType="DECIMAL" />
 		<result property="queryTimes" column="query_times" jdbcType="DECIMAL" />
 		<result property="avgSalePrice" column="avgSalePrice" jdbcType="DECIMAL" />
 		<result property="createUserId" column="user_id" jdbcType="DECIMAL" />
@@ -71,7 +72,9 @@
 			manufactor.id manufactor_id,manufactor.name manufactor_name,
 			identify.id identify_id,identify.name identify_name,
 			quantity.id quantity_id,quantity.name quantity_name,
-			product.amount,product.price,
+			(product.amount - IFNULL(pre_out.pre_amount,0)) amount,
+			IFNULL(pre_out.pre_amount,0) preOutAmount,
+			product.price,
 			(
 				SELECT COUNT(*) FROM t_product_query_times qt 
 				WHERE qt.product_id = product.id
@@ -87,7 +90,7 @@
 				</if>
 			) query_times,
 			(
-				select avg(t.price) from t_product_out t where t.product_id = product.id
+				select avg(t.price) from t_product_out t where t.product_id = product.id and t.status = 0
 			) avgSalePrice,
 			product.create_time,user.id user_id,user.username user_name
 		FROM t_product product
@@ -98,6 +101,7 @@
 		LEFT JOIN t_identify identify ON identify.id = product.identify_id
 		LEFT JOIN t_quantity quantity ON quantity.id = product.quantity_id
 		LEFT JOIN t_user user on user.id = product.create_user_id
+		LEFT JOIN t_pre_product_out pre_out ON product.id = pre_out.product_id and pre_out.status = 0
 		<include refid="condition"/>
 	</select>
 
@@ -162,7 +166,25 @@
 			identify.id identify_id,identify.name identify_name,
 			quantity.id quantity_id,quantity.name quantity_name,product.price,
 			product.create_time,user.id user_id,user.username user_name,
-			product.amount
+			(product.amount - IFNULL(pre_out.pre_amount,0)) amount,
+			IFNULL(pre_out.pre_amount,0) preOutAmount,
+			(
+				SELECT COUNT(*) FROM t_product_query_times qt 
+				WHERE qt.product_id = product.id
+				<if test="queryTimesStartDate != null">
+					<![CDATA[
+						AND qt.create_time >= #{queryTimesStartDate}
+					]]> 
+				</if>
+				<if test="queryTimesEndDate != null">
+					<![CDATA[
+						AND qt.create_time <= #{queryTimesEndDate}
+					]]>				    
+				</if>
+			) query_times,
+			(
+				select avg(t.price) from t_product_out t where t.product_id = product.id and t.status = 0
+			) avgSalePrice
 		FROM t_product product
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
@@ -171,6 +193,7 @@
 		LEFT JOIN t_identify identify ON identify.id = product.identify_id
 		LEFT JOIN t_quantity quantity ON quantity.id = product.quantity_id
 		LEFT JOIN t_user user on user.id = product.create_user_id
+		LEFT JOIN t_pre_product_out pre_out ON product.id = pre_out.product_id and pre_out.status = 0
 		<where>
    			<if test="manufactorId !=null">
 				product.manufactor_id = #{manufactorId}			    
@@ -181,6 +204,31 @@
 				product.product_name like CONCAT('%',#{productName},'%')
 			</if>
 		</where>		
+	</select>
+	
+
+	<select id="selectCanOutProduct" resultMap="Product" parameterType="com.kxm.kcgl.domain.Product" >
+		SELECT 
+			product.id,product.brand_id,brand.name brand_name ,
+			product.product_no,product.product_name,tech.id tech_id,tech.name tech_name,
+			thickness.id thickness_id,thickness.name thickness_name,
+			manufactor.id manufactor_id,manufactor.name manufactor_name,
+			identify.id identify_id,identify.name identify_name,
+			quantity.id quantity_id,quantity.name quantity_name,product.price,
+			product.create_time,user.id user_id,user.username user_name,
+			(product.amount - IFNULL(pre_out.pre_amount,0)) amount, 
+			IFNULL(pre_out.pre_amount,0) preOutAmount
+		FROM t_product product
+		LEFT JOIN t_brand brand ON product.brand_id = brand.id
+		LEFT JOIN t_tech tech ON product.tech_id = tech.id
+		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
+		LEFT JOIN t_manufactor manufactor ON manufactor.id = product.manufactor_id
+		LEFT JOIN t_identify identify ON identify.id = product.identify_id
+		LEFT JOIN t_quantity quantity ON quantity.id = product.quantity_id
+		LEFT JOIN t_user user on user.id = product.create_user_id
+		LEFT JOIN t_pre_product_out pre_out ON product.id = pre_out.product_id 
+		AND pre_out.status = 0 AND pre_out.create_user_id != #{createUserId}<!-- 这里借用一下product的创建者 -->
+		WHERE product.id = #{id}
 	</select>
 </mapper>
 

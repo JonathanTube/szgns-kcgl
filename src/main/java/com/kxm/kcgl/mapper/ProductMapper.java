@@ -11,6 +11,13 @@ import com.kxm.kcgl.domain.Product;
  */
 public interface ProductMapper {
 	List<Product> selectSelective(Product record);
+	
+	/**
+	 * 可以出货的产品
+	 * @param product
+	 * @return
+	 */
+	Product selectCanOutProduct(Product product);
 
 	int countBySelective(Product record);
 

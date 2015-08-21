@@ -23,7 +23,7 @@
 			IFNULL(SUM(o.amount * o.stock_price),0) total_cost, 
 			IFNULL(SUM(o.amount * o.price),0) sale_price
 		FROM t_user u
-		LEFT JOIN t_product_out o ON u.id = o.create_user_id 
+		LEFT JOIN t_product_out o ON u.id = o.create_user_id and o.status = 0
 		<where>
 			<if test="createTime != null">
 				AND date_format(o.create_time,'%Y-%m') = date_format(#{createTime},'%Y-%m')

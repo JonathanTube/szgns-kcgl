@@ -18,4 +18,6 @@ public interface BillMapper {
 	int countBySelective(Bill bill);
 
 	int update(Bill bill);
+	
+	int deleteByPk(Integer billId);
 }

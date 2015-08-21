@@ -26,22 +26,41 @@
 		
 		<result property="preAmount" column="pre_amount" jdbcType="DECIMAL" />
 		<result property="prePrice" column="pre_price" jdbcType="DECIMAL" />
+		
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
 	</resultMap>
 
 	<insert id="insert" parameterType="com.kxm.kcgl.domain.PreProductOut">
 		INSERT INTO T_PRE_PRODUCT_OUT (
-			stock_id,
+			product_id,
 			pre_amount,
 			pre_price,
 			cust_id,
 			create_user_id
 		) VALUES (
-			#{stockId},
+			#{productId},
 			#{preAmount},
 			#{prePrice},
 			#{custId},
 			#{createUserId}
 		)
+	</insert>
+	
+	
+	<insert id="update" parameterType="com.kxm.kcgl.domain.PreProductOut">
+		UPDATE T_PRE_PRODUCT_OUT 
+			SET status = #{status}
+			<where>
+			    <if test="id !=null">
+			        id = #{id}
+			    </if>
+			    <if test="productId !=null">
+					and product_id = #{productId}
+				</if>
+				<if test="createUserId != null">
+				    and create_user_id = #{createUserId}
+				</if> 			    
+			</where>
 	</insert>
 
 	<select id="selectSelective" resultMap="PreProductOut">
@@ -49,21 +68,31 @@
 			preProductOut.id,product.brand_id,brand.name brand_name,product.id
 			product_id,product.product_no,product.product_name,tech.id
 			tech_id,tech.name tech_name,thickness.id thickness_id,thickness.name
-			thickness_name,product.amount,price.price
+			thickness_name,product.amount,product.price
 			,identify.id identify_id,identify.name identify_name,
 			quantity.id quantity_id,quantity.name quantity_name,
 			manufactor.id manufactor_id,manufactor.name manufactor_name,
 			preProductOut.pre_amount preAmount,preProductOut.pre_price prePrice,
-			preProductOut.cust_id custId
+			preProductOut.cust_id custId,preProductOut.create_time createTime
 		FROM t_pre_product_out preProductOut
 		LEFT JOIN t_product product ON preProductOut.product_id = product.id
 		LEFT JOIN t_brand brand ON product.brand_id = brand.id
 		LEFT JOIN t_tech tech ON product.tech_id = tech.id
 		LEFT JOIN t_thickness thickness ON product.thickness_id = thickness.id
-		LEFT JOIN t_identify identify ON identify.id = stock.identify_id
-		LEFT JOIN t_quantity quantity ON quantity.id = stock.quantity_id
-		LEFT JOIN t_price price on price.product_id = stock.product_id and price.quantity_id = stock.quantity_id
-		LEFT JOIN t_manufactor manufactor on manufactor.id = stock.manufactor_id
+		LEFT JOIN t_identify identify ON identify.id = product.identify_id
+		LEFT JOIN t_quantity quantity ON quantity.id = product.quantity_id
+		LEFT JOIN t_manufactor manufactor on manufactor.id = product.manufactor_id
+		<where>
+			<if test="productId!=null">
+				and preProductOut.product_id = #{productId}			    
+			</if>
+			<if test="createUserId!=null">
+				and preProductOut.create_user_id = #{createUserId}
+			</if>
+			<if test="status !=null">
+				and preProductOut.status = #{status}			    
+			</if>
+		</where>
 	</select>
 </mapper>
 

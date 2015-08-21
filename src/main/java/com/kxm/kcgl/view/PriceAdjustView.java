@@ -20,6 +20,7 @@ import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.mapper.ProductMapper;
 import com.kxm.kcgl.service.PriceAdjustService;
+import com.kxm.kcgl.service.ProductService;
 
 @Component
 @Scope("view")
@@ -40,7 +41,7 @@ public class PriceAdjustView implements Serializable {
 	private PriceAdjustService priceAdjustService;
 
 	@Autowired
-	private ProductMapper productMapper;
+	private ProductService productService;
 
 	private String keywords;
 	@PostConstruct
@@ -55,7 +56,9 @@ public class PriceAdjustView implements Serializable {
 	public void addByProductNoOrName() {
 		Product condition = new Product();
 		condition.setProductName(keywords);
-		List<Product> productList = productMapper.search(condition);
+		User user = (User) loginSession.getSesionObj();
+		condition.setManufactorId(user.getManufactorId());
+		List<Product> productList = productService.search(condition);
 		addTemp(productList);
 	}
 

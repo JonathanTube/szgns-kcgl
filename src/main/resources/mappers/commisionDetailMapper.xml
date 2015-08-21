@@ -36,7 +36,7 @@
 		left join t_brand brand on brand.id = p.brand_id
 		left join t_tech tech on tech.id = p.tech_id
 		left join t_thickness thickness on thickness.id = p.thickness_id
-		WHERE u.id = #{userId}
+		WHERE u.id = #{userId} and o.status = 0
 		group by p.product_no
 	</select>
 </mapper>

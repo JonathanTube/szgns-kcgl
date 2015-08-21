@@ -64,7 +64,7 @@
 
 	<delete id="deleteByPk" parameterType="int">
 	    <![CDATA[
-	        DELETE FROM T_PRODUCT_OUT WHERE ID = #{id} 
+	       	UPDATE T_PRODUCT_OUT SET STATUS = 1 WHERE ID = #{id}
 	    ]]>
 	</delete>
 
@@ -90,8 +90,9 @@
 		LEFT JOIN t_manufactor manufactor on manufactor.id = productOut.manufactor_id
 		LEFT JOIN t_cust cust on cust.id = productOut.cust_id
 		<where>
+		    	productOut.status = 0
    		    <if test="billId !=null">
-				productOut.bill_id = #{billId}		        
+				and productOut.bill_id = #{billId}		        
 		    </if>
 			<if test="brandId !=null and brandId !=0 ">
 			    and product.brand_id = #{brandId}

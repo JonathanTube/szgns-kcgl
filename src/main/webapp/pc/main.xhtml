@@ -51,10 +51,13 @@
 				<p:column headerText="品质">
 					<h:outputText value="#{v.quantityName}" />
 				</p:column>
-				<p:column headerText="库存数量">
+				<p:column headerText="库存">
 					<h:outputText value="#{v.amount}" />
 				</p:column>
-				<p:column headerText="累计查询次数" width="100" >
+				<p:column headerText="预出货">
+					<h:outputText value="#{v.preOutAmount}" />
+				</p:column>
+				<p:column headerText="查询次数" width="60" >
 					<h:outputText value="#{v.queryTimes}" />
 				</p:column>
 				<p:column headerText="标识">

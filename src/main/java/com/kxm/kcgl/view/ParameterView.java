@@ -138,7 +138,10 @@ public class ParameterView implements Serializable {
 	}
 
 	public void initProductList() {
-		productList = productService.selectSelective(new Product());
+		Product condition = new Product();
+		User user = (User) loginSession.getSesionObj();
+		condition.setManufactorId(user.getManufactorId());
+		productList = productService.selectSelective(condition);
 	}
 
 	public void initInTypeList() {

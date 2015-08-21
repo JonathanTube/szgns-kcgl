@@ -49,18 +49,17 @@ public class MainView implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		User user = (User) loginSession.getSesionObj();
-		condition.setManufactorId(user.getManufactorId());
 		initStockList();
 	}
 
 	public void search() {
+		User user = (User) loginSession.getSesionObj();
+		condition.setManufactorId(user.getManufactorId());
 		List<Product> products = productService.search(condition);
 		for (Product product : products) {
 			// 插入查询次数表
 			ProductQueryTimes pqt = new ProductQueryTimes();
 			pqt.setProductId(product.getId());
-			User user = (User) loginSession.getSesionObj();
 			pqt.setCreateUserId(user.getId());
 			productQueryTimesService.insert(pqt);
 		}
@@ -68,12 +67,15 @@ public class MainView implements Serializable {
 	}
 
 	public void initStockList() {
+		condition = new Product();
+		User user = (User) loginSession.getSesionObj();
+		condition.setManufactorId(user.getManufactorId());
 		stockModel = new PaginationDataModel<Product>("com.kxm.kcgl.mapper.ProductMapper.selectSelective",condition);
 	}
 
-	public void showPreProductOut(Integer stockId) {
+	public void showPreProductOut(Integer productId) {
 		Product condition = new Product();
-		condition.setId(stockId);
+		condition.setId(productId);
 		List<Product> stocks = productService.selectSelective(condition);
 		if (stocks.size() <= 0) {
 			MsgTool.addWarningMsg("库存不足");
