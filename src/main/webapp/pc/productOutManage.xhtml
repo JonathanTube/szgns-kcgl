@@ -9,17 +9,7 @@
 	<ui:define name="title">产品出货</ui:define>
 	
 	<ui:define name="content">
-		<h:outputScript library="szgns" name="js/jquery.jqprint-0.3.js"></h:outputScript>
-		<style type="text/css">
-			.print_font_size table th{
-				font-size: 14pt !important;
-			}
-			.print_font_size table tr td{
-				font-size: 14pt !important;
-			}
-		</style>
 		<h:form id="product_out_form" prependId="true">
-
 			<p:toolbar>
 				<p:toolbarGroup align="left">
 					<p:commandButton value="产品出货" type="button"
@@ -216,8 +206,7 @@
 				<p:column headerText="操作" width="120" style="text-align:center;">
 					<p:commandButton
 						actionListener="#{productOutView.showBillDetail(v)}" value="查看"
-						partialSubmit="true" process="@this" icon="ui-icon-search"
-						update="@form:bill_dlg" />
+						partialSubmit="true" process="@this" icon="ui-icon-search" />
 					<p:commandButton
 						actionListener="#{productOutView.rollbackBill(v)}" value="删除"
 						partialSubmit="true" process="@this" icon="ui-icon-plus"
@@ -277,101 +266,6 @@
 					</h:outputLabel>
 				</p:column>
 			</p:dataTable>
-
-			<!-- ***********************************出货明细*********************************** -->
-			<p:dialog header="出货单" widgetVar="bill_dlg" id="bill_dlg" width="1200" maximizable="true" dynamic="true" resizable="false" styleClass="print_font_size">
-				<div id="printable">
-					<p:panelGrid id="bill_pg">
-						<h:panelGrid columns="1" style="width:100%;text-align:center;">
-							<h:outputText value="东莞市晟煜光电科技有限公司" />
-							<h:outputText value="地址：广东省东莞市大朗镇水口村水常四路六号" />
-							<h:outputText value="电话：0769-88895856    传真：0769-81129199" />
-							<h:outputText value="出货单" style="font-size:16px;font-weight:bold;" />
-						</h:panelGrid>
-						<h:panelGrid style="width:100%" columns="6">
-							<h:outputText value="单号:" />
-							<h:outputText value="#{productOutView.selectedBill.seq}" />
-							<h:outputText value="客户:" />
-							<h:outputText value="#{productOutView.selectedBill.custName}" />
-							<h:outputText value="出货时间:" />
-							<h:outputLabel value="#{productOutView.selectedBill.createTime}">
-								<f:convertDateTime dateStyle="full" type="both" timeZone="GMT+8"
-									pattern="yyyy年MM月dd日 HH:mm:ss" locale="cn" />
-							</h:outputLabel>
-						</h:panelGrid>
-						<p:dataTable var="v" emptyMessage="未查询到数据" value="#{productOutView.productOutList}"
-							style="margin-top:2px;" rowIndexVar="index">
-							<p:column headerText="序号" width="40">
-								<h:outputText value="#{index + 1}" />
-							</p:column>
-							<ui:remove>
-							<p:column headerText="产品编号">
-								<h:outputText value="#{v.productNo}" />
-							</p:column>
-							</ui:remove>
-							<p:column headerText="品牌">
-								<h:outputText value="#{v.brandName}" />
-							</p:column>
-							<p:column headerText="产品名称">
-								<h:outputText value="#{v.productName}" />
-							</p:column>
-							<p:column headerText="工艺">
-								<h:outputText value="#{v.techName}" />
-							</p:column>
-							<p:column headerText="厚度">
-								<h:outputText value="#{v.thicknessName}" />
-							</p:column>
-							<ui:remove>
-							<p:column headerText="标识">
-								<h:outputText
-									value="#{v.identifyType == 0 ? '中性标' : v.identifyName}" />
-							</p:column>
-							<p:column headerText="品质">
-								<h:outputText value="#{v.quantityName}" />
-							</p:column>
-							<p:column headerText="厂家">
-								<h:outputText value="#{v.manufactorName}" />
-							</p:column>
-							</ui:remove>
-							<p:column headerText="单位" width="40">
-								<h:outputText value="片" />
-							</p:column>
-							<p:column headerText="数量">
-								<h:outputText value="#{v.amount}" />
-							</p:column>
-							<p:column headerText="单价">
-								<h:outputText value="#{v.price}" />
-							</p:column>
-							<p:column headerText="金额">
-								<h:outputText value="#{v.money}" />
-							</p:column>
-							<p:columnGroup type="footer">
-								<p:row>
-									<p:column colspan="6" style="text-align:right" footerText="小计" />
-									<p:column style="text-align:right" footerText="#{productOutView.selectedBill.totalAmount}" />
-									<p:column style="text-align:right" footerText="#{productOutView.selectedBill.totalPrice}" />
-									<p:column style="text-align:right" footerText="#{productOutView.selectedBill.totalMoney}" />
-								</p:row>
-							</p:columnGroup>
-						</p:dataTable>
-						<h:panelGrid columns="2" style="width:100%">
-							<h:outputText value="出货经手人:" />
-							<h:outputText value="业务员:" />
-						</h:panelGrid>
-					</p:panelGrid>
-				</div>
-				<div style="text-align: center;">
-					<ui:remove>
-						<p:commandButton value="打印" type="button" icon="ui-icon-print">
-							<p:printer target="bill_dlg" />
-						</p:commandButton>
-					</ui:remove>
-					<p:commandButton type="button" value="打印" icon="ui-icon-print" onclick="$('#printable').jqprint()" /> 
-					<p:spacer width="20" />
-					<p:commandButton value="关闭" type="button" icon="ui-icon-close"
-						onclick="PF('bill_dlg').hide()" />
-				</div>
-			</p:dialog>
 			
 			<p:dialog widgetVar="cust_add_dlg" header="添加客户名称" resizable="false"
 				closeOnEscape="true">

@@ -3,8 +3,10 @@ package com.kxm.kcgl.view;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -24,7 +26,6 @@ import com.kxm.kcgl.domain.Product;
 import com.kxm.kcgl.domain.ProductOut;
 import com.kxm.kcgl.domain.User;
 import com.kxm.kcgl.mapper.ProductMapper;
-import com.kxm.kcgl.service.BillService;
 import com.kxm.kcgl.service.ProductOutService;
 import com.kxm.kcgl.service.ProductService;
 
@@ -39,14 +40,10 @@ public class ProductOutView implements Serializable {
 	@Autowired
 	private ProductService productService;
 
-	private List<ProductOut> productOutList = new ArrayList<ProductOut>();
-
 	private Bill billCondition = new Bill();
 	private ProductOut productOutCondition = new ProductOut();
-	@Autowired
-	private BillService billService;
+	
 	private PaginationDataModel<Bill> billDataModel;
-	private Bill selectedBill = new Bill();
 
 	private List<ProductOut> tempProductOutList = new LinkedList<ProductOut>();
 
@@ -79,15 +76,17 @@ public class ProductOutView implements Serializable {
 	}
 
 	public void showBillDetail(Bill bill) {
-		initProductOutList(bill.getId());
-		selectedBill = bill;
-		RequestContext.getCurrentInstance().execute("PF('bill_dlg').show()");
-	}
-
-	private void initProductOutList(Integer billId) {
-		ProductOut condition = new ProductOut();
-		condition.setBillId(billId);
-		productOutList = productOutService.selectSelective(condition);
+		Map<String,Object> options = new HashMap<String, Object>();
+        options.put("modal", true);
+        options.put("draggable", false);
+        options.put("resizable", true);
+        options.put("contentWidth", 1200);
+        options.put("includeViewParams", true);
+        List<String>  list = new ArrayList<String>();
+        Map<String,List<String>> param = new HashMap<String, List<String>>();
+        list.add(bill.getId().toString());
+        param.put("billId", list);
+	    RequestContext.getCurrentInstance().openDialog("bill", options, param);
 	}
 
 	public void editExistTemp(Integer productId) {
@@ -148,14 +147,6 @@ public class ProductOutView implements Serializable {
 		MsgTool.addInfoMsg("删除成功");
 	}
 
-	public List<ProductOut> getProductOutList() {
-		return productOutList;
-	}
-
-	public void setProductOutList(List<ProductOut> productOutList) {
-		this.productOutList = productOutList;
-	}
-
 	public ProductOut getProductOut() {
 		return productOut;
 	}
@@ -186,14 +177,6 @@ public class ProductOutView implements Serializable {
 
 	public void setTempProductOutList(List<ProductOut> tempProductOutList) {
 		this.tempProductOutList = tempProductOutList;
-	}
-
-	public Bill getSelectedBill() {
-		return selectedBill;
-	}
-
-	public void setSelectedBill(Bill selectedBill) {
-		this.selectedBill = selectedBill;
 	}
 
 	public Integer getCustId() {

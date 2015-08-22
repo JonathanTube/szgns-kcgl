@@ -67,8 +67,11 @@
 	<sql id="condition">
 	    <where>
 	         bill.status = 0
+    		<if test="id != null">
+				and bill.id = #{id}		    
+			</if>
 			<if test="seq != null">
-				and seq = #{seq}		    
+				and bill.seq = #{seq}		    
 			</if>
 		</where>
 	</sql>
