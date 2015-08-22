@@ -7,8 +7,16 @@
 	template="baseTemplate.xhtml">
 
 	<ui:define name="title">产品出货</ui:define>
-
+	
 	<ui:define name="content">
+		<style type="text/css">
+			.print_font_size table th{
+				font-size: 15px !important;
+			}
+			.print_font_size table tr td{
+				font-size: 16px !important;
+			}
+		</style>
 		<h:form id="product_out_form" prependId="true">
 
 			<p:toolbar>
@@ -270,7 +278,7 @@
 			</p:dataTable>
 
 			<!-- ***********************************出货明细*********************************** -->
-			<p:dialog header="出货单" widgetVar="bill_dlg" id="bill_dlg" width="1000" maximizable="true" dynamic="true">
+			<p:dialog header="出货单" widgetVar="bill_dlg" id="bill_dlg" width="1200" maximizable="true" dynamic="true" resizable="false" styleClass="print_font_size">
 				<p:panelGrid id="bill_pg">
 					<h:panelGrid columns="1" style="width:100%;text-align:center;">
 						<h:outputText value="东莞市晟煜光电科技有限公司" />
