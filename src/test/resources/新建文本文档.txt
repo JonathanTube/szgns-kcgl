@@ -25,3 +25,5 @@ SELECT product.id,0,manufactor.id,2,IFNULL(tmp.stock_amount,0)
 FROM tmp_kucun_20150809 tmp
 LEFT JOIN t_product product ON product.product_no = tmp.product_no
 LEFT JOIN t_manufactor manufactor ON manufactor.name = tmp.manufactor_name
+
+你大爷的，做好了不要了
